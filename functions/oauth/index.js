@@ -5,7 +5,7 @@ export async function onRequest(context) {
   const { request, env } = context;
   const url = new URL(request.url);
 
-  if (url.pathname === '/oauth/authorize') {
+  if (url.pathname === '/oauth') {
     const authUrl = new URL('https://github.com/login/oauth/authorize');
     authUrl.searchParams.set('client_id', env.GITHUB_CLIENT_ID || 'YOUR_GITHUB_CLIENT_ID');
     authUrl.searchParams.set('scope', 'repo,user');
