@@ -3,6 +3,7 @@ backend:
   repo: nuefunnel/nuefunnel-website
   branch: main
   base_url: https://nuefunnel-website.pages.dev
+  auth_endpoint: oauth
 
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
