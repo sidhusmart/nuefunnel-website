@@ -1,8 +1,8 @@
 backend:
   name: github
-  repo: REPLACE_WITH_YOUR_GITHUB_USERNAME/nuefunnel-website
+  repo: nuefunnel/nuefunnel-website
   branch: main
-  base_url: https://REPLACE_WITH_YOUR_CLOUDFLARE_WORKER_URL
+  base_url: https://nuefunnel-website.pages.dev
 
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
