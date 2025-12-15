@@ -47,7 +47,7 @@ export async function onRequest(context) {
             (function() {
               function receiveMessage(e) {
                 window.opener.postMessage(
-                  'authorization:github:success:${JSON.stringify(tokenData)}',
+                  \`authorization:github:success:\${JSON.stringify(tokenData)}\`,
                   e.origin
                 );
                 window.removeEventListener('message', receiveMessage, false);
