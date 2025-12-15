@@ -45,20 +45,43 @@ export async function onRequest(context) {
           <title>Authorization Success</title>
           <script>
             (function() {
+              console.log('[OAuth Callback] Starting OAuth callback handler');
+              console.log('[OAuth Callback] Token data received:', ${JSON.stringify(tokenData)});
+
               function receiveMessage(e) {
-                window.opener.postMessage(
-                  \`authorization:github:success:\${JSON.stringify(tokenData)}\`,
-                  e.origin
-                );
-                window.removeEventListener('message', receiveMessage, false);
+                console.log('[OAuth Callback] Received message from parent:', e.data);
+
+                if (e.data === 'authorizing:github') {
+                  const message = \`authorization:github:success:\${JSON.stringify(tokenData)}\`;
+                  console.log('[OAuth Callback] Sending success message to parent');
+
+                  window.opener.postMessage(message, e.origin);
+                  window.removeEventListener('message', receiveMessage, false);
+
+                  // Close window after successful message transmission
+                  console.log('[OAuth Callback] Closing popup window in 1 second');
+                  setTimeout(() => {
+                    window.close();
+                  }, 1000);
+                }
               }
+
               window.addEventListener('message', receiveMessage, false);
+
+              // Initiate handshake with parent window
+              console.log('[OAuth Callback] Sending initial handshake to parent');
               window.opener.postMessage('authorizing:github', '*');
+
+              // Fallback: close window after 5 seconds if not closed already
+              setTimeout(() => {
+                console.log('[OAuth Callback] Timeout reached, closing window');
+                window.close();
+              }, 5000);
             })();
           </script>
         </head>
         <body>
-          <p>Authorization successful. You can close this window.</p>
+          <p>Authorization successful. This window will close automatically...</p>
         </body>
       </html>
     `;
