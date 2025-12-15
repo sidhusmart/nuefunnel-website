@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: nuefunnel/nuefunnel-website
+  repo: sidhusmart/nuefunnel-website
   branch: main
   base_url: https://nuefunnel-website.pages.dev
   auth_endpoint: oauth
