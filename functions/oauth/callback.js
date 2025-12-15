@@ -36,6 +36,12 @@ export async function onRequest(context) {
       });
     }
 
+    // Format token for Decap CMS (expects { token, provider } not { access_token, token_type })
+    const formattedToken = {
+      token: tokenData.access_token,
+      provider: 'github',
+    };
+
     // Return success page with token
     const html = `
       <!DOCTYPE html>
@@ -45,15 +51,18 @@ export async function onRequest(context) {
           <title>Authorization Success</title>
           <script>
             (function() {
+              // Token data injected from server
+              const token = ${JSON.stringify(formattedToken)};
+
               console.log('[OAuth Callback] Starting OAuth callback handler');
-              console.log('[OAuth Callback] Token data received:', ${JSON.stringify(tokenData)});
+              console.log('[OAuth Callback] Token for Decap CMS:', token);
 
               function receiveMessage(e) {
                 console.log('[OAuth Callback] Received message from parent:', e.data);
 
                 if (e.data === 'authorizing:github') {
-                  const message = \`authorization:github:success:\${JSON.stringify(tokenData)}\`;
-                  console.log('[OAuth Callback] Sending success message to parent');
+                  const message = 'authorization:github:success:' + JSON.stringify(token);
+                  console.log('[OAuth Callback] Sending success message to parent:', message);
 
                   window.opener.postMessage(message, e.origin);
                   window.removeEventListener('message', receiveMessage, false);
