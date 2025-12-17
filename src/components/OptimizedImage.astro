@@ -1,0 +1,92 @@
+---
+import { readFileSync, existsSync } from 'fs';
+import { join, parse } from 'path';
+
+interface Props {
+  src: string;
+  alt?: string;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  decoding?: 'async' | 'sync' | 'auto';
+}
+
+const { src, alt = '', class: className = '', loading = 'lazy', decoding = 'async' } = Astro.props;
+
+// Helper to get metadata for optimized images
+function getOptimizedImageData(imageSrc: string) {
+  // Extract path from src (remove leading slash if present)
+  const cleanSrc = imageSrc.startsWith('/') ? imageSrc.slice(1) : imageSrc;
+
+  // Check if this is an uploads image
+  if (!cleanSrc.startsWith('images/uploads/')) {
+    return null;
+  }
+
+  // Get the base filename
+  const { name } = parse(cleanSrc);
+
+  // Construct path to metadata JSON
+  const metadataPath = join(process.cwd(), 'public', 'images', 'optimized', `${name}.json`);
+
+  if (!existsSync(metadataPath)) {
+    return null;
+  }
+
+  try {
+    const metadata = JSON.parse(readFileSync(metadataPath, 'utf-8'));
+    return metadata;
+  } catch (error) {
+    console.warn(`Failed to read image metadata: ${metadataPath}`);
+    return null;
+  }
+}
+
+// Get optimized image data
+const imageData = getOptimizedImageData(src);
+
+// If no optimized versions, use original image
+if (!imageData) {
+---
+<img
+  src={src}
+  alt={alt}
+  class={className}
+  loading={loading}
+  decoding={decoding}
+/>
+---
+} else {
+  // Build srcset for WebP images
+  const webpImages = imageData.optimized
+    .filter((img: any) => img.format === 'webp')
+    .sort((a: any, b: any) => a.width - b.width);
+
+  const srcset = webpImages
+    .map((img: any) => `${img.publicPath} ${img.width}w`)
+    .join(', ');
+
+  const { width, height } = imageData.original;
+
+  // Sizes attribute: images are constrained by prose container (max 700px)
+  const sizes = '(max-width: 700px) 100vw, 700px';
+---
+<picture>
+  {webpImages.length > 0 && (
+    <source
+      type="image/webp"
+      srcset={srcset}
+      sizes={sizes}
+    />
+  )}
+  <img
+    src={src}
+    alt={alt}
+    class={className}
+    loading={loading}
+    decoding={decoding}
+    width={width}
+    height={height}
+  />
+</picture>
+---
+}

@@ -1,6 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import OptimizedImage from '../../components/OptimizedImage.astro';
+import { components } from '../../components/MDXComponents';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -32,7 +34,7 @@ function formatDate(date: Date) {
     <div class="container mx-auto max-w-[700px]">
       {post.data.image && (
         <div class="aspect-video overflow-hidden bg-gray-100 rounded-lg mb-8">
-          <img
+          <OptimizedImage
             src={post.data.image}
             alt={post.data.title}
             class="w-full h-full object-cover"
@@ -65,7 +67,7 @@ function formatDate(date: Date) {
       </header>
 
       <div class="prose prose-lg max-w-none">
-        <Content />
+        <Content components={components} />
       </div>
 
       <footer class="mt-12 pt-8 border-t border-gray-200">
