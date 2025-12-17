@@ -1,0 +1,20 @@
+---
+title: Video Generation Models are zero-shot learners
+description: Building an understanding of how video generation models work
+date: 2025-12-17T12:32:00.000+01:00
+author: nuefunnel
+draft: true
+---
+We dove deep into the VEO3 paper, which claims that video generation models can act as zero-shot vision foundation models. Think GPT-3, but for vision. We ran our own experiments with VEO3, WAN, and SORA2 to see if this emergent behavior is unique to VEO3 or something broader. Turns out, all models show impressive capabilities in perception, modeling, and manipulation tasks, but VEO3 consistently outperforms on reasoning tasks. Whether that's due to the model itself or the Gemini-2.5-pro prompt rewriter remains an open question.
+
+# Introduction
+
+If you've ever wondered how those AI-generated videos on social media come to life, here's the quick version: video generation models take a piece of text (sometimes paired with an image) and generate short videos, typically under 10 seconds, based on that input.
+
+The architecture behind these models is fascinating. They're built on diffusion-based systems, which are essentially an extension of what powers image generation models like Stable Diffusion. The key difference? [A 3D convolutional VAE](https://arxiv.org/html/2412.03603v1) that encodes not just spatial information, but the temporal aspect of videos as well. In other words, it understands how things change over time, not just how they look in a single frame.
+
+Here's how it works: typical diffusion models start with a noisy image and, in a step-wise fashion, remove the noise to generate a clean, coherent image. During this denoising process, you can add conditional elements that influence the outcome. For example, if you provide a text prompt, the model removes noise in a way that ensures the final image aligns with that prompt. Video generation models take this concept further. Instead of conditioning on just a text prompt, they also factor in a starting image and previous frames in the video sequence.
+
+Picture it like this: you start with a noisy image, a text prompt, and maybe an initial image. The model generates the first frame by denoising in the style dictated by the text and image. That becomes frame one. For frame two, the model repeats the denoising process, but now it conditions on the text prompt *and* the frame it just generated. This continues for every subsequent frame. Each new frame is influenced by the one before it, creating a coherent sequence that flows naturally from start to finish.
+
+It's a clever approach that allows these models to generate videos that feel cohesive and, in many cases, surprisingly realistic.
