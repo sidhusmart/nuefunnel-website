@@ -44,49 +44,53 @@ function getOptimizedImageData(imageSrc: string) {
 // Get optimized image data
 const imageData = getOptimizedImageData(src);
 
-// If no optimized versions, use original image
-if (!imageData) {
----
-<img
-  src={src}
-  alt={alt}
-  class={className}
-  loading={loading}
-  decoding={decoding}
-/>
----
-} else {
+// Prepare optimized image data if available
+let webpImages: any[] = [];
+let srcset = '';
+let width: number | undefined;
+let height: number | undefined;
+let sizes = '(max-width: 700px) 100vw, 700px';
+
+if (imageData) {
   // Build srcset for WebP images
-  const webpImages = imageData.optimized
+  webpImages = imageData.optimized
     .filter((img: any) => img.format === 'webp')
     .sort((a: any, b: any) => a.width - b.width);
 
-  const srcset = webpImages
+  srcset = webpImages
     .map((img: any) => `${img.publicPath} ${img.width}w`)
     .join(', ');
 
-  const { width, height } = imageData.original;
-
-  // Sizes attribute: images are constrained by prose container (max 700px)
-  const sizes = '(max-width: 700px) 100vw, 700px';
+  width = imageData.original.width;
+  height = imageData.original.height;
+}
 ---
-<picture>
-  {webpImages.length > 0 && (
-    <source
-      type="image/webp"
-      srcset={srcset}
-      sizes={sizes}
-    />
-  )}
+
+{!imageData ? (
   <img
     src={src}
     alt={alt}
     class={className}
     loading={loading}
     decoding={decoding}
-    width={width}
-    height={height}
   />
-</picture>
----
-}
+) : (
+  <picture>
+    {webpImages.length > 0 && (
+      <source
+        type="image/webp"
+        srcset={srcset}
+        sizes={sizes}
+      />
+    )}
+    <img
+      src={src}
+      alt={alt}
+      class={className}
+      loading={loading}
+      decoding={decoding}
+      width={width}
+      height={height}
+    />
+  </picture>
+)}
