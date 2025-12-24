@@ -18,7 +18,7 @@ export default {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         tight: ['Inter Tight', 'Inter', 'system-ui', 'sans-serif'],
-        logo: ['Bungee', 'cursive'],
+        logo: ['Bungee', 'Impact', 'Arial Black', 'sans-serif'],
       },
       maxWidth: {
         desktop: '1200px',

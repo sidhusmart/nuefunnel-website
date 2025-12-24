@@ -152,6 +152,13 @@ declare module 'astro:content' {
 
 	type ContentEntryMap = {
 		"blog": {
+"qwertt.mdx": {
+	id: "qwertt.mdx";
+  slug: "qwertt";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".mdx"] };
 "sample-post-1.mdx": {
 	id: "sample-post-1.mdx";
   slug: "sample-post-1";
@@ -162,6 +169,20 @@ declare module 'astro:content' {
 "sample-post-2.mdx": {
 	id: "sample-post-2.mdx";
   slug: "sample-post-2";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".mdx"] };
+"the-profitable-ai-agent-blueprint-no-ones-talking-about.mdx": {
+	id: "the-profitable-ai-agent-blueprint-no-ones-talking-about.mdx";
+  slug: "the-profitable-ai-agent-blueprint-no-ones-talking-about";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".mdx"] };
+"video-generation-models-are-zero-shot-learners.mdx": {
+	id: "video-generation-models-are-zero-shot-learners.mdx";
+  slug: "video-generation-models-are-zero-shot-learners";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
