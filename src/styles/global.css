@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Import Inter font from Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Inter+Tight:wght@400;500;600;700;800;900&display=swap');
+/* Import Inter and Bungee fonts from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;500;600;700;800;900&family=Inter+Tight:wght@400;500;600;700;800;900&display=swap');
 
 @layer base {
   html {
@@ -11,7 +11,10 @@
   }
 
   body {
-    @apply bg-white text-gray-900;
+    @apply text-gray-900;
+    background-color: #FFFFFF;
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
   }
 }
 
@@ -22,10 +25,27 @@
   }
 
   .btn-primary {
-    @apply bg-primary text-white px-6 py-3 rounded-lg font-medium hover:opacity-90 transition-opacity;
+    @apply bg-muted-purple text-white px-6 py-3 rounded-lg font-medium hover:opacity-90 transition-opacity;
   }
 
   .card {
     @apply bg-white rounded-lg overflow-hidden transition-transform hover:scale-[1.02];
+  }
+
+  /* Gradient text for hero headings */
+  .gradient-text {
+    background: linear-gradient(0deg, #580DD9 16.24%, #8E2DA6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Italic gradient text for section taglines */
+  .gradient-text-italic {
+    background: linear-gradient(0deg, #580DD9 16.24%, #8E2DA6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-style: italic;
   }
 }

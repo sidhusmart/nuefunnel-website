@@ -15,19 +15,18 @@ function formatDate(date: Date) {
 ---
 
 <Layout title="Blog" description="Insights and updates from the nuefunnel team">
-  <section class="py-20 px-4">
-    <div class="container mx-auto max-w-[700px]">
-      <h1 class="text-5xl font-bold text-gray-900 mb-6">Blog</h1>
-      <p class="text-xl text-gray-600 mb-12">
-        Insights, updates, and best practices for API development and developer experience.
-      </p>
+  <section class="py-20 px-4 pt-28">
+    <div class="container mx-auto max-w-[800px]">
+      <h1 class="text-4xl md:text-5xl font-bold text-accent-cyan mb-12 text-center">
+        Blog posts
+      </h1>
 
-      <div class="space-y-8">
+      <div class="space-y-6">
         {sortedPosts.map((post) => (
-          <article class="card overflow-hidden shadow-md">
-            <a href={`/blog/${post.slug}`} class="block">
+          <article>
+            <a href={`/blog/${post.slug}`} class="flex items-start gap-6 group">
               {post.data.image && (
-                <div class="aspect-video overflow-hidden bg-gray-100">
+                <div class="w-[180px] h-[120px] flex-shrink-0 overflow-hidden rounded-lg bg-gray-100">
                   <img
                     src={post.data.image}
                     alt={post.data.title}
@@ -35,25 +34,13 @@ function formatDate(date: Date) {
                   />
                 </div>
               )}
-              <div class="p-6">
-                <h2 class="text-2xl font-bold text-gray-900 mb-2 hover:text-primary transition-colors">
+              <div class="flex-1 pt-1">
+                <h2 class="text-lg font-semibold text-gray-900 group-hover:underline mb-1">
                   {post.data.title}
                 </h2>
-                <p class="text-sm text-gray-500 mb-3">
+                <p class="text-sm text-muted-purple">
                   {formatDate(post.data.date)}
                 </p>
-                <p class="text-gray-600">
-                  {post.data.description}
-                </p>
-                {post.data.tags && post.data.tags.length > 0 && (
-                  <div class="flex flex-wrap gap-2 mt-4">
-                    {post.data.tags.map((tag) => (
-                      <span class="px-3 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
               </div>
             </a>
           </article>
