@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nuefunnel - Homepage Prototype</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      /* Color Palette: Sophisticated Neutral */
+      --charcoal: #1C1C1E;
+      --warm-white: #FAF9F7;
+      --soft-stone: #F0EEEB;
+      --warm-gray: #6B6B6B;
+      --deep-purple: #5B21B6;
+      --rich-purple: #7C3AED;
+      --muted-gold: #B8A088;
+      --light-purple: #EDE9FE;
+
+      /* Typography */
+      --font-body: 'DM Sans', sans-serif;
+      --font-display: 'Instrument Serif', serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--warm-white);
+      color: var(--charcoal);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ============================================
+       HEADER
+    ============================================ */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(250, 249, 247, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(28, 28, 30, 0.06);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--charcoal);
+      text-decoration: none;
+    }
+
+    /* Logo font option 1: Syne (geometric, bold) */
+    .logo-syne {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      text-transform: lowercase;
+    }
+
+    /* Logo font option 2: Outfit (clean, modern) */
+    .logo-outfit {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      text-transform: lowercase;
+    }
+
+    /* Logo font option 3: Space Grotesk (tech, distinctive) */
+    .logo-space {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      text-transform: lowercase;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    nav a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--warm-gray);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    nav a:hover {
+      color: var(--charcoal);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--charcoal);
+      color: var(--warm-white);
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      background: var(--deep-purple);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: transparent;
+      color: var(--charcoal);
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1px solid rgba(28, 28, 30, 0.15);
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--deep-purple);
+      color: var(--deep-purple);
+    }
+
+    /* ============================================
+       HERO SECTION
+    ============================================ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-tagline {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--deep-purple);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--light-purple);
+      border-radius: 4px;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      color: var(--charcoal);
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--deep-purple);
+    }
+
+    .hero-description {
+      font-size: 1.15rem;
+      color: var(--warm-gray);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* Funnel Animation Container */
+    .hero-visual {
+      position: relative;
+      height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .funnel-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Abstract funnel shape */
+    .funnel-shape {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      height: 400px;
+    }
+
+    .funnel-shape svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Floating particles - office artifacts */
+    .particle {
+      position: absolute;
+      opacity: 0;
+      animation: float-to-funnel 4s ease-in-out infinite;
+    }
+
+    .particle-doc {
+      width: 40px;
+      height: 50px;
+      background: linear-gradient(135deg, #fff 0%, var(--soft-stone) 100%);
+      border: 1px solid rgba(28, 28, 30, 0.1);
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    .particle-doc::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 6px;
+      right: 6px;
+      height: 2px;
+      background: rgba(28, 28, 30, 0.15);
+      border-radius: 1px;
+    }
+
+    .particle-doc::after {
+      content: '';
+      position: absolute;
+      top: 14px;
+      left: 6px;
+      width: 60%;
+      height: 2px;
+      background: rgba(28, 28, 30, 0.1);
+      border-radius: 1px;
+    }
+
+    .particle-email {
+      width: 45px;
+      height: 32px;
+      background: linear-gradient(135deg, #fff 0%, var(--soft-stone) 100%);
+      border: 1px solid rgba(28, 28, 30, 0.1);
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      position: relative;
+    }
+
+    .particle-email::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 22px solid transparent;
+      border-right: 22px solid transparent;
+      border-top: 14px solid rgba(28, 28, 30, 0.08);
+    }
+
+    .particle-ticket {
+      width: 50px;
+      height: 28px;
+      background: var(--light-purple);
+      border: 1px solid rgba(91, 33, 182, 0.2);
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(91, 33, 182, 0.1);
+    }
+
+    .particle-ticket::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      background: var(--deep-purple);
+      border-radius: 50%;
+    }
+
+    .particle-data {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--soft-stone) 0%, #fff 100%);
+      border: 1px solid rgba(28, 28, 30, 0.08);
+      border-radius: 6px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3px;
+      padding: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    }
+
+    .particle-data span {
+      background: rgba(28, 28, 30, 0.1);
+      border-radius: 2px;
+    }
+
+    /* Output glow */
+    .output-glow {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle, var(--deep-purple) 0%, transparent 70%);
+      border-radius: 50%;
+      opacity: 0.4;
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+
+    .output-orb {
+      position: absolute;
+      bottom: 55px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--rich-purple) 0%, var(--deep-purple) 100%);
+      border-radius: 50%;
+      box-shadow: 0 8px 32px rgba(91, 33, 182, 0.4);
+      animation: float-orb 3s ease-in-out infinite;
+    }
+
+    .output-orb::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      width: 16px;
+      height: 16px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 50%;
+    }
+
+    /* Particle positions and delays */
+    .p1 { top: 5%; left: 10%; animation-delay: 0s; }
+    .p2 { top: 10%; right: 15%; animation-delay: 0.5s; }
+    .p3 { top: 20%; left: 5%; animation-delay: 1s; }
+    .p4 { top: 15%; right: 5%; animation-delay: 1.5s; }
+    .p5 { top: 25%; left: 20%; animation-delay: 2s; }
+    .p6 { top: 8%; left: 40%; animation-delay: 2.5s; }
+    .p7 { top: 18%; right: 25%; animation-delay: 3s; }
+    .p8 { top: 30%; right: 10%; animation-delay: 3.5s; }
+
+    @keyframes float-to-funnel {
+      0% {
+        opacity: 0;
+        transform: translateY(0) rotate(0deg) scale(1);
+      }
+      20% {
+        opacity: 0.8;
+        transform: translateY(20px) rotate(5deg) scale(1);
+      }
+      60% {
+        opacity: 0.6;
+        transform: translateY(120px) rotate(-5deg) scale(0.8);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(200px) rotate(0deg) scale(0.3);
+      }
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.3; transform: translateX(-50%) scale(1); }
+      50% { opacity: 0.6; transform: translateX(-50%) scale(1.2); }
+    }
+
+    @keyframes float-orb {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-8px); }
+    }
+
+    /* ============================================
+       LOGO OPTIONS SHOWCASE (for review)
+    ============================================ */
+    .logo-showcase {
+      background: var(--soft-stone);
+      padding: 3rem 2rem;
+      border-top: 1px solid rgba(28, 28, 30, 0.06);
+    }
+
+    .logo-showcase-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo-showcase h3 {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--warm-gray);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 2rem;
+    }
+
+    .logo-options {
+      display: flex;
+      gap: 4rem;
+      flex-wrap: wrap;
+    }
+
+    .logo-option {
+      text-align: center;
+    }
+
+    .logo-option .logo {
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .logo-option span {
+      font-size: 0.75rem;
+      color: var(--warm-gray);
+    }
+
+    /* ============================================
+       PROBLEM SECTION
+    ============================================ */
+    .problem {
+      padding: 6rem 2rem;
+      background: var(--charcoal);
+      color: var(--warm-white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .problem::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at 20% 50%, rgba(91, 33, 182, 0.15) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .problem-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .problem h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 2rem;
+    }
+
+    .problem p {
+      font-size: 1.1rem;
+      color: rgba(250, 249, 247, 0.7);
+      line-height: 1.8;
+      max-width: 700px;
+    }
+
+    /* ============================================
+       SERVICES SECTION
+    ============================================ */
+    .services {
+      padding: 6rem 2rem;
+    }
+
+    .services-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .services-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .services-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    .services-header p {
+      font-size: 1.1rem;
+      color: var(--warm-gray);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .service-card {
+      background: var(--soft-stone);
+      padding: 2.5rem;
+      border-radius: 12px;
+      border: 1px solid rgba(28, 28, 30, 0.04);
+      transition: all 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(28, 28, 30, 0.08);
+    }
+
+    .service-card h3 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .service-card p {
+      color: var(--warm-gray);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-card a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--deep-purple);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .service-card a:hover {
+      gap: 0.75rem;
+    }
+
+    /* ============================================
+       OFFER SECTION (Productized Service)
+    ============================================ */
+    .offer {
+      padding: 6rem 2rem;
+      background: linear-gradient(180deg, var(--warm-white) 0%, var(--soft-stone) 100%);
+    }
+
+    .offer-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .offer-badge {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--deep-purple);
+      background: var(--light-purple);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      margin-bottom: 1.5rem;
+    }
+
+    .offer h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    .offer > .offer-inner > p {
+      font-size: 1.1rem;
+      color: var(--warm-gray);
+      max-width: 600px;
+      margin: 0 auto 3rem;
+    }
+
+    .offer-card {
+      background: white;
+      padding: 3rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 40px rgba(28, 28, 30, 0.08);
+      border: 1px solid rgba(28, 28, 30, 0.04);
+      text-align: left;
+    }
+
+    .offer-card h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .offer-card .price {
+      font-size: 0.95rem;
+      color: var(--warm-gray);
+      margin-bottom: 2rem;
+    }
+
+    .offer-timeline {
+      display: grid;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .timeline-week {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--deep-purple);
+      background: var(--light-purple);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .timeline-content h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .timeline-content p {
+      font-size: 0.9rem;
+      color: var(--warm-gray);
+    }
+
+    .offer-card .btn-primary {
+      width: 100%;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    /* ============================================
+       PROOF SECTION
+    ============================================ */
+    .proof {
+      padding: 6rem 2rem;
+    }
+
+    .proof-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .proof-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3rem;
+    }
+
+    .proof-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 3vw, 2.25rem);
+      font-weight: 400;
+    }
+
+    .proof-header a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--deep-purple);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .proof-card {
+      background: var(--soft-stone);
+      padding: 2rem;
+      border-radius: 12px;
+      border: 1px solid rgba(28, 28, 30, 0.04);
+    }
+
+    .proof-stat {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--deep-purple);
+      margin-bottom: 0.5rem;
+    }
+
+    .proof-label {
+      font-size: 0.9rem;
+      color: var(--warm-gray);
+      margin-bottom: 1rem;
+    }
+
+    .proof-company {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      padding-top: 1rem;
+      border-top: 1px solid rgba(28, 28, 30, 0.08);
+    }
+
+    /* ============================================
+       NEWSLETTER SECTION
+    ============================================ */
+    .newsletter {
+      padding: 6rem 2rem;
+      background: var(--charcoal);
+      color: var(--warm-white);
+    }
+
+    .newsletter-inner {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .newsletter h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 3vw, 2.25rem);
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    .newsletter p {
+      color: rgba(250, 249, 247, 0.7);
+      margin-bottom: 2rem;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 0.75rem;
+      max-width: 450px;
+      margin: 0 auto;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      padding: 1rem 1.25rem;
+      font-size: 0.95rem;
+      font-family: var(--font-body);
+      background: rgba(250, 249, 247, 0.1);
+      border: 1px solid rgba(250, 249, 247, 0.15);
+      border-radius: 6px;
+      color: var(--warm-white);
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .newsletter-form input::placeholder {
+      color: rgba(250, 249, 247, 0.5);
+    }
+
+    .newsletter-form input:focus {
+      border-color: var(--deep-purple);
+      background: rgba(250, 249, 247, 0.15);
+    }
+
+    .newsletter-form button {
+      padding: 1rem 1.5rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      font-family: var(--font-body);
+      background: var(--deep-purple);
+      color: var(--warm-white);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .newsletter-form button:hover {
+      background: var(--rich-purple);
+    }
+
+    /* ============================================
+       FOOTER
+    ============================================ */
+    footer {
+      padding: 3rem 2rem;
+      background: var(--charcoal);
+      border-top: 1px solid rgba(250, 249, 247, 0.08);
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--warm-white);
+      text-decoration: none;
+      text-transform: lowercase;
+    }
+
+    .footer-tagline {
+      font-size: 0.85rem;
+      color: rgba(250, 249, 247, 0.5);
+      font-style: italic;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-links a {
+      font-size: 0.85rem;
+      color: rgba(250, 249, 247, 0.6);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--warm-white);
+    }
+
+    /* ============================================
+       RESPONSIVE
+    ============================================ */
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-ctas {
+        justify-content: center;
+      }
+
+      .hero-visual {
+        height: 350px;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .proof-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        gap: 2rem;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <a href="#" class="logo logo-syne">nuefunnel</a>
+      <nav>
+        <a href="#">Case Studies</a>
+        <a href="#">Training</a>
+        <a href="#">Labs</a>
+        <a href="#">Blog</a>
+        <a href="#" class="btn-primary">Book a Call</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <span class="hero-tagline">Context Engineering</span>
+        <h1>AI doesn't fail because it's stupid.<br>It fails because it's <em>starving.</em></h1>
+        <p class="hero-description">
+          Context is everything. We engineer the inputs that transform raw AI into something that actually delivers results.
+        </p>
+        <div class="hero-ctas">
+          <a href="#" class="btn-primary">Start a 12-Week Sprint <span>→</span></a>
+          <a href="#" class="btn-secondary">See Our Work</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="funnel-container">
+          <!-- Floating particles (office artifacts) -->
+          <div class="particle particle-doc p1"></div>
+          <div class="particle particle-email p2"></div>
+          <div class="particle particle-ticket p3"></div>
+          <div class="particle particle-data p4"><span></span><span></span><span></span><span></span></div>
+          <div class="particle particle-doc p5"></div>
+          <div class="particle particle-email p6"></div>
+          <div class="particle particle-ticket p7"></div>
+          <div class="particle particle-data p8"><span></span><span></span><span></span><span></span></div>
+
+          <!-- Funnel shape -->
+          <div class="funnel-shape">
+            <svg viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Funnel gradient -->
+              <defs>
+                <linearGradient id="funnelGradient" x1="150" y1="0" x2="150" y2="400" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="rgba(28, 28, 30, 0.03)"/>
+                  <stop offset="100%" stop-color="rgba(91, 33, 182, 0.1)"/>
+                </linearGradient>
+              </defs>
+              <!-- Funnel outline -->
+              <path d="M20 40 L280 40 L180 200 L180 360 L120 360 L120 200 Z"
+                    fill="url(#funnelGradient)"
+                    stroke="rgba(28, 28, 30, 0.1)"
+                    stroke-width="1"/>
+            </svg>
+          </div>
+
+          <!-- Output glow and orb -->
+          <div class="output-glow"></div>
+          <div class="output-orb"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Logo Options Showcase (for design review) -->
+  <section class="logo-showcase">
+    <div class="logo-showcase-inner">
+      <h3>Logo Font Options (for review)</h3>
+      <div class="logo-options">
+        <div class="logo-option">
+          <a class="logo logo-syne">nuefunnel</a>
+          <span>Syne (bold, geometric)</span>
+        </div>
+        <div class="logo-option">
+          <a class="logo logo-outfit">nuefunnel</a>
+          <span>Outfit (clean, modern)</span>
+        </div>
+        <div class="logo-option">
+          <a class="logo logo-space">nuefunnel</a>
+          <span>Space Grotesk (tech, distinctive)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Section -->
+  <section class="problem">
+    <div class="problem-inner">
+      <h2>Most AI projects are garbage in, garbage out.</h2>
+      <p>
+        Companies throw data at models and wonder why they hallucinate. They buy tools without understanding workflows. They chase features instead of outcomes. The problem isn't the AI. It's the context.
+      </p>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services">
+    <div class="services-inner">
+      <div class="services-header">
+        <h2>We engineer the context that makes AI useful.</h2>
+        <p>Two ways to work with us</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <h3>Consulting</h3>
+          <p>
+            Short-cycle engagements focused on one workflow. We help you identify the right use case, build the solution, and train your team to own it.
+          </p>
+          <a href="#">Learn more <span>→</span></a>
+        </div>
+
+        <div class="service-card">
+          <h3>Training</h3>
+          <p>
+            Workshops and courses that teach your team the fundamentals of context engineering, prompt design, and building AI-powered workflows.
+          </p>
+          <a href="#">View courses <span>→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Productized Offer Section -->
+  <section class="offer">
+    <div class="offer-inner">
+      <span class="offer-badge">Flagship Offering</span>
+      <h2>Start with a focused sprint.</h2>
+      <p>Our 12-week engagement helps your team ship their first production AI workflow. Fixed scope. Fixed price. Real outcomes.</p>
+
+      <div class="offer-card">
+        <h3>The AI Enablement Sprint</h3>
+        <p class="price">12 weeks · Starting at €5,000</p>
+
+        <div class="offer-timeline">
+          <div class="timeline-item">
+            <span class="timeline-week">Week 1-2</span>
+            <div class="timeline-content">
+              <h4>Discovery & Mapping</h4>
+              <p>Identify the highest-impact workflow and define success metrics</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-week">Week 3-10</span>
+            <div class="timeline-content">
+              <h4>Co-Development</h4>
+              <p>Build the solution together with your team, iterating weekly</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-week">Week 11-12</span>
+            <div class="timeline-content">
+              <h4>Handoff & Training</h4>
+              <p>Documentation, training sessions, and knowledge transfer</p>
+            </div>
+          </div>
+        </div>
+
+        <a href="#" class="btn-primary">Book a Discovery Call <span>→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proof Section -->
+  <section class="proof">
+    <div class="proof-inner">
+      <div class="proof-header">
+        <h2>What we've shipped.</h2>
+        <a href="#">View all case studies <span>→</span></a>
+      </div>
+
+      <div class="proof-grid">
+        <div class="proof-card">
+          <div class="proof-stat">60%</div>
+          <div class="proof-label">reduction in support tickets</div>
+          <div class="proof-company">A Series B fintech</div>
+        </div>
+        <div class="proof-card">
+          <div class="proof-stat">3 days → 3 hrs</div>
+          <div class="proof-label">document processing time</div>
+          <div class="proof-company">A logistics enterprise</div>
+        </div>
+        <div class="proof-card">
+          <div class="proof-stat">8 weeks</div>
+          <div class="proof-label">to first AI feature in production</div>
+          <div class="proof-company">A B2B SaaS startup</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="newsletter">
+    <div class="newsletter-inner">
+      <h2>Thinking about AI.</h2>
+      <p>Weekly insights on context engineering, AI implementation, and what actually works. No hype, just signal.</p>
+      <form class="newsletter-form">
+        <input type="email" placeholder="you@company.com">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <a href="#" class="footer-logo">nuefunnel</a>
+        <p class="footer-tagline">Funneling context into intelligence.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">Case Studies</a>
+        <a href="#">Training</a>
+        <a href="#">Labs</a>
+        <a href="#">Blog</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
