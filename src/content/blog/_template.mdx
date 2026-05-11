@@ -1,0 +1,51 @@
+---
+# REQUIRED: page title, shown on listing card and detail page header
+title: "Your post title here"
+
+# REQUIRED: short summary, shown on listing card and in <meta description> for SEO
+description: "One-sentence description of what this post is about."
+
+# REQUIRED: publish date (used for sort order on /blog). Format: YYYY-MM-DD
+date: 2026-05-11
+
+# OPTIONAL: author display name. If omitted, defaults to "nuefunnel Team"
+author: "nuefunnel Team"
+
+# OPTIONAL: hero image shown on listing card AND at the top of the detail page.
+# Drop the file into public/images/uploads/, then uncomment and update the path below.
+# image: "/images/uploads/your-hero-image.png"
+
+# OPTIONAL: tags array. Inline YAML, double-quoted strings.
+# tags: ["AI", "Agents", "Tutorial"]
+
+# OPTIONAL: set to true to keep this post out of the public /blog listing while still committing it
+draft: false
+---
+
+Opening paragraph — set the scene for what the post is about and why the reader should care. Two or three sentences works well. This block becomes the first thing visible above the fold on the detail page.
+
+## First major section
+
+Body content. Standard Markdown works: **bold**, *italic*, [links](https://example.com), `inline code`, and:
+
+- Bulleted lists
+- Are rendered as expected
+- With normal styling
+
+### A subsection
+
+Use `###` for subsections under `##`. The blog detail page styles these consistently.
+
+> Use blockquotes for emphasised statements or pull quotes — they get a distinct visual treatment in the prose styling.
+
+## Including an image
+
+Images dropped into `public/images/uploads/` are automatically optimised at build time (WebP variants at 400 / 800 / 1200 widths). Reference them with the absolute path:
+
+![Descriptive alt text for accessibility and SEO](/images/uploads/example-image.png)
+
+Note: images won't render in github.dev's Markdown preview pane (the preview can't resolve `/images/...` paths). They render correctly in the Cloudflare branch preview and in production.
+
+## Closing thoughts
+
+Wrap up the post. A short call-to-action or summary helps the reader take away the key point.

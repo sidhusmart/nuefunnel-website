@@ -1,6 +1,6 @@
 # Nuefunnel Design System
 
-This document captures the design language of nuefunnel.com (built with Framer) to guide recreation in the Astro/Decap CMS stack.
+This document captures the design language of nuefunnel.com (built with Framer) to guide recreation in the Astro stack.
 
 ---
 

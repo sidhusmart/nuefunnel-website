@@ -9,7 +9,7 @@ This follows a JAMStack pattern using **Astro** and is hosted directly on **Clou
 - **Framework:** [Astro](https://astro.build/) - Modern static site generator
 - **Styling:** [TailwindCSS](https://tailwindcss.com/) - Utility-first CSS framework
 - **Content:** MDX (Markdown + JSX) with Astro Content Collections
-- **CMS:** [Decap CMS](https://decapcms.org/) (formerly Netlify CMS) - Git-based CMS
+- **Editing:** Direct on GitHub (via [github.dev](https://github.dev) for web-based editing) — see [CONTRIBUTING.md](./CONTRIBUTING.md)
 - **Deployment:** [Cloudflare Pages](https://pages.cloudflare.com/)
 
 ## 📁 Project Structure
@@ -17,10 +17,7 @@ This follows a JAMStack pattern using **Astro** and is hosted directly on **Clou
 ```
 nuefunnel-website/
 ├── public/
-│   ├── admin/              # Decap CMS admin interface
-│   │   ├── index.html
-│   │   └── config.yml
-│   ├── images/             # Static images
+│   ├── images/             # Static images (including uploads/ for content images)
 │   ├── robots.txt
 │   └── favicon.svg
 ├── src/
@@ -41,8 +38,6 @@ nuefunnel-website/
 │   │   └── products.astro
 │   └── styles/
 │       └── global.css      # Global styles + Tailwind
-├── functions/              # Cloudflare Pages Functions
-│   └── oauth/              # OAuth proxy for Decap CMS
 ├── astro.config.mjs
 ├── tailwind.config.mjs
 ├── tsconfig.json
@@ -69,14 +64,7 @@ nuefunnel-website/
    npm install
    ```
 
-3. **Set up environment variables:**
-   ```bash
-   cp .env.example .env
-   ```
-
-   Edit `.env` and add your GitHub OAuth credentials (see [Decap CMS Setup](#-decap-cms-setup) below).
-
-4. **Start the development server:**
+3. **Start the development server:**
    ```bash
    npm run dev
    ```
@@ -92,76 +80,13 @@ nuefunnel-website/
 | `npm run preview` | Preview built site locally |
 | `npm run astro` | Run Astro CLI commands |
 
-## 📝 Content Management
+## 📝 Editing Content
 
-### Using Decap CMS
+All content lives as `.mdx` files in `src/content/{blog,customer-stories,products}/`. There is no separate CMS — the repo *is* the CMS, and editing happens directly on GitHub (recommended via [github.dev](https://github.dev) for a web-based VS Code experience).
 
-1. **Access the CMS:**
-   - Local: `http://localhost:4321/admin`
-   - Production: `https://www.nuefunnel.com/admin`
+Each collection has a `_template.mdx` file (Astro auto-excludes `_`-prefixed files) that should be copied as the starting point for new content.
 
-2. **Authentication:**
-   - Log in with your GitHub account
-   - You need write access to the repository
-
-3. **Creating Content:**
-   - Navigate to the collection (Blog, Customer Stories, Products)
-   - Click "New [Collection Name]"
-   - Fill in the fields
-   - Save and publish
-
-### Manual Content Creation
-
-You can also create content manually:
-
-1. **Create a new MDX file** in the appropriate collection folder:
-   ```
-   src/content/blog/my-new-post.mdx
-   ```
-
-2. **Add frontmatter and content:**
-   ```mdx
-   ---
-   title: "My New Post"
-   description: "A brief description"
-   date: 2025-01-17
-   author: "Your Name"
-   tags: ["API", "Developer Experience"]
-   ---
-
-   # Your content here
-
-   Write your post content using Markdown or MDX.
-   ```
-
-## 🔐 Decap CMS Setup
-
-Decap CMS uses GitHub for authentication and storage. Here's how to set it up:
-
-### 1. Create a GitHub OAuth App
-
-1. Go to [GitHub Developer Settings](https://github.com/settings/developers)
-2. Click "New OAuth App"
-3. Fill in the details:
-   - **Application name:** nuefunnel CMS
-   - **Homepage URL:** `https://www.nuefunnel.com`
-   - **Authorization callback URL:** `https://www.nuefunnel.com/oauth/callback`
-4. Save and note your **Client ID** and **Client Secret**
-
-### 2. Configure Cloudflare Pages Environment Variables
-
-1. Go to your Cloudflare Pages project
-2. Navigate to **Settings** → **Environment Variables**
-3. Add the following variables:
-   - `GITHUB_CLIENT_ID`: Your GitHub OAuth Client ID
-   - `GITHUB_CLIENT_SECRET`: Your GitHub OAuth Client Secret
-4. Save and redeploy
-
-### 3. Update Decap CMS Config
-
-Edit `public/admin/config.yml` and update:
-- `repo`: Your GitHub username/repo
-- `base_url`: Your Cloudflare Pages URL (for OAuth)
+For the step-by-step editing workflow (branch → commit → Cloudflare preview → PR → merge), see **[CONTRIBUTING.md](./CONTRIBUTING.md)**.
 
 ## 🚀 Deployment
 
@@ -177,9 +102,7 @@ Edit `public/admin/config.yml` and update:
    - **Build output directory:** `dist`
    - **Node version:** 18 or higher
 
-3. **Add environment variables** (see Decap CMS Setup above)
-
-4. **Deploy:**
+3. **Deploy:**
    - Click "Save and Deploy"
    - Cloudflare will automatically build and deploy your site
    - Future commits to the main branch will trigger automatic deployments
@@ -242,8 +165,8 @@ See `src/content/config.ts` for collection schemas.
 
 1. Create a new folder in `src/content/`
 2. Define the schema in `src/content/config.ts`
-3. Add the collection to `public/admin/config.yml`
-4. Create listing and detail pages
+3. Create listing and detail pages
+4. Add a `_template.mdx` to the new folder as a starting point for new entries
 
 ## 📊 Analytics (Optional)
 
@@ -257,22 +180,14 @@ To add analytics, update `src/layouts/Layout.astro` with your analytics provider
 - **TypeScript errors**: Run `npm run astro check`
 - **Tailwind not working**: Ensure `global.css` is imported in Layout
 
-### Decap CMS Issues
-
-- **Cannot authenticate**: Check GitHub OAuth settings and environment variables
-- **Changes not saving**: Ensure GitHub permissions are correct
-- **404 on /admin**: Check that files exist in `public/admin/`
-
 ### Cloudflare Pages Issues
 
 - **Build fails**: Check build logs for errors
-- **Functions not working**: Verify environment variables are set
-- **OAuth not working**: Ensure callback URL matches GitHub OAuth app settings
+- **Preview deploy missing on PR**: Verify Cloudflare Pages is connected to the GitHub repo and branch deploys are enabled
 
 ## 📚 Resources
 
 - [Astro Documentation](https://docs.astro.build/)
-- [Decap CMS Documentation](https://decapcms.org/docs/)
 - [Cloudflare Pages Documentation](https://developers.cloudflare.com/pages/)
 - [TailwindCSS Documentation](https://tailwindcss.com/docs)
 

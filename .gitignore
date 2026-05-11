@@ -24,8 +24,9 @@ pnpm-debug.log*
 # jetbrains setting folders
 .idea/
 
-# VS Code settings
+# VS Code settings (workspace settings.json is intentionally tracked)
 .vscode/
+!.vscode/settings.json
 
 # bv (beads viewer) local config and caches
 .bv/

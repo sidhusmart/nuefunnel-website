@@ -1,0 +1,43 @@
+---
+# REQUIRED: product name
+title: "Product Name"
+
+# REQUIRED: short product description (shown on listing card)
+description: "One-sentence description of what this product does."
+
+# OPTIONAL: pricing label (e.g. "$99/month", "From $1,000", "Contact us")
+# price: "$99/month"
+
+# OPTIONAL: feature list. Inline YAML array, double-quoted strings.
+# features: ["Feature one", "Feature two", "Feature three"]
+
+# OPTIONAL: hero image shown on listing card.
+# Drop the file into public/images/uploads/, then uncomment and update the path below.
+# image: "/images/uploads/product-image.png"
+
+# OPTIONAL: display order on the listing page (lower numbers appear first; defaults to 0)
+order: 0
+
+# OPTIONAL: set to true to keep this product hidden from the listing
+draft: false
+---
+
+Opening paragraph describing the product's purpose and primary value proposition.
+
+## What it does
+
+Brief explanation of the product's core functionality. Two or three sentences.
+
+## Key features
+
+- **Feature one** — what it does and why it matters
+- **Feature two** — what it does and why it matters
+- **Feature three** — what it does and why it matters
+
+## Who it's for
+
+Target audience description — typical use cases, role types, or company sizes.
+
+---
+
+**Note:** The `/products` page is currently hardcoded HTML and does not yet read this collection. Once `src/pages/products.astro` is migrated to use `getCollection('products')`, this content will start appearing on the site.
