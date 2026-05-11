@@ -1,4 +1,3 @@
 # Cloudflare Pages redirects and rewrites
-
-# Fallback for SPA-like behavior (if needed)
-/*  /index.html  200
+# (intentionally empty — Astro pre-renders every route to static HTML, and
+# Cloudflare Pages auto-serves dist/404.html for any unmatched URL.)

@@ -1,0 +1,38 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Page not found" description="The page you're looking for doesn't exist.">
+  <section class="py-20 px-4 pt-28">
+    <div class="container-custom max-w-desktop">
+      <div class="text-center max-w-3xl mx-auto">
+        <p class="text-base md:text-lg text-muted-purple/70 mb-4 font-medium tracking-widest uppercase">
+          404 — Page not found
+        </p>
+        <h1 class="text-5xl md:text-7xl font-bold gradient-text mb-6">
+          We can't find that page
+        </h1>
+        <p class="text-xl md:text-2xl text-muted-purple mb-12 max-w-2xl mx-auto">
+          The page you're looking for may have moved, been removed, or never existed.
+          Let's get you back on track.
+        </p>
+
+        <a
+          href="/"
+          class="btn-primary inline-flex items-center gap-2 text-lg"
+        >
+          Go to homepage
+          <span aria-hidden="true">&rarr;</span>
+        </a>
+
+        <p class="text-muted-purple mt-12">
+          Or browse the
+          <a href="/blog" class="underline hover:opacity-70 transition-opacity">blog</a>,
+          <a href="/customer-stories" class="underline hover:opacity-70 transition-opacity">customer stories</a>,
+          or
+          <a href="/products" class="underline hover:opacity-70 transition-opacity">products</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>
