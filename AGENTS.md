@@ -21,8 +21,7 @@ bd sync               # Sync with git
 - `src/layouts/` shared layouts
 - `src/content/` MDX content collections + schemas
 - `src/styles/` global Tailwind CSS
-- `public/` static assets and Decap CMS admin
-- `functions/` Cloudflare Pages Functions (OAuth)
+- `public/` static assets
 - `scripts/` Node scripts (image optimization)
 
 ## Build, Lint, Test
@@ -95,8 +94,6 @@ npm run optimize:images
 - Favor `zod` schemas in content collections.
 
 ### Error Handling
-- In Cloudflare functions, return `new Response(...)` with status.
-- Guard required params early (e.g., missing OAuth code).
 - For scripts, log meaningful errors and `process.exit(1)` on fatal failures.
 
 ## Astro Patterns
@@ -114,11 +111,6 @@ npm run optimize:images
 - Content lives in `src/content/{blog,customer-stories,products}`.
 - Follow schemas in `src/content/config.ts` (required fields: title, description, date).
 - Use `draft: true` for unpublished content.
-
-## Cloudflare Pages Functions
-- Files live under `functions/` and export `onRequest`.
-- Access secrets via `env` (`GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`).
-- Avoid adding heavy dependencies here.
 
 ## Assets & Images
 - Raw uploads: `public/images/uploads`.
