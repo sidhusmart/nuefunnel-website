@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NueFunnel Website — Repo Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;500;600;700;800;900&family=Inter+Tight:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --purple: #580DD9;
+      --magenta: #8E2DA6;
+      --cyan: #00A0E4;
+      --muted: #6B658C;
+      --bg: #FFFFFF;
+      --dot-bg: radial-gradient(circle, rgba(0,0,0,0.07) 1px, transparent 1px);
+      --dot-size: 22px;
+      --radius: 14px;
+      --card-bg: linear-gradient(160deg, rgba(229,221,255,0.18) 0%, rgba(229,221,255,0.38) 100%);
+      --sidebar-w: 240px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: var(--bg);
+      background-image: var(--dot-bg);
+      background-size: var(--dot-size) var(--dot-size);
+      color: #1a1a2e;
+      min-height: 100vh;
+    }
+
+    /* ── Sidebar ── */
+    #sidebar {
+      position: fixed;
+      top: 0; left: 0;
+      width: var(--sidebar-w);
+      height: 100vh;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-right: 1px solid rgba(88,13,217,0.12);
+      padding: 28px 20px;
+      overflow-y: auto;
+      z-index: 100;
+    }
+
+    .sidebar-logo {
+      font-family: 'Bungee', sans-serif;
+      font-size: 15px;
+      letter-spacing: 0.5px;
+      background: linear-gradient(135deg, var(--purple), var(--magenta));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 6px;
+    }
+
+    .sidebar-subtitle {
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 28px;
+    }
+
+    .nav-section-label {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--muted);
+      margin: 18px 0 6px;
+      padding: 0 4px;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 8px;
+      text-decoration: none;
+      color: #444;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.15s;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      background: rgba(88,13,217,0.08);
+      color: var(--purple);
+    }
+
+    .nav-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      flex-shrink: 0;
+      opacity: 0.5;
+    }
+
+    /* ── Main ── */
+    main {
+      margin-left: var(--sidebar-w);
+      padding: 48px 56px 80px;
+      max-width: calc(var(--sidebar-w) + 960px);
+    }
+
+    /* ── Section ── */
+    .section {
+      margin-bottom: 72px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .section-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--purple), var(--magenta));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .section-icon svg { color: white; }
+
+    h1.page-title {
+      font-family: 'Bungee', sans-serif;
+      font-size: 42px;
+      background: linear-gradient(135deg, var(--purple) 20%, var(--magenta) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+      line-height: 1.1;
+    }
+
+    .page-intro {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 600px;
+      line-height: 1.7;
+      margin-bottom: 60px;
+      font-style: italic;
+    }
+
+    h2.section-title {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #1a1a2e;
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid rgba(88,13,217,0.1);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin-bottom: 16px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .card-grid .card { margin-bottom: 0; }
+
+    .card h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--purple);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .card p, .card li {
+      font-size: 14px;
+      color: #444;
+      line-height: 1.65;
+    }
+
+    .card ul { padding-left: 16px; }
+
+    .badge {
+      display: inline-block;
+      background: rgba(88,13,217,0.1);
+      color: var(--purple);
+      border-radius: 20px;
+      padding: 3px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      margin: 2px 2px 2px 0;
+    }
+
+    .badge.cyan { background: rgba(0,160,228,0.12); color: #0077aa; }
+    .badge.green { background: rgba(16,185,129,0.12); color: #047857; }
+    .badge.orange { background: rgba(251,146,60,0.12); color: #c2410c; }
+
+    /* ── Code blocks ── */
+    pre, code {
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    }
+
+    pre {
+      background: #0f0f1a;
+      color: #e2e8f0;
+      border-radius: 10px;
+      padding: 20px 24px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 12px 0;
+    }
+
+    code {
+      background: rgba(88,13,217,0.08);
+      color: var(--purple);
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 13px;
+    }
+
+    pre code {
+      background: none;
+      color: inherit;
+      padding: 0;
+      font-size: inherit;
+    }
+
+    .token-comment { color: #6c7a8c; }
+    .token-keyword { color: #c792ea; }
+    .token-string { color: #c3e88d; }
+    .token-function { color: #82aaff; }
+    .token-operator { color: #89ddff; }
+    .token-value { color: #f78c6c; }
+
+    /* ── Tables ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      margin: 12px 0;
+    }
+
+    th {
+      background: rgba(88,13,217,0.07);
+      color: var(--purple);
+      font-weight: 700;
+      text-align: left;
+      padding: 10px 14px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(88,13,217,0.07);
+      color: #333;
+      vertical-align: top;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    td code { font-size: 12px; }
+
+    /* ── Dividers ── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(88,13,217,0.15), transparent);
+      margin: 40px 0;
+    }
+
+    /* ── Color swatches ── */
+    .swatch-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .swatch {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 10px;
+      padding: 8px 14px 8px 10px;
+      font-size: 12px;
+    }
+
+    .swatch-dot {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    }
+
+    .swatch-name { font-weight: 600; color: #333; }
+    .swatch-hex { color: #888; font-family: monospace; }
+
+    /* ── File tree ── */
+    .file-tree {
+      background: #0f0f1a;
+      color: #e2e8f0;
+      border-radius: 12px;
+      padding: 24px 28px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 13px;
+      line-height: 2;
+    }
+
+    .ft-dir { color: #82aaff; font-weight: 600; }
+    .ft-file { color: #c3e88d; }
+    .ft-comment { color: #546e7a; font-style: italic; margin-left: 8px; }
+    .ft-special { color: #f78c6c; }
+
+    /* ── Callout ── */
+    .callout {
+      border-left: 3px solid var(--cyan);
+      background: rgba(0,160,228,0.06);
+      border-radius: 0 10px 10px 0;
+      padding: 14px 18px;
+      margin: 16px 0;
+      font-size: 13.5px;
+      color: #0077aa;
+      line-height: 1.6;
+    }
+
+    .callout.warning {
+      border-color: #f59e0b;
+      background: rgba(245,158,11,0.06);
+      color: #92400e;
+    }
+
+    .callout strong { font-weight: 700; }
+
+    /* ── SVG Diagrams ── */
+    .diagram-wrap {
+      background: white;
+      border: 1px solid rgba(88,13,217,0.1);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin: 16px 0;
+      overflow-x: auto;
+    }
+
+    .diagram-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    /* ── Page header hero ── */
+    .hero-section {
+      padding: 60px 0 40px;
+      position: relative;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    /* ── Status pill ── */
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    .status-pill.draft { background: rgba(107,101,140,0.12); color: var(--muted); }
+    .status-pill.review { background: rgba(245,158,11,0.12); color: #b45309; }
+    .status-pill.ready { background: rgba(16,185,129,0.12); color: #047857; }
+    .status-pill.live { background: rgba(88,13,217,0.1); color: var(--purple); }
+
+    .pill-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    /* ── Command reference ── */
+    .cmd-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(88,13,217,0.06);
+    }
+
+    .cmd-row:last-child { border-bottom: none; }
+
+    .cmd-code {
+      font-family: monospace;
+      background: rgba(88,13,217,0.08);
+      color: var(--purple);
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      white-space: nowrap;
+      min-width: 240px;
+    }
+
+    .cmd-desc {
+      font-size: 13.5px;
+      color: #555;
+      padding-top: 3px;
+      line-height: 1.5;
+    }
+
+    /* flow arrows */
+    .flow {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      flex-wrap: wrap;
+      margin: 16px 0;
+    }
+
+    .flow-step {
+      background: linear-gradient(135deg, rgba(88,13,217,0.08), rgba(142,45,166,0.08));
+      border: 1px solid rgba(88,13,217,0.15);
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--purple);
+      text-align: center;
+    }
+
+    .flow-arrow {
+      color: var(--muted);
+      font-size: 18px;
+      padding: 0 8px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════ SIDEBAR ════════════════════ -->
+<nav id="sidebar">
+  <div class="sidebar-logo">NUEFUNNEL</div>
+  <div class="sidebar-subtitle">Repo Guide · May 2026</div>
+
+  <div class="nav-section-label">Overview</div>
+  <a href="#overview" class="nav-link"><span class="nav-dot"></span>What is this?</a>
+  <a href="#stack" class="nav-link"><span class="nav-dot"></span>Tech Stack</a>
+  <a href="#architecture" class="nav-link"><span class="nav-dot"></span>Architecture</a>
+
+  <div class="nav-section-label">Codebase</div>
+  <a href="#structure" class="nav-link"><span class="nav-dot"></span>File Structure</a>
+  <a href="#pages" class="nav-link"><span class="nav-dot"></span>Pages & Routing</a>
+  <a href="#components" class="nav-link"><span class="nav-dot"></span>Components</a>
+  <a href="#content" class="nav-link"><span class="nav-dot"></span>Content Collections</a>
+
+  <div class="nav-section-label">CMS & Auth</div>
+  <a href="#cms" class="nav-link"><span class="nav-dot"></span>Decap CMS</a>
+  <a href="#editorial" class="nav-link"><span class="nav-dot"></span>Editorial Workflow</a>
+  <a href="#oauth" class="nav-link"><span class="nav-dot"></span>OAuth Flow</a>
+
+  <div class="nav-section-label">Deployment</div>
+  <a href="#deployment" class="nav-link"><span class="nav-dot"></span>Cloudflare Pages</a>
+  <a href="#pipeline" class="nav-link"><span class="nav-dot"></span>Build Pipeline</a>
+  <a href="#envvars" class="nav-link"><span class="nav-dot"></span>Env Variables</a>
+
+  <div class="nav-section-label">Design</div>
+  <a href="#design" class="nav-link"><span class="nav-dot"></span>Design System</a>
+  <a href="#images" class="nav-link"><span class="nav-dot"></span>Image Pipeline</a>
+
+  <div class="nav-section-label">Dev Workflow</div>
+  <a href="#commands" class="nav-link"><span class="nav-dot"></span>Commands</a>
+  <a href="#issues" class="nav-link"><span class="nav-dot"></span>Issue Tracking</a>
+</nav>
+
+<!-- ════════════════════ MAIN ════════════════════ -->
+<main>
+
+  <!-- ── HERO ── -->
+  <div class="hero-section" id="overview">
+    <div class="hero-meta">
+      <span class="badge">Astro 4.x</span>
+      <span class="badge cyan">Cloudflare Pages</span>
+      <span class="badge">Decap CMS</span>
+      <span class="badge">TailwindCSS</span>
+      <span class="badge">MDX</span>
+    </div>
+    <h1 class="page-title">NueFunnel<br/>Website</h1>
+    <p class="page-intro">
+      A static marketing website for nuefunnel.com — an AI-powered API assistance product.
+      Built on the JAMStack with Astro, styled with Tailwind, content-managed through Decap CMS,
+      and deployed to Cloudflare Pages with a custom OAuth proxy.
+    </p>
+  </div>
+
+  <!-- ── TECH STACK ── -->
+  <div class="section" id="stack">
+    <div class="section-header">
+      <div class="section-icon">
+        <svg width="20" height="20" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+      </div>
+      <h2 class="section-title">Tech Stack</h2>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3>Framework</h3>
+        <p><strong>Astro 4.x</strong> — static site generator with island architecture. Outputs pure HTML/CSS/JS with zero client-side JS by default. <code>output: 'static'</code> mode.</p>
+      </div>
+      <div class="card">
+        <h3>Styling</h3>
+        <p><strong>TailwindCSS 3.x</strong> with the <code>@tailwindcss/typography</code> plugin for MDX prose rendering. Custom theme defined in <code>tailwind.config.mjs</code>.</p>
+      </div>
+      <div class="card">
+        <h3>Content</h3>
+        <p><strong>MDX</strong> files inside Astro Content Collections. Schema-validated via <strong>Zod</strong>. Collections: <code>blog</code>, <code>customer-stories</code>, <code>products</code>.</p>
+      </div>
+      <div class="card">
+        <h3>CMS</h3>
+        <p><strong>Decap CMS</strong> (formerly Netlify CMS) — a git-based headless CMS. Served from <code>/admin</code>. Uses GitHub as the content backend.</p>
+      </div>
+      <div class="card">
+        <h3>Hosting</h3>
+        <p><strong>Cloudflare Pages</strong> — edge-hosted static files + serverless <strong>Pages Functions</strong> for the OAuth proxy (<code>/functions/oauth/</code>).</p>
+      </div>
+      <div class="card">
+        <h3>Image Processing</h3>
+        <p><strong>Sharp</strong> — Node.js image processor. Custom script (<code>scripts/optimize-images.mjs</code>) generates WebP variants at 400w / 800w / 1200w.</p>
+      </div>
+      <div class="card">
+        <h3>Issue Tracking</h3>
+        <p><strong>Beads (bd)</strong> — git-native, CLI-first issue tracker stored in <code>.beads/</code>. AI-friendly and offline-capable.</p>
+      </div>
+      <div class="card">
+        <h3>Language</h3>
+        <p><strong>TypeScript</strong> in strict mode throughout <code>src/</code>. Astro frontmatter, content schemas, and component props are all typed.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ARCHITECTURE DIAGRAM ── -->
+  <div class="section" id="architecture">
+    <div class="section-header">
+      <div class="section-icon">
+        <svg width="20" height="20" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm0 8a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zm12 0a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
+      </div>
+      <h2 class="section-title">System Architecture</h2>
+    </div>
+
+    <div class="diagram-wrap">
+      <div class="diagram-title">High-Level Architecture</div>
+      <svg viewBox="0 0 860 480" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:860px;display:block;margin:0 auto;">
+        <defs>
+          <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#580DD9" opacity="0.6"/>
+          </marker>
+          <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#6B658C" opacity="0.5"/>
+          </marker>
+          <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#580DD9;stop-opacity:0.15"/>
+            <stop offset="100%" style="stop-color:#8E2DA6;stop-opacity:0.25"/>
+          </linearGradient>
+          <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#00A0E4;stop-opacity:0.12"/>
+            <stop offset="100%" style="stop-color:#0077b6;stop-opacity:0.2"/>
+          </linearGradient>
+          <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.12"/>
+            <stop offset="100%" style="stop-color:#059669;stop-opacity:0.2"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Background zones -->
+        <!-- GitHub zone -->
+        <rect x="10" y="10" width="250" height="200" rx="14" fill="url(#grad1)" stroke="#580DD9" stroke-width="1" stroke-dasharray="5,3" opacity="0.7"/>
+        <text x="135" y="34" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="#580DD9" letter-spacing="1.5" text-transform="uppercase">GITHUB</text>
+
+        <!-- Cloudflare zone -->
+        <rect x="310" y="10" width="540" height="460" rx="14" fill="url(#grad2)" stroke="#00A0E4" stroke-width="1" stroke-dasharray="5,3" opacity="0.7"/>
+        <text x="580" y="34" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="#0077aa" letter-spacing="1.5">CLOUDFLARE PAGES</text>
+
+        <!-- GitHub Repo box -->
+        <rect x="30" y="50" width="210" height="70" rx="10" fill="white" stroke="#580DD9" stroke-width="1.5" opacity="0.9"/>
+        <text x="135" y="78" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#1a1a2e">GitHub Repo</text>
+        <text x="135" y="96" text-anchor="middle" font-family="monospace" font-size="10" fill="#6B658C">sidhusmart/nuefunnel-website</text>
+        <text x="135" y="112" text-anchor="middle" font-family="monospace" font-size="10" fill="#6B658C">branch: main + cms/* preview branches</text>
+
+        <!-- GitHub OAuth App -->
+        <rect x="30" y="145" width="210" height="55" rx="10" fill="white" stroke="#580DD9" stroke-width="1.5" opacity="0.9"/>
+        <text x="135" y="168" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#1a1a2e">GitHub OAuth App</text>
+        <text x="135" y="188" text-anchor="middle" font-family="monospace" font-size="10" fill="#6B658C">callback → /oauth/callback</text>
+
+        <!-- Cloudflare: Static Site -->
+        <rect x="330" y="50" width="200" height="80" rx="10" fill="white" stroke="#00A0E4" stroke-width="1.5" opacity="0.9"/>
+        <text x="430" y="78" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#1a1a2e">Static Site</text>
+        <text x="430" y="96" text-anchor="middle" font-family="monospace" font-size="10" fill="#6B658C">dist/ → CDN edge</text>
+        <text x="430" y="112" text-anchor="middle" font-family="monospace" font-size="10" fill="#6B658C">nuefunnel.com</text>
+
+        <!-- Decap CMS Admin -->
+        <rect x="560" y="50" width="175" height="80" rx="10" fill="white" stroke="#8E2DA6" stroke-width="1.5" opacity="0.9"/>
+        <text x="647" y="78" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#1a1a2e">Decap CMS</text>
+        <text x="647" y="96" text-anchor="middle" font-family="monospace" font-size="10" fill="#6B658C">/admin/ — browser UI</text>
+        <text x="647" y="112" text-anchor="middle" font-family="monospace" font-size="10" fill="#6B658C">editorial workflow</text>
+
+        <!-- OAuth Function -->
+        <rect x="330" y="165" width="200" height="70" rx="10" fill="white" stroke="#00A0E4" stroke-width="1.5" opacity="0.9"/>
+        <text x="430" y="193" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#1a1a2e">OAuth Function</text>
+        <text x="430" y="211" text-anchor="middle" font-family="monospace" font-size="10" fill="#6B658C">functions/oauth/</text>
+        <text x="430" y="226" text-anchor="middle" font-family="monospace" font-size="10" fill="#6B658C">Pages Serverless</text>
+
+        <!-- Build Pipeline box -->
+        <rect x="560" y="165" width="175" height="70" rx="10" fill="white" stroke="#00A0E4" stroke-width="1.5" opacity="0.9"/>
+        <text x="647" y="193" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#1a1a2e">Build Pipeline</text>
+        <text x="647" y="211" text-anchor="middle" font-family="monospace" font-size="10" fill="#6B658C">npm run build</text>
+        <text x="647" y="226" text-anchor="middle" font-family="monospace" font-size="10" fill="#6B658C">optimize → check → build</text>
+
+        <!-- Content Files -->
+        <rect x="330" y="270" width="200" height="80" rx="10" fill="white" stroke="#580DD9" stroke-width="1.5" opacity="0.9"/>
+        <text x="430" y="298" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#1a1a2e">Content Collections</text>
+        <text x="430" y="315" text-anchor="middle" font-family="monospace" font-size="10" fill="#6B658C">src/content/blog/*.mdx</text>
+        <text x="430" y="330" text-anchor="middle" font-family="monospace" font-size="10" fill="#6B658C">customer-stories · products</text>
+
+        <!-- Image Pipeline -->
+        <rect x="560" y="270" width="175" height="80" rx="10" fill="white" stroke="#580DD9" stroke-width="1.5" opacity="0.9"/>
+        <text x="647" y="298" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#1a1a2e">Image Pipeline</text>
+        <text x="647" y="315" text-anchor="middle" font-family="monospace" font-size="10" fill="#6B658C">uploads/ → sharp</text>
+        <text x="647" y="330" text-anchor="middle" font-family="monospace" font-size="10" fill="#6B658C">→ optimized WebP</text>
+
+        <!-- Visitor -->
+        <rect x="330" y="385" width="200" height="65" rx="10" fill="url(#grad3)" stroke="#10b981" stroke-width="1.5" opacity="0.9"/>
+        <text x="430" y="412" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#047857">Visitor</text>
+        <text x="430" y="430" text-anchor="middle" font-family="monospace" font-size="10" fill="#065f46">nuefunnel.com → CDN edge</text>
+
+        <!-- Preview Deploys -->
+        <rect x="560" y="385" width="175" height="65" rx="10" fill="white" stroke="#f59e0b" stroke-width="1.5" opacity="0.9" stroke-dasharray="4,3"/>
+        <text x="647" y="412" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#92400e">Preview Deploys</text>
+        <text x="647" y="430" text-anchor="middle" font-family="monospace" font-size="10" fill="#b45309">*.pages.dev per branch</text>
+
+        <!-- ── Arrows ── -->
+        <!-- Repo → Build -->
+        <line x1="240" y1="85" x2="328" y2="85" stroke="#580DD9" stroke-width="1.5" stroke-opacity="0.5" marker-end="url(#arr)"/>
+        <text x="284" y="76" text-anchor="middle" font-family="monospace" font-size="9" fill="#580DD9">push</text>
+
+        <!-- Decap → OAuth -->
+        <line x1="647" y1="130" x2="540" y2="163" stroke="#8E2DA6" stroke-width="1.5" stroke-opacity="0.5" marker-end="url(#arr)"/>
+        <text x="610" y="145" text-anchor="middle" font-family="monospace" font-size="9" fill="#8E2DA6">auth</text>
+
+        <!-- OAuth → GitHub OAuth App -->
+        <line x1="430" y1="165" x2="240" y2="165" stroke="#00A0E4" stroke-width="1.5" stroke-opacity="0.5" marker-end="url(#arr-gray)"/>
+        <text x="335" y="157" text-anchor="middle" font-family="monospace" font-size="9" fill="#0077aa">redirect</text>
+
+        <!-- Build → Static Site -->
+        <line x1="560" y1="200" x2="532" y2="120" stroke="#00A0E4" stroke-width="1.5" stroke-opacity="0.5" marker-end="url(#arr)"/>
+
+        <!-- Decap → Content -->
+        <line x1="647" y1="245" x2="530" y2="268" stroke="#8E2DA6" stroke-width="1.5" stroke-opacity="0.5" marker-end="url(#arr)"/>
+        <text x="610" y="263" text-anchor="middle" font-family="monospace" font-size="9" fill="#8E2DA6">commit MDX</text>
+
+        <!-- Content → Build -->
+        <line x1="430" y1="270" x2="600" y2="237" stroke="#580DD9" stroke-width="1.5" stroke-opacity="0.5" marker-end="url(#arr)"/>
+
+        <!-- Images → Build -->
+        <line x1="647" y1="270" x2="647" y2="237" stroke="#580DD9" stroke-width="1.5" stroke-opacity="0.5" marker-end="url(#arr)"/>
+
+        <!-- Static Site → Visitor -->
+        <line x1="430" y1="130" x2="430" y2="270" stroke="none"/>
+        <line x1="430" y1="130" x2="430" y2="383" stroke="#10b981" stroke-width="1.5" stroke-opacity="0.4" marker-end="url(#arr)" stroke-dasharray="4,3"/>
+        <text x="448" y="305" font-family="monospace" font-size="9" fill="#10b981">serve</text>
+
+        <!-- Build → Preview -->
+        <line x1="735" y1="235" x2="700" y2="383" stroke="#f59e0b" stroke-width="1.5" stroke-opacity="0.5" marker-end="url(#arr)" stroke-dasharray="4,3"/>
+        <text x="740" y="310" font-family="monospace" font-size="9" fill="#b45309">branch deploys</text>
+      </svg>
+    </div>
+
+    <div class="callout">
+      <strong>JAMStack pattern:</strong> The site is fully pre-rendered at build time — no server renders pages on request. Content changes in Decap CMS commit MDX to GitHub, which triggers a new Cloudflare Pages build, which re-generates all static HTML.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── FILE STRUCTURE ── -->
+  <div class="section" id="structure">
+    <div class="section-header">
+      <div class="section-icon">
+        <svg width="20" height="20" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+      </div>
+      <h2 class="section-title">File Structure</h2>
+    </div>
+
+    <div class="file-tree">
+<span class="ft-dir">nuefunnel-website/</span>
+├── <span class="ft-dir">src/</span>
+│   ├── <span class="ft-dir">pages/</span>           <span class="ft-comment">← Astro file-based routing</span>
+│   │   ├── <span class="ft-file">index.astro</span>      <span class="ft-comment">← Homepage /</span>
+│   │   ├── <span class="ft-file">products.astro</span>   <span class="ft-comment">← /products</span>
+│   │   ├── <span class="ft-dir">blog/</span>
+│   │   │   ├── <span class="ft-file">index.astro</span>  <span class="ft-comment">← /blog listing</span>
+│   │   │   └── <span class="ft-file">[slug].astro</span> <span class="ft-comment">← /blog/:slug dynamic route</span>
+│   │   └── <span class="ft-dir">customer-stories/</span>
+│   │       ├── <span class="ft-file">index.astro</span>  <span class="ft-comment">← /customer-stories listing</span>
+│   │       └── <span class="ft-file">[slug].astro</span>
+│   ├── <span class="ft-dir">components/</span>
+│   │   ├── <span class="ft-file">Header.astro</span>     <span class="ft-comment">← Fixed top nav, mobile menu</span>
+│   │   ├── <span class="ft-file">Footer.astro</span>     <span class="ft-comment">← Site footer</span>
+│   │   ├── <span class="ft-file">OptimizedImage.astro</span> <span class="ft-comment">← &lt;img srcset&gt; for blog images</span>
+│   │   └── <span class="ft-file">MDXComponents.ts</span> <span class="ft-comment">← MDX component overrides</span>
+│   ├── <span class="ft-dir">layouts/</span>
+│   │   └── <span class="ft-file">Layout.astro</span>     <span class="ft-comment">← Base layout: SEO, OG, header, footer</span>
+│   ├── <span class="ft-dir">content/</span>         <span class="ft-comment">← Astro Content Collections</span>
+│   │   ├── <span class="ft-file">config.ts</span>        <span class="ft-comment">← Zod schemas for all collections</span>
+│   │   ├── <span class="ft-dir">blog/</span>            <span class="ft-comment">← *.mdx files</span>
+│   │   ├── <span class="ft-dir">customer-stories/</span>
+│   │   └── <span class="ft-dir">products/</span>
+│   ├── <span class="ft-dir">styles/</span>
+│   │   └── <span class="ft-file">global.css</span>       <span class="ft-comment">← Tailwind + Google Fonts import + utilities</span>
+│   └── <span class="ft-file">env.d.ts</span>
+├── <span class="ft-dir">public/</span>              <span class="ft-comment">← Copied verbatim to dist/</span>
+│   ├── <span class="ft-dir">admin/</span>
+│   │   ├── <span class="ft-file">index.html</span>       <span class="ft-comment">← Decap CMS SPA shell</span>
+│   │   └── <span class="ft-file">config.yml</span>       <span class="ft-comment">← CMS collections, OAuth config</span>
+│   ├── <span class="ft-dir">images/</span>
+│   │   ├── <span class="ft-dir">uploads/</span>         <span class="ft-comment">← Raw images committed by CMS</span>
+│   │   └── <span class="ft-dir">optimized/</span>       <span class="ft-comment">← WebP variants generated by script</span>
+│   ├── <span class="ft-file">_redirects</span>          <span class="ft-comment">← Cloudflare Pages redirect rules</span>
+│   ├── <span class="ft-file">robots.txt</span>
+│   └── <span class="ft-file">favicon.svg</span>
+├── <span class="ft-dir">functions/</span>           <span class="ft-comment">← Cloudflare Pages Functions (serverless)</span>
+│   └── <span class="ft-dir">oauth/</span>
+│       ├── <span class="ft-file">index.js</span>         <span class="ft-comment">← GET /oauth → redirect to GitHub</span>
+│       └── <span class="ft-file">callback.js</span>      <span class="ft-comment">← GET /oauth/callback → token exchange</span>
+├── <span class="ft-dir">scripts/</span>
+│   └── <span class="ft-file">optimize-images.mjs</span> <span class="ft-comment">← Sharp batch processor (run before build)</span>
+├── <span class="ft-dir">.beads/</span>             <span class="ft-comment">← Git-native issue tracking</span>
+├── <span class="ft-file">astro.config.mjs</span>
+├── <span class="ft-file">tailwind.config.mjs</span>
+├── <span class="ft-file">tsconfig.json</span>
+├── <span class="ft-file">.env</span>                <span class="ft-comment">← GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET</span>
+├── <span class="ft-file">DESIGN_SYSTEM.md</span>
+└── <span class="ft-file">AGENTS.md</span>           <span class="ft-comment">← Instructions for AI coding agents</span>
+    </div>
+  </div>
+
+  <!-- ── PAGES & ROUTING ── -->
+  <div class="section" id="pages">
+    <div class="section-header">
+      <div class="section-icon">
+        <svg width="20" height="20" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+      </div>
+      <h2 class="section-title">Pages &amp; Routing</h2>
+    </div>
+
+    <p style="margin-bottom:16px;color:#555;font-size:14px;line-height:1.7;">Astro uses <strong>file-based routing</strong> — each <code>.astro</code> file in <code>src/pages/</code> becomes a page. Dynamic routes use bracket syntax (<code>[slug].astro</code>) and export a <code>getStaticPaths()</code> function to enumerate all valid slugs at build time.</p>
+
+    <table>
+      <thead><tr><th>URL</th><th>File</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><code>/</code></td><td><code>src/pages/index.astro</code></td><td>Homepage with hero, feature cards, CTA</td></tr>
+        <tr><td><code>/products</code></td><td><code>src/pages/products.astro</code></td><td>Static product listing page</td></tr>
+        <tr><td><code>/blog</code></td><td><code>src/pages/blog/index.astro</code></td><td>Lists all non-draft blog posts, sorted by date</td></tr>
+        <tr><td><code>/blog/:slug</code></td><td><code>src/pages/blog/[slug].astro</code></td><td>Individual post — MDX rendered with custom components</td></tr>
+        <tr><td><code>/customer-stories</code></td><td><code>src/pages/customer-stories/index.astro</code></td><td>Customer case study listing</td></tr>
+        <tr><td><code>/customer-stories/:slug</code></td><td><code>src/pages/customer-stories/[slug].astro</code></td><td>Individual customer story</td></tr>
+        <tr><td><code>/admin</code></td><td><code>public/admin/index.html</code></td><td>Decap CMS SPA — loads from CDN at runtime</td></tr>
+        <tr><td><code>/oauth</code></td><td><code>functions/oauth/index.js</code></td><td>Redirects to GitHub OAuth authorize URL</td></tr>
+        <tr><td><code>/oauth/callback</code></td><td><code>functions/oauth/callback.js</code></td><td>Exchanges code for token, sends to parent window</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── COMPONENTS ── -->
+  <div class="section" id="components">
+    <div class="section-header">
+      <div class="section-icon">
+        <svg width="20" height="20" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>
+      </div>
+      <h2 class="section-title">Components</h2>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3>Header.astro</h3>
+        <p>Fixed top bar. Logo switches from black (homepage) to <code>accent-cyan</code> (inner pages) using <code>Astro.url.pathname</code>. Mobile hamburger menu toggled via inline JS.</p>
+        <br/><span class="badge">Fixed positioning</span> <span class="badge">Mobile responsive</span>
+      </div>
+      <div class="card">
+        <h3>Footer.astro</h3>
+        <p>Simple site footer with copyright and social links.</p>
+      </div>
+      <div class="card">
+        <h3>Layout.astro</h3>
+        <p>Base layout wrapper. Handles full SEO head: <code>&lt;title&gt;</code>, <code>description</code>, Open Graph, Twitter Card. Accepts <code>title</code>, <code>description</code>, <code>image</code>, <code>type</code> props.</p>
+        <br/><span class="badge">OG tags</span> <span class="badge">Canonical URL</span>
+      </div>
+      <div class="card">
+        <h3>OptimizedImage.astro</h3>
+        <p>Renders <code>&lt;img srcset&gt;</code> pointing to the pre-generated WebP variants in <code>public/images/optimized/</code>. Uses the JSON metadata sidecar for width values.</p>
+        <br/><span class="badge">srcset</span> <span class="badge">WebP</span>
+      </div>
+      <div class="card">
+        <h3>MDXComponents.ts</h3>
+        <p>Maps MDX element names to custom Astro/React components. Passed to <code>&lt;Content components={components} /&gt;</code> inside blog post pages.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── CONTENT COLLECTIONS ── -->
+  <div class="section" id="content">
+    <div class="section-header">
+      <div class="section-icon">
+        <svg width="20" height="20" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+      </div>
+      <h2 class="section-title">Content Collections</h2>
+    </div>
+
+    <p style="margin-bottom:16px;color:#555;font-size:14px;line-height:1.7;">Astro Content Collections give you <strong>type-safe, schema-validated</strong> MDX content. Schemas are defined with <strong>Zod</strong> in <code>src/content/config.ts</code>. All three collections share a <code>draft: boolean</code> field — pages filter out drafts at build time with <code>getCollection('blog', ({data}) => !data.draft)</code>.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3>blog</h3>
+        <p>Path: <code>src/content/blog/*.mdx</code></p>
+        <br/>
+        <table>
+          <tr><td><code>title</code></td><td>string (required)</td></tr>
+          <tr><td><code>description</code></td><td>string (required)</td></tr>
+          <tr><td><code>date</code></td><td>coerced Date</td></tr>
+          <tr><td><code>author</code></td><td>string, default "nuefunnel Team"</td></tr>
+          <tr><td><code>image</code></td><td>string? (path to upload)</td></tr>
+          <tr><td><code>tags</code></td><td>string[], default []</td></tr>
+          <tr><td><code>draft</code></td><td>boolean, default false</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <h3>customer-stories</h3>
+        <p>Path: <code>src/content/customer-stories/*.mdx</code></p>
+        <br/>
+        <table>
+          <tr><td><code>title</code></td><td>string (required)</td></tr>
+          <tr><td><code>description</code></td><td>string (required)</td></tr>
+          <tr><td><code>date</code></td><td>coerced Date</td></tr>
+          <tr><td><code>company</code></td><td>string?</td></tr>
+          <tr><td><code>industry</code></td><td>string?</td></tr>
+          <tr><td><code>image</code></td><td>string?</td></tr>
+          <tr><td><code>featured</code></td><td>boolean, default false</td></tr>
+          <tr><td><code>draft</code></td><td>boolean, default false</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <h3>products</h3>
+        <p>Path: <code>src/content/products/*.mdx</code></p>
+        <br/>
+        <table>
+          <tr><td><code>title</code></td><td>string (required)</td></tr>
+          <tr><td><code>description</code></td><td>string (required)</td></tr>
+          <tr><td><code>price</code></td><td>string?</td></tr>
+          <tr><td><code>features</code></td><td>string[], default []</td></tr>
+          <tr><td><code>image</code></td><td>string?</td></tr>
+          <tr><td><code>order</code></td><td>number, default 0</td></tr>
+          <tr><td><code>draft</code></td><td>boolean, default false</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── DECAP CMS ── -->
+  <div class="section" id="cms">
+    <div class="section-header">
+      <div class="section-icon">
+        <svg width="20" height="20" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+      </div>
+      <h2 class="section-title">Decap CMS</h2>
+    </div>
+
+    <p style="margin-bottom:16px;color:#555;font-size:14px;line-height:1.7;">Decap CMS (formerly Netlify CMS) is a <strong>git-based, open-source headless CMS</strong>. It's served as a static SPA from <code>/admin</code>. It reads/writes content directly to the GitHub repository via the GitHub API — there is no separate database. The configuration lives entirely in <code>public/admin/config.yml</code>.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3>Access</h3>
+        <p>Local: <code>http://localhost:4321/admin</code><br/>
+        Production: <code>https://nuefunnel.com/admin</code></p>
+        <br/>
+        <p>Login requires a GitHub account with <strong>write access</strong> to <code>sidhusmart/nuefunnel-website</code>.</p>
+      </div>
+      <div class="card">
+        <h3>Backend</h3>
+        <p>Backend: <code>github</code><br/>
+        Repo: <code>sidhusmart/nuefunnel-website</code><br/>
+        Branch: <code>main</code><br/>
+        Base URL: <code>nuefunnel-website.pages.dev</code><br/>
+        Auth endpoint: <code>oauth</code> (→ <code>/oauth</code>)</p>
+      </div>
+      <div class="card">
+        <h3>Media</h3>
+        <p>Uploads stored at: <code>public/images/uploads/</code><br/>
+        Public path prefix: <code>/images/uploads/</code><br/><br/>
+        After upload, run <code>npm run optimize:images</code> to generate WebP variants.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── EDITORIAL WORKFLOW ── -->
+  <div class="section" id="editorial">
+    <div class="section-header">
+      <div class="section-icon">
+        <svg width="20" height="20" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+      </div>
+      <h2 class="section-title">Editorial Workflow</h2>
+    </div>
+
+    <p style="margin-bottom:20px;color:#555;font-size:14px;line-height:1.7;">The CMS has <code>publish_mode: editorial_workflow</code> enabled. This means every piece of content moves through explicit status stages. Each draft lives on its own Git branch, giving you isolated preview deploys on Cloudflare Pages.</p>
+
+    <div class="diagram-wrap">
+      <div class="diagram-title">Content Lifecycle</div>
+      <svg viewBox="0 0 760 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:760px;display:block;margin:0 auto;">
+        <defs>
+          <marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#580DD9" opacity="0.6"/>
+          </marker>
+        </defs>
+
+        <!-- Draft -->
+        <rect x="20" y="60" width="155" height="80" rx="12" fill="rgba(107,101,140,0.1)" stroke="#6B658C" stroke-width="1.5"/>
+        <text x="97" y="92" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#6B658C">Draft</text>
+        <text x="97" y="110" text-anchor="middle" font-family="monospace" font-size="10" fill="#6B658C">cms/[slug] branch</text>
+        <text x="97" y="126" text-anchor="middle" font-family="monospace" font-size="10" fill="#6B658C">draft: true in MDX</text>
+
+        <!-- Arrow -->
+        <line x1="175" y1="100" x2="215" y2="100" stroke="#580DD9" stroke-width="1.5" stroke-opacity="0.5" marker-end="url(#arr2)"/>
+        <text x="195" y="90" text-anchor="middle" font-family="monospace" font-size="9" fill="#580DD9">Review</text>
+
+        <!-- In Review -->
+        <rect x="215" y="60" width="155" height="80" rx="12" fill="rgba(245,158,11,0.1)" stroke="#f59e0b" stroke-width="1.5"/>
+        <text x="292" y="92" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#b45309">In Review</text>
+        <text x="292" y="110" text-anchor="middle" font-family="monospace" font-size="10" fill="#b45309">same branch</text>
+        <text x="292" y="126" text-anchor="middle" font-family="monospace" font-size="10" fill="#b45309">preview URL available</text>
+
+        <!-- Arrow -->
+        <line x1="370" y1="100" x2="410" y2="100" stroke="#580DD9" stroke-width="1.5" stroke-opacity="0.5" marker-end="url(#arr2)"/>
+        <text x="390" y="90" text-anchor="middle" font-family="monospace" font-size="9" fill="#580DD9">Approve</text>
+
+        <!-- Ready -->
+        <rect x="410" y="60" width="155" height="80" rx="12" fill="rgba(16,185,129,0.1)" stroke="#10b981" stroke-width="1.5"/>
+        <text x="487" y="92" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#047857">Ready</text>
+        <text x="487" y="110" text-anchor="middle" font-family="monospace" font-size="10" fill="#047857">same branch</text>
+        <text x="487" y="126" text-anchor="middle" font-family="monospace" font-size="10" fill="#047857">approved for merge</text>
+
+        <!-- Arrow -->
+        <line x1="565" y1="100" x2="605" y2="100" stroke="#580DD9" stroke-width="1.5" stroke-opacity="0.5" marker-end="url(#arr2)"/>
+        <text x="585" y="90" text-anchor="middle" font-family="monospace" font-size="9" fill="#580DD9">Publish</text>
+
+        <!-- Live -->
+        <rect x="605" y="60" width="140" height="80" rx="12" fill="rgba(88,13,217,0.1)" stroke="#580DD9" stroke-width="1.5"/>
+        <text x="675" y="92" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#580DD9">Live</text>
+        <text x="675" y="110" text-anchor="middle" font-family="monospace" font-size="10" fill="#580DD9">merged → main</text>
+        <text x="675" y="126" text-anchor="middle" font-family="monospace" font-size="10" fill="#580DD9">Cloudflare rebuilds</text>
+
+        <!-- Git labels -->
+        <text x="97" y="160" text-anchor="middle" font-family="monospace" font-size="9" fill="#999">branch: cms/[slug]</text>
+        <text x="292" y="160" text-anchor="middle" font-family="monospace" font-size="9" fill="#999">*.pages.dev preview</text>
+        <text x="487" y="160" text-anchor="middle" font-family="monospace" font-size="9" fill="#999">awaiting merge</text>
+        <text x="675" y="160" text-anchor="middle" font-family="monospace" font-size="9" fill="#999">main branch</text>
+      </svg>
+    </div>
+
+    <div class="callout">
+      <strong>Preview URLs:</strong> When Decap CMS creates a draft, it commits the MDX to a <code>cms/[collection]/[slug]</code> branch. Cloudflare Pages automatically deploys each branch to a unique preview URL like <code>cms-blog-my-post.nuefunnel-website.pages.dev</code>. This lets you preview content before it goes live.
+    </div>
+  </div>
+
+  <!-- ── OAUTH FLOW ── -->
+  <div class="section" id="oauth">
+    <div class="section-header">
+      <div class="section-icon">
+        <svg width="20" height="20" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+      </div>
+      <h2 class="section-title">OAuth Flow</h2>
+    </div>
+
+    <p style="margin-bottom:16px;color:#555;font-size:14px;line-height:1.7;">Decap CMS needs a GitHub token to read/write repository content. GitHub's CORS policy prevents the browser from doing the token exchange directly — so a server-side proxy is required. Two Cloudflare Pages Functions handle this transparently.</p>
+
+    <div class="diagram-wrap">
+      <div class="diagram-title">GitHub OAuth — Step by Step</div>
+      <svg viewBox="0 0 760 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:760px;display:block;margin:0 auto;">
+        <defs>
+          <marker id="arr3" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L7,3 z" fill="#580DD9" opacity="0.65"/>
+          </marker>
+        </defs>
+
+        <!-- Actors -->
+        <rect x="30" y="20" width="110" height="36" rx="8" fill="rgba(88,13,217,0.1)" stroke="#580DD9" stroke-width="1.2"/>
+        <text x="85" y="43" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#580DD9">Browser / CMS</text>
+
+        <rect x="310" y="20" width="140" height="36" rx="8" fill="rgba(0,160,228,0.1)" stroke="#00A0E4" stroke-width="1.2"/>
+        <text x="380" y="43" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#0077aa">CF Functions</text>
+
+        <rect x="610" y="20" width="120" height="36" rx="8" fill="rgba(107,101,140,0.1)" stroke="#6B658C" stroke-width="1.2"/>
+        <text x="670" y="43" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#6B658C">GitHub API</text>
+
+        <!-- Lifelines -->
+        <line x1="85" y1="56" x2="85" y2="330" stroke="#580DD9" stroke-width="1" stroke-dasharray="4,3" opacity="0.3"/>
+        <line x1="380" y1="56" x2="380" y2="330" stroke="#00A0E4" stroke-width="1" stroke-dasharray="4,3" opacity="0.3"/>
+        <line x1="670" y1="56" x2="670" y2="330" stroke="#6B658C" stroke-width="1" stroke-dasharray="4,3" opacity="0.3"/>
+
+        <!-- Step 1: Click Login -->
+        <line x1="85" y1="90" x2="373" y2="90" stroke="#580DD9" stroke-width="1.5" stroke-opacity="0.6" marker-end="url(#arr3)"/>
+        <text x="230" y="83" text-anchor="middle" font-family="monospace" font-size="10" fill="#580DD9">1. GET /oauth</text>
+
+        <!-- Step 2: Redirect to GitHub -->
+        <line x1="380" y1="110" x2="663" y2="110" stroke="#00A0E4" stroke-width="1.5" stroke-opacity="0.6" marker-end="url(#arr3)"/>
+        <text x="522" y="103" text-anchor="middle" font-family="monospace" font-size="10" fill="#0077aa">2. 302 → github.com/login/oauth/authorize</text>
+
+        <!-- Step 3: User approves -->
+        <line x1="670" y1="140" x2="93" y2="140" stroke="#6B658C" stroke-width="1.5" stroke-opacity="0.5" marker-end="url(#arr3)" stroke-dasharray="3,2"/>
+        <text x="380" y="133" text-anchor="middle" font-family="monospace" font-size="10" fill="#6B658C">3. GitHub login page (user approves)</text>
+
+        <!-- Step 4: Callback with code -->
+        <line x1="85" y1="170" x2="373" y2="170" stroke="#580DD9" stroke-width="1.5" stroke-opacity="0.6" marker-end="url(#arr3)"/>
+        <text x="230" y="163" text-anchor="middle" font-family="monospace" font-size="10" fill="#580DD9">4. GET /oauth/callback?code=…</text>
+
+        <!-- Step 5: Exchange code -->
+        <line x1="380" y1="200" x2="663" y2="200" stroke="#00A0E4" stroke-width="1.5" stroke-opacity="0.6" marker-end="url(#arr3)"/>
+        <text x="522" y="193" text-anchor="middle" font-family="monospace" font-size="10" fill="#0077aa">5. POST /login/oauth/access_token</text>
+
+        <!-- Step 6: Token returned -->
+        <line x1="670" y1="230" x2="388" y2="230" stroke="#6B658C" stroke-width="1.5" stroke-opacity="0.5" marker-end="url(#arr3)" stroke-dasharray="3,2"/>
+        <text x="522" y="223" text-anchor="middle" font-family="monospace" font-size="10" fill="#6B658C">6. { access_token: "…" }</text>
+
+        <!-- Step 7: HTML page with postMessage -->
+        <line x1="380" y1="265" x2="93" y2="265" stroke="#00A0E4" stroke-width="1.5" stroke-opacity="0.6" marker-end="url(#arr3)"/>
+        <text x="230" y="255" text-anchor="middle" font-family="monospace" font-size="10" fill="#0077aa">7. HTML page → window.opener.postMessage(</text>
+        <text x="230" y="270" text-anchor="middle" font-family="monospace" font-size="10" fill="#0077aa">  "authorization:github:success:{token}"</text>
+
+        <!-- Step 8: CMS authenticated -->
+        <rect x="20" y="285" width="130" height="28" rx="6" fill="rgba(16,185,129,0.15)" stroke="#10b981" stroke-width="1"/>
+        <text x="85" y="304" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#047857">8. CMS authenticated ✓</text>
+      </svg>
+    </div>
+
+    <div class="callout">
+      <strong>Why a popup?</strong> Decap CMS opens <code>/oauth</code> in a popup window. After the callback closes, it uses <code>window.opener.postMessage()</code> to send the token to the parent CMS window — a standard OAuth PKCE-like handshake pattern for browser-based apps.
+    </div>
+
+    <p style="margin-top:16px;color:#555;font-size:13.5px;line-height:1.7;">The two secrets (<code>GITHUB_CLIENT_ID</code>, <code>GITHUB_CLIENT_SECRET</code>) are stored as Cloudflare Pages environment variables and accessed via <code>env</code> in the Functions context — they are never exposed to the browser.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── DEPLOYMENT ── -->
+  <div class="section" id="deployment">
+    <div class="section-header">
+      <div class="section-icon">
+        <svg width="20" height="20" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
+      </div>
+      <h2 class="section-title">Cloudflare Pages Deployment</h2>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3>Build Settings</h3>
+        <table>
+          <tr><td>Build command</td><td><code>npm run build</code></td></tr>
+          <tr><td>Output directory</td><td><code>dist/</code></td></tr>
+          <tr><td>Node version</td><td>18+</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Triggers</h3>
+        <p>Every push to <code>main</code> triggers a production build.<br/>Every push to any other branch triggers a <strong>preview deploy</strong> at a unique <code>*.pages.dev</code> URL.</p>
+      </div>
+      <div class="card">
+        <h3>Functions</h3>
+        <p>Files in <code>functions/</code> are auto-deployed as <strong>Cloudflare Workers</strong> at the matching path. No extra config needed — just export <code>onRequest</code>.</p>
+        <br/><span class="badge cyan">Serverless</span> <span class="badge cyan">Edge-native</span>
+      </div>
+      <div class="card">
+        <h3>Custom Domain</h3>
+        <p>Production: <code>www.nuefunnel.com</code><br/>Preview: <code>*.nuefunnel-website.pages.dev</code><br/>Cloudflare handles DNS, SSL, and CDN automatically.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BUILD PIPELINE ── -->
+  <div class="section" id="pipeline">
+    <div class="section-header">
+      <div class="section-icon">
+        <svg width="20" height="20" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+      </div>
+      <h2 class="section-title">Build Pipeline</h2>
+    </div>
+
+    <p style="margin-bottom:16px;color:#555;font-size:14px;line-height:1.7;">The production build command is <code>npm run build</code>, which runs three steps in sequence:</p>
+
+    <div class="flow">
+      <div class="flow-step">1. optimize:images<br/><span style="font-size:10px;font-weight:400;color:#8E2DA6">Sharp → WebP variants</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">2. astro check<br/><span style="font-size:10px;font-weight:400;color:#8E2DA6">TypeScript type check</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">3. astro build<br/><span style="font-size:10px;font-weight:400;color:#8E2DA6">SSG → dist/</span></div>
+    </div>
+
+    <div class="callout">
+      The image optimization step runs <em>before</em> the Astro build so that <code>OptimizedImage.astro</code> can read the JSON metadata sidecars from <code>public/images/optimized/</code> at build time.
+    </div>
+  </div>
+
+  <!-- ── ENV VARS ── -->
+  <div class="section" id="envvars">
+    <div class="section-header">
+      <div class="section-icon">
+        <svg width="20" height="20" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
+      </div>
+      <h2 class="section-title">Environment Variables</h2>
+    </div>
+
+    <table>
+      <thead><tr><th>Variable</th><th>Where</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><code>GITHUB_CLIENT_ID</code></td>
+          <td>Cloudflare Pages env + local <code>.env</code></td>
+          <td>Public ID for the GitHub OAuth App — used in <code>functions/oauth/index.js</code> to build the authorization URL</td>
+        </tr>
+        <tr>
+          <td><code>GITHUB_CLIENT_SECRET</code></td>
+          <td>Cloudflare Pages env only (never commit)</td>
+          <td>Secret for token exchange in <code>functions/oauth/callback.js</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout warning">
+      <strong>Never commit</strong> <code>GITHUB_CLIENT_SECRET</code> to git. The <code>.env</code> file is gitignored. Set it only in the Cloudflare Pages dashboard under <strong>Settings → Environment Variables</strong>.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── DESIGN SYSTEM ── -->
+  <div class="section" id="design">
+    <div class="section-header">
+      <div class="section-icon">
+        <svg width="20" height="20" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+      </div>
+      <h2 class="section-title">Design System</h2>
+    </div>
+
+    <p style="margin-bottom:20px;color:#555;font-size:14px;line-height:1.7;">Documented in <code>DESIGN_SYSTEM.md</code>. The design was originally built in Framer and ported to Astro + Tailwind. Key choices:</p>
+
+    <h3 style="font-size:13px;font-weight:700;color:#580DD9;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;">Color Palette</h3>
+    <div class="swatch-row">
+      <div class="swatch"><div class="swatch-dot" style="background:#580DD9;"></div><div><div class="swatch-name">Purple</div><div class="swatch-hex">#580DD9</div></div></div>
+      <div class="swatch"><div class="swatch-dot" style="background:#8E2DA6;"></div><div><div class="swatch-name">Magenta</div><div class="swatch-hex">#8E2DA6</div></div></div>
+      <div class="swatch"><div class="swatch-dot" style="background:#00A0E4;"></div><div><div class="swatch-name">Cyan</div><div class="swatch-hex">#00A0E4</div></div></div>
+      <div class="swatch"><div class="swatch-dot" style="background:#6B658C;"></div><div><div class="swatch-name">Muted Purple</div><div class="swatch-hex">#6B658C</div></div></div>
+      <div class="swatch"><div class="swatch-dot" style="background:#e5ddff;border:1px solid #ddd;"></div><div><div class="swatch-name">Lavender</div><div class="swatch-hex">rgba(229,221,255,0.3)</div></div></div>
+    </div>
+
+    <br/>
+    <h3 style="font-size:13px;font-weight:700;color:#580DD9;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;">Typography</h3>
+    <table>
+      <thead><tr><th>Font</th><th>Class / Usage</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Bungee</strong></td><td><code>font-logo</code> — logo "NUEFUNNEL" only</td></tr>
+        <tr><td><strong>Inter</strong></td><td><code>font-sans</code> — all body text, headings, nav</td></tr>
+        <tr><td><strong>Inter Tight</strong></td><td><code>font-tight</code> — compact headings</td></tr>
+      </tbody>
+    </table>
+
+    <br/>
+    <h3 style="font-size:13px;font-weight:700;color:#580DD9;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;">Key CSS Utilities</h3>
+    <table>
+      <thead><tr><th>Class</th><th>Effect</th></tr></thead>
+      <tbody>
+        <tr><td><code>.gradient-text</code></td><td>Purple→Magenta gradient clipped to text (hero headings)</td></tr>
+        <tr><td><code>.gradient-text-italic</code></td><td>Same gradient + italic (section taglines)</td></tr>
+        <tr><td><code>.btn-primary</code></td><td>Muted-purple bg, white text, <code>rounded-lg</code>, hover opacity</td></tr>
+        <tr><td><code>.container-custom</code></td><td><code>max-width: 1200px</code>, centered, horizontal padding</td></tr>
+        <tr><td><code>.card</code></td><td>White bg, rounded, hover scale-up transition</td></tr>
+      </tbody>
+    </table>
+
+    <br/>
+    <h3 style="font-size:13px;font-weight:700;color:#580DD9;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;">Background</h3>
+    <div class="card" style="display:flex;align-items:center;gap:24px;">
+      <div style="width:80px;height:80px;border-radius:8px;flex-shrink:0;background-color:#fff;background-image:radial-gradient(circle, rgba(0,0,0,0.08) 1px, transparent 1px);background-size:22px 22px;border:1px solid #eee;"></div>
+      <div>
+        <p style="font-size:13px;color:#444;line-height:1.6;">Subtle polka-dot pattern applied to <code>body</code>: <code>radial-gradient(circle, rgba(0,0,0,0.08) 1px, transparent 1px)</code> at <code>24px × 24px</code> grid. Creates a light texture visible against the white background without distracting from content.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── IMAGE PIPELINE ── -->
+  <div class="section" id="images">
+    <div class="section-header">
+      <div class="section-icon">
+        <svg width="20" height="20" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+      </div>
+      <h2 class="section-title">Image Pipeline</h2>
+    </div>
+
+    <p style="margin-bottom:16px;color:#555;font-size:14px;line-height:1.7;">The CMS saves uploads to <code>public/images/uploads/</code>. The custom Sharp script (<code>scripts/optimize-images.mjs</code>) processes them into WebP variants and saves metadata JSON sidecars to <code>public/images/optimized/</code>.</p>
+
+    <div class="flow">
+      <div class="flow-step">CMS uploads<br/><code style="font-size:10px;font-weight:400;">uploads/*.png</code></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">optimize:images<br/><code style="font-size:10px;font-weight:400;">sharp → WebP</code></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">optimized/<br/><code style="font-size:10px;font-weight:400;">400w / 800w / 1200w + full</code></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">OptimizedImage.astro<br/><code style="font-size:10px;font-weight:400;">srcset from JSON</code></div>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <h3>Generated Artifacts (per image)</h3>
+      <ul>
+        <li><code>image-name-400w.webp</code> — 400px wide variant</li>
+        <li><code>image-name-800w.webp</code> — 800px wide variant</li>
+        <li><code>image-name-1200w.webp</code> — 1200px wide variant</li>
+        <li><code>image-name.webp</code> — full-resolution WebP</li>
+        <li><code>image-name.json</code> — metadata sidecar (dimensions, paths, sizes)</li>
+      </ul>
+      <br/><p>Quality: 80%. Original PNG files are kept in <code>uploads/</code> (not deleted).</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── COMMANDS ── -->
+  <div class="section" id="commands">
+    <div class="section-header">
+      <div class="section-icon">
+        <svg width="20" height="20" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+      </div>
+      <h2 class="section-title">Commands Reference</h2>
+    </div>
+
+    <div class="card" style="margin-bottom:20px;">
+      <h3>npm Scripts</h3>
+      <div class="cmd-row"><div class="cmd-code">npm run dev</div><div class="cmd-desc">Start Astro dev server at <code>http://localhost:4321</code> with hot reload. Does not run image optimization.</div></div>
+      <div class="cmd-row"><div class="cmd-code">npm run build</div><div class="cmd-desc">Full production build: optimize images → TypeScript check → Astro SSG. Output in <code>dist/</code>.</div></div>
+      <div class="cmd-row"><div class="cmd-code">npm run preview</div><div class="cmd-desc">Serve the <code>dist/</code> folder locally to test the production build before deploying.</div></div>
+      <div class="cmd-row"><div class="cmd-code">npm run optimize:images</div><div class="cmd-desc">Run Sharp image processor standalone — useful when you've added new uploads and want to regenerate WebP variants without a full build.</div></div>
+      <div class="cmd-row"><div class="cmd-code">npm run astro -- check</div><div class="cmd-desc">TypeScript type-check only. No ESLint is configured — use this to catch type errors.</div></div>
+    </div>
+
+    <div class="card">
+      <h3>Beads Issue Tracker (bd)</h3>
+      <div class="cmd-row"><div class="cmd-code">bd ready</div><div class="cmd-desc">List issues available to pick up (status: open).</div></div>
+      <div class="cmd-row"><div class="cmd-code">bd show &lt;id&gt;</div><div class="cmd-desc">View full details of an issue.</div></div>
+      <div class="cmd-row"><div class="cmd-code">bd update &lt;id&gt; --status in_progress</div><div class="cmd-desc">Mark an issue as in progress (claim it).</div></div>
+      <div class="cmd-row"><div class="cmd-code">bd close &lt;id&gt;</div><div class="cmd-desc">Mark an issue as done.</div></div>
+      <div class="cmd-row"><div class="cmd-code">bd create "Title"</div><div class="cmd-desc">Create a new issue.</div></div>
+      <div class="cmd-row"><div class="cmd-code">bd sync</div><div class="cmd-desc">Sync issue state with the remote git repo.</div></div>
+    </div>
+  </div>
+
+  <!-- ── ISSUE TRACKING ── -->
+  <div class="section" id="issues">
+    <div class="section-header">
+      <div class="section-icon">
+        <svg width="20" height="20" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+      </div>
+      <h2 class="section-title">Issue Tracking — Beads</h2>
+    </div>
+
+    <p style="margin-bottom:16px;color:#555;font-size:14px;line-height:1.7;">This project uses <strong>Beads (bd)</strong> — a git-native issue tracker that stores everything in <code>.beads/issues.jsonl</code>, committed alongside code. It's designed for AI-assisted workflows where issues should be visible without switching to a web UI.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3>Storage</h3>
+        <p><code>.beads/issues.jsonl</code> — JSONL format, one issue per line, merged like code conflicts.</p>
+        <br/><p><code>.beads/config.yaml</code> — project-level config.</p>
+        <br/><p><code>.beads/interactions.jsonl</code> — audit log of actions.</p>
+      </div>
+      <div class="card">
+        <h3>Workflow</h3>
+        <ul>
+          <li>Issues sync automatically with git commits</li>
+          <li>Works offline, syncs on push</li>
+          <li>Branch-aware — issues can track which branch they belong to</li>
+          <li>CLI-first: <code>bd create / show / update / close / sync</code></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <div class="divider"></div>
+  <div style="text-align:center;padding:20px 0 40px;color:#aaa;font-size:12px;">
+    <span style="font-family:'Bungee',sans-serif;background:linear-gradient(135deg,#580DD9,#8E2DA6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">NUEFUNNEL</span>
+    &nbsp;·&nbsp; Repo Guide generated May 2026
+  </div>
+
+</main>
+
+<script>
+  // Highlight active nav link based on scroll position
+  const sections = document.querySelectorAll('.section, .hero-section');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => link.classList.remove('active'));
+        const id = entry.target.id;
+        const active = document.querySelector(`.nav-link[href="#${id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-10% 0px -70% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
