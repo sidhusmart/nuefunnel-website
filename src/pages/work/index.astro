@@ -1,0 +1,70 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+const allWork = await getCollection('work', ({ data }) => !data.draft);
+const sortedWork = allWork.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+  });
+}
+---
+
+<Layout title="Work" description="Recent projects the nuefunnel studio has shipped.">
+  <section class="pt-28 md:pt-36 pb-16 px-4">
+    <div class="container-custom max-w-desktop">
+      <p class="text-xs uppercase tracking-wider text-subtle font-medium mb-3">
+        Work
+      </p>
+      <h1 class="font-tight text-4xl md:text-6xl font-semibold text-ink max-w-4xl leading-[1.05]">
+        Things we've shipped.
+      </h1>
+      <p class="mt-6 text-lg md:text-xl text-body max-w-2xl leading-relaxed">
+        A small number of projects each quarter. Most are four to eight weeks,
+        two people, coding-agent-assisted. Listed newest first.
+      </p>
+    </div>
+  </section>
+
+  <section class="pb-24 px-4 border-t border-border pt-16">
+    <div class="container-custom max-w-desktop">
+      <div class="flex flex-col gap-14 md:gap-20">
+        {sortedWork.map((entry) => (
+          <a
+            href={`/work/${entry.slug}`}
+            class="block group max-w-3xl"
+          >
+            <div class="flex flex-wrap items-baseline gap-x-4 gap-y-1 mb-2">
+              {entry.data.industry && (
+                <p class="text-xs uppercase tracking-wider text-subtle font-medium">
+                  {entry.data.industry}
+                </p>
+              )}
+              <span class="text-xs uppercase tracking-wider text-subtle">
+                {formatDate(entry.data.date)}
+              </span>
+            </div>
+            <h2 class="font-tight text-2xl md:text-3xl font-semibold text-ink group-hover:text-accent transition-colors leading-snug">
+              {entry.data.title}
+            </h2>
+            <p class="mt-3 text-body text-base md:text-lg leading-relaxed">
+              {entry.data.description}
+            </p>
+            {entry.data.scope && (
+              <p class="mt-4 text-sm text-subtle font-medium">
+                {entry.data.scope}
+              </p>
+            )}
+          </a>
+        ))}
+      </div>
+
+      {sortedWork.length === 0 && (
+        <p class="text-body">No published work yet.</p>
+      )}
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,84 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+const allTraining = await getCollection('training', ({ data }) => !data.draft);
+const sortedTraining = allTraining.sort((a, b) => {
+  const aDate = a.data.date?.getTime() ?? 0;
+  const bDate = b.data.date?.getTime() ?? 0;
+  return bDate - aDate;
+});
+---
+
+<Layout title="Training" description="Workshop-led training sessions we've run, curated to the team's actual work and business context.">
+  <section class="pt-28 md:pt-36 pb-16 px-4">
+    <div class="container-custom max-w-desktop">
+      <p class="text-xs uppercase tracking-wider text-subtle font-medium mb-3">
+        Training
+      </p>
+      <h1 class="font-tight text-4xl md:text-6xl font-semibold text-ink max-w-4xl leading-[1.05]">
+        Workshops, not generic AI 101.
+      </h1>
+      <p class="mt-6 text-lg md:text-xl text-body max-w-2xl leading-relaxed">
+        We run workshop-style training for small audiences &mdash; curated to
+        your team's actual work, business context, and daily tasks. Below are
+        the sessions we've run recently. Each one is customized further when
+        we run it inside a specific organization.
+      </p>
+    </div>
+  </section>
+
+  <section class="pb-24 px-4 border-t border-border pt-16">
+    <div class="container-custom max-w-desktop">
+      <div class="flex flex-col gap-14 md:gap-20">
+        {sortedTraining.map((entry) => (
+          <a
+            href={`/training/${entry.slug}`}
+            class="block group max-w-3xl"
+          >
+            <div class="flex flex-wrap items-baseline gap-x-4 gap-y-1 mb-2">
+              {entry.data.duration && (
+                <p class="text-xs uppercase tracking-wider text-subtle font-medium">
+                  {entry.data.duration}
+                </p>
+              )}
+              {entry.data.audience && (
+                <span class="text-xs uppercase tracking-wider text-subtle">
+                  {entry.data.audience}
+                </span>
+              )}
+            </div>
+            <h2 class="font-tight text-2xl md:text-3xl font-semibold text-ink group-hover:text-accent transition-colors leading-snug">
+              {entry.data.title}
+            </h2>
+            <p class="mt-3 text-body text-base md:text-lg leading-relaxed">
+              {entry.data.description}
+            </p>
+          </a>
+        ))}
+      </div>
+
+      {sortedTraining.length === 0 && (
+        <p class="text-body">No training sessions listed yet.</p>
+      )}
+
+      <div class="mt-20 pt-10 border-t border-border max-w-3xl">
+        <h2 class="font-tight text-2xl md:text-3xl font-semibold text-ink leading-snug">
+          Want one of these for your team?
+        </h2>
+        <p class="mt-4 text-body leading-relaxed">
+          Tell us a bit about your audience, what they're working on, and
+          what you'd want them walking away with. We'll reply with whether
+          one of the existing formats fits, or whether we'd need to design
+          something new.
+        </p>
+        <a
+          href="mailto:contact@nuefunnel.com?subject=Training%20inquiry"
+          class="inline-block mt-6 btn-primary"
+        >
+          Request a workshop
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

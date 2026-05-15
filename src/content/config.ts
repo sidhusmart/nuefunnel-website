@@ -13,17 +13,21 @@ const blogCollection = defineCollection({
   }),
 });
 
-const customerStoriesCollection = defineCollection({
+const workCollection = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
     description: z.string(),
     date: z.coerce.date(),
-    company: z.string().optional(),
+    client: z.string().optional(),
     industry: z.string().optional(),
+    scope: z.string().optional(),
+    outcome: z.string().optional(),
     image: z.string().optional(),
     featured: z.boolean().optional().default(false),
     draft: z.boolean().optional().default(false),
+    // legacy field kept so older draft files still pass schema validation
+    company: z.string().optional(),
   }),
 });
 
@@ -40,8 +44,23 @@ const productsCollection = defineCollection({
   }),
 });
 
+const trainingCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    audience: z.string().optional(),
+    format: z.string().optional(),
+    duration: z.string().optional(),
+    date: z.coerce.date().optional(),
+    image: z.string().optional(),
+    draft: z.boolean().optional().default(false),
+  }),
+});
+
 export const collections = {
   blog: blogCollection,
-  'customer-stories': customerStoriesCollection,
+  work: workCollection,
   products: productsCollection,
+  training: trainingCollection,
 };

@@ -1,130 +1,329 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const founders = [
+  {
+    initials: 'F1',
+    name: '[Founder one]',
+    role: '[Background — e.g. data science, ML]',
+  },
+  {
+    initials: 'F2',
+    name: '[Founder two]',
+    role: '[Background — e.g. conversational AI, product]',
+  },
+];
+
+const caseStudies = [
+  {
+    slug: 'whatsapp-llm-fintech',
+    industry: 'Financial services',
+    headline: 'WhatsApp + LLM customer support for a regional fintech',
+    outcome: '60% of first-touch tickets deflected; the support team now handles only edge cases.',
+    scope: '5 weeks · 2 people · coding-agent-assisted',
+    detail: 'Structured tool calls bridge the LLM with their internal CRM — no new system of record.',
+  },
+  {
+    slug: 'engineering-rag',
+    industry: 'B2B SaaS',
+    headline: 'Internal RAG for engineering onboarding',
+    outcome: 'New-hire ramp time dropped from three days of pair-programming to roughly six hours of supervised exploration.',
+    scope: '4 weeks · 2 people · coding-agent-assisted',
+    detail: 'Indexed against their existing Notion and GitHub corpus. We did not introduce a new docs platform.',
+  },
+  {
+    slug: 'conversational-analytics',
+    industry: 'Consumer e-commerce',
+    headline: 'Natural-language analytics for the ops team',
+    outcome: 'The weekly 4-hour reporting cycle is gone. Ops asks questions in plain English and reads numbers directly.',
+    scope: '6 weeks · 2 people',
+    detail: 'SQL generation over their existing Snowflake warehouse. Zero data migration.',
+  },
+];
+
+const products = [
+  {
+    name: '[Product one]',
+    tagline: 'AI-assisted [specific category]',
+    body: 'We built [Product one] after seeing the same problem at three different clients. It does the one specific thing they all needed, without the platform-y bloat we kept refusing to add.',
+    href: 'https://[product-one].com',
+  },
+  {
+    name: '[Product two]',
+    tagline: 'Lightweight [specific tool] for small teams',
+    body: 'A small utility we use ourselves on every engagement. Public so other operators can use it too. Not a business — just a useful thing.',
+    href: 'https://[product-two].com',
+  },
+];
+
+const writing = [
+  {
+    type: 'Book',
+    title: '[Book title]',
+    meta: 'O’Reilly · 2024',
+    href: '#',
+  },
+  {
+    type: 'Talk',
+    title: 'Why most enterprise AI POCs fail before any code is written',
+    meta: 'QCon London · 2024',
+    href: '#',
+  },
+  {
+    type: 'Post',
+    title: 'Coding agents change the unit economics of small consultancies',
+    meta: 'nuefunnel blog',
+    href: '/blog/coding-agents-change-unit-economics',
+  },
+  {
+    type: 'Podcast',
+    title: 'Designing for two-person AI teams',
+    meta: 'Practical AI · 2024',
+    href: '#',
+  },
+];
 ---
 
 <Layout title="nuefunnel">
-  <!-- Hero Section -->
-  <section class="py-20 px-4 pt-28">
+  <!-- Hero -->
+  <section class="pt-28 md:pt-36 pb-20 px-4">
     <div class="container-custom max-w-desktop">
-      <div class="text-center max-w-4xl mx-auto">
-        <h1 class="text-5xl md:text-7xl font-bold gradient-text mb-6">
-          Simplify API usage with AI-powered chat assistance
-        </h1>
-        <p class="text-xl md:text-2xl text-muted-purple mb-8 max-w-3xl mx-auto">
-          Turn your API documentation into an interactive experience. Our AI assistant bridges
-          the gap between complex APIs and developer success.
-        </p>
+      <div class="flex flex-wrap gap-x-12 gap-y-6 mb-14">
+        {founders.map((f) => (
+          <div class="flex items-center gap-4">
+            <div class="w-16 h-16 rounded-full bg-border flex items-center justify-center text-ink font-tight font-semibold text-base">
+              {f.initials}
+            </div>
+            <div>
+              <p class="text-ink font-medium leading-tight">{f.name}</p>
+              <p class="text-subtle text-sm leading-tight mt-1">{f.role}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <h1 class="font-tight text-5xl md:text-7xl font-semibold text-ink max-w-4xl leading-[1.05]">
+        Shipping AI products with small teams.
+      </h1>
+
+      <p class="mt-8 text-lg md:text-xl text-body max-w-2xl leading-relaxed">
+        We're a two-person studio. We build our own products, take on a small number
+        of consulting projects each quarter, and run corporate training when invited.
+      </p>
+
+      <div class="mt-10 flex flex-wrap gap-3">
         <a
-          href="https://tally.so/r/w2JM7g"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn-primary inline-flex items-center gap-2 text-lg"
+          href="mailto:contact@nuefunnel.com?subject=Project%20inquiry"
+          class="btn-primary"
         >
-          Request Demo
+          Start a project
+        </a>
+        <a href="/work" class="btn-secondary">
+          See the work
           <span aria-hidden="true">&rarr;</span>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- Benefits Section -->
-  <section class="py-16 px-4">
+  <!-- Recent work -->
+  <section class="py-20 md:py-28 px-4 border-t border-border">
     <div class="container-custom max-w-desktop">
-      <h2 class="text-2xl md:text-3xl font-medium text-center gradient-text-italic mb-16 max-w-3xl mx-auto">
-        Enhance user experience, reduce support overhead, and fuel creative solutions
+      <p class="text-xs uppercase tracking-wider text-subtle font-medium mb-3">
+        Recent work
+      </p>
+      <h2 class="font-tight text-3xl md:text-5xl font-semibold text-ink max-w-3xl leading-[1.1]">
+        Three of the last five engagements.
       </h2>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-        <!-- Feature 1 -->
-        <div class="rounded-xl p-8 text-center" style="background: linear-gradient(180deg, rgba(229, 221, 255, 0.2) 0%, rgba(229, 221, 255, 0.4) 100%);">
-          <div class="w-12 h-12 mx-auto mb-4 flex items-center justify-center">
-            <svg class="w-8 h-8 text-muted-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold text-muted-purple mb-3">Instant and Accurate</h3>
-          <p class="text-muted-purple/80 leading-relaxed">
-            Reduce response time and improve developer satisfaction with AI-driven,
-            instant answers to technical and user queries.
-          </p>
-        </div>
-
-        <!-- Feature 2 -->
-        <div class="rounded-xl p-8 text-center" style="background: linear-gradient(180deg, rgba(229, 221, 255, 0.2) 0%, rgba(229, 221, 255, 0.4) 100%);">
-          <div class="w-12 h-12 mx-auto mb-4 flex items-center justify-center">
-            <svg class="w-8 h-8 text-muted-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold text-muted-purple mb-3">Boost API Adoption</h3>
-          <p class="text-muted-purple/80 leading-relaxed">
-            Simplify complex API usage, making it easier for developers to integrate your APIs
-            and drive innovative product development.
-          </p>
-        </div>
-
-        <!-- Feature 3 -->
-        <div class="rounded-xl p-8 text-center" style="background: linear-gradient(180deg, rgba(229, 221, 255, 0.2) 0%, rgba(229, 221, 255, 0.4) 100%);">
-          <div class="w-12 h-12 mx-auto mb-4 flex items-center justify-center">
-            <svg class="w-8 h-8 text-muted-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold text-muted-purple mb-3">Enhance Documentation</h3>
-          <p class="text-muted-purple/80 leading-relaxed">
-            Fill gaps in existing documentation by providing dynamic, contextual responses
-            that evolve with your APIs.
-          </p>
-        </div>
-
-        <!-- Feature 4 -->
-        <div class="rounded-xl p-8 text-center" style="background: linear-gradient(180deg, rgba(229, 221, 255, 0.2) 0%, rgba(229, 221, 255, 0.4) 100%);">
-          <div class="w-12 h-12 mx-auto mb-4 flex items-center justify-center">
-            <svg class="w-8 h-8 text-muted-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold text-muted-purple mb-3">Streamline Workflows</h3>
-          <p class="text-muted-purple/80 leading-relaxed">
-            Free up your team from answering repetitive questions, allowing them to focus
-            on higher-value tasks.
-          </p>
-        </div>
+      <div class="mt-14 flex flex-col gap-12 md:gap-16">
+        {caseStudies.map((c) => (
+          <a
+            href={`/work/${c.slug}`}
+            class="block group max-w-3xl"
+          >
+            <p class="text-xs uppercase tracking-wider text-subtle font-medium mb-2">
+              {c.industry}
+            </p>
+            <h3 class="font-tight text-2xl md:text-3xl font-semibold text-ink group-hover:text-accent transition-colors">
+              {c.headline}
+            </h3>
+            <p class="mt-3 text-body text-base md:text-lg leading-relaxed">
+              {c.outcome}
+            </p>
+            <p class="mt-4 text-sm text-subtle font-medium">
+              {c.scope}
+            </p>
+            <p class="mt-2 text-sm text-subtle italic">
+              {c.detail}
+            </p>
+          </a>
+        ))}
       </div>
 
-      <!-- Fifth card - full width centered -->
-      <div class="max-w-2xl mx-auto mt-6">
-        <div class="rounded-xl p-8 text-center" style="background: linear-gradient(180deg, rgba(229, 221, 255, 0.2) 0%, rgba(229, 221, 255, 0.4) 100%);">
-          <div class="w-12 h-12 mx-auto mb-4 flex items-center justify-center">
-            <svg class="w-8 h-8 text-muted-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"></path>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold text-muted-purple mb-3">Seamless Integration</h3>
-          <p class="text-muted-purple/80 leading-relaxed">
-            Easily integrate the AI assistant into your existing documentation and support systems,
-            offering a smooth user experience.
-          </p>
-        </div>
+      <div class="mt-14">
+        <a href="/work" class="text-accent font-medium hover:text-accent-hover">
+          See all work <span aria-hidden="true">&rarr;</span>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section class="py-20 px-4">
+  <!-- Built things -->
+  <section class="py-20 md:py-28 px-4 border-t border-border">
     <div class="container-custom max-w-desktop">
-      <div class="text-center">
-        <h2 class="text-4xl md:text-5xl font-bold gradient-text mb-8">
-          Sign up today.
-        </h2>
-        <a
-          href="https://tally.so/r/w2JM7g"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn-primary inline-flex items-center gap-2 text-lg"
-        >
-          Get Started
+      <p class="text-xs uppercase tracking-wider text-subtle font-medium mb-3">
+        Built things
+      </p>
+      <h2 class="font-tight text-3xl md:text-5xl font-semibold text-ink max-w-3xl leading-[1.1]">
+        Products we've built, mostly because we needed them ourselves.
+      </h2>
+
+      <div class="mt-14 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
+        {products.map((p) => (
+          <div>
+            <p class="text-xs uppercase tracking-wider text-subtle font-medium mb-2">
+              Product
+            </p>
+            <h3 class="font-tight text-2xl md:text-3xl font-semibold text-ink">
+              {p.name}
+            </h3>
+            <p class="mt-2 text-base text-subtle">
+              {p.tagline}
+            </p>
+            <p class="mt-4 text-body leading-relaxed">
+              {p.body}
+            </p>
+            <a
+              href={p.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block mt-5 text-accent font-medium hover:text-accent-hover"
+            >
+              Visit {p.name.replace(/[\[\]]/g, '')} <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog -->
+  <section class="py-20 md:py-28 px-4 border-t border-border">
+    <div class="container-custom max-w-desktop">
+      <p class="text-xs uppercase tracking-wider text-subtle font-medium mb-3">
+        Blog
+      </p>
+      <h2 class="font-tight text-3xl md:text-5xl font-semibold text-ink max-w-3xl leading-[1.1]">
+        Our latest thinking - drawn from our work, research and consulting.
+      </h2>
+
+      <ul class="mt-14 divide-y divide-border border-t border-border max-w-3xl">
+        {writing.map((w) => (
+          <li>
+            <a
+              href={w.href}
+              class="flex flex-col md:flex-row md:items-baseline md:gap-6 py-6 group"
+            >
+              <span class="text-xs uppercase tracking-wider text-subtle font-medium md:w-20 md:flex-shrink-0 mb-1 md:mb-0">
+                {w.type}
+              </span>
+              <span class="flex-1">
+                <span class="block font-tight text-lg md:text-xl font-medium text-ink group-hover:text-accent transition-colors leading-snug">
+                  {w.title}
+                </span>
+                <span class="block text-sm text-subtle mt-1">
+                  {w.meta}
+                </span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <div class="mt-10">
+        <a href="/blog" class="text-accent font-medium hover:text-accent-hover">
+          Read the blog <span aria-hidden="true">&rarr;</span>
         </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Engagement -->
+  <section class="py-20 md:py-28 px-4 border-t border-border">
+    <div class="container-custom max-w-desktop">
+      <p class="text-xs uppercase tracking-wider text-subtle font-medium mb-3">
+        Working with us
+      </p>
+      <h2 class="font-tight text-3xl md:text-5xl font-semibold text-ink max-w-3xl leading-[1.1]">
+        Three ways we take on work.
+      </h2>
+
+      <div class="mt-8 max-w-2xl">
+        <p class="text-body text-base md:text-lg leading-relaxed">
+          Small scope, two people, mostly coding-agent-assisted. We don't take on
+          enterprise compliance work, staff augmentation, or ML-platform builds.
+          For a sense of what this looks like in practice, <a href="/work" class="text-accent hover:text-accent-hover underline underline-offset-4 decoration-1">see what we've built</a> or take a look at <a href="/training" class="text-accent hover:text-accent-hover underline underline-offset-4 decoration-1">training workshops we've run</a>.
+          If you're unsure whether what you have in mind fits, send us a short note
+          and we'll tell you honestly.
+        </p>
+      </div>
+
+      <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
+        <div>
+          <p class="text-xs uppercase tracking-wider text-subtle font-medium mb-2">
+            Project work
+          </p>
+          <h3 class="font-tight text-xl font-semibold text-ink leading-snug">
+            Build something specific.
+          </h3>
+          <p class="mt-3 text-body leading-relaxed">
+            Four to eight weeks, two people. Best for a defined deliverable you
+            can describe in a paragraph.
+          </p>
+          <a
+            href="mailto:contact@nuefunnel.com?subject=Project%20inquiry"
+            class="inline-block mt-4 text-accent font-medium hover:text-accent-hover"
+          >
+            Start a project <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+        <div>
+          <p class="text-xs uppercase tracking-wider text-subtle font-medium mb-2">
+            Training
+          </p>
+          <h3 class="font-tight text-xl font-semibold text-ink leading-snug">
+            Workshops, not generic AI 101.
+          </h3>
+          <p class="mt-3 text-body leading-relaxed">
+            Workshop-led sessions for small audiences, curated to your team's
+            actual work, business context, and daily tasks.
+          </p>
+          <a
+            href="mailto:contact@nuefunnel.com?subject=Training%20inquiry"
+            class="inline-block mt-4 text-accent font-medium hover:text-accent-hover"
+          >
+            Request a workshop <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+        <div>
+          <p class="text-xs uppercase tracking-wider text-subtle font-medium mb-2">
+            Pro-bono
+          </p>
+          <h3 class="font-tight text-xl font-semibold text-ink leading-snug">
+            A few slots a year, free.
+          </h3>
+          <p class="mt-3 text-body leading-relaxed">
+            We take on a limited amount of pro-bono work &mdash; typically for
+            non-profits, sometimes for groups of individuals supporting a cause.
+          </p>
+          <a
+            href="mailto:contact@nuefunnel.com?subject=Pro-bono%20inquiry"
+            class="inline-block mt-4 text-accent font-medium hover:text-accent-hover"
+          >
+            Tell us about the cause <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
       </div>
     </div>
   </section>

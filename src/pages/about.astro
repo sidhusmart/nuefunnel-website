@@ -1,0 +1,178 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const founders = [
+  {
+    initials: 'F1',
+    name: '[Founder one]',
+    role: '[Background — e.g. data science, ML]',
+    bio: 'Spent the last decade building production ML systems at [company], [company], and [company]. Wrote [book or notable paper] in 2023. Started nuefunnel because most AI-product engagements are too large to be useful — a two-person team with coding agents can do in five weeks what a ten-person consultancy used to do in six months.',
+    links: [
+      { label: 'GitHub', href: 'https://github.com/[handle]' },
+      { label: 'LinkedIn', href: 'https://linkedin.com/in/[handle]' },
+      { label: 'Personal site', href: 'https://[domain]' },
+    ],
+  },
+  {
+    initials: 'F2',
+    name: '[Founder two]',
+    role: '[Background — e.g. conversational AI, product]',
+    bio: 'Previously led [team] at [company], shipped [notable product] used by [N] customers. Has a long-standing interest in the seam where conversational interfaces meet operational data. Joined to focus on what AI-native products actually look like when they\'re not glued onto an existing SaaS.',
+    links: [
+      { label: 'GitHub', href: 'https://github.com/[handle]' },
+      { label: 'LinkedIn', href: 'https://linkedin.com/in/[handle]' },
+    ],
+  },
+];
+---
+
+<Layout title="About" description="Two operators, one studio. Here's how we work and why.">
+  <section class="pt-28 md:pt-36 pb-16 px-4">
+    <div class="container-custom max-w-desktop">
+      <p class="text-xs uppercase tracking-wider text-subtle font-medium mb-3">
+        Where the name comes from
+      </p>
+      <h1 class="font-tight text-4xl md:text-6xl font-semibold text-ink max-w-4xl leading-[1.05]">
+        The Nürnberg Trichter, but for AI.
+      </h1>
+      <div class="mt-8 max-w-2xl space-y-6 text-lg md:text-xl text-body leading-relaxed">
+        <p>
+          The name nuefunnel is an homage to the
+          <em>Nürnberger Trichter</em> &mdash; a 17th-century satirical
+          notion of a magical funnel that pours knowledge straight into the
+          minds of students who'd rather not study. It's a joke that has
+          stuck around in German for nearly four hundred years.
+        </p>
+        <p>
+          We're based in Nuremberg, so the image was hard to resist. In our
+          version the funnel runs the other way: human taste and judgement
+          go in at the top, and what comes out the bottom is AI pointed at
+          things that actually matter &mdash; software that delivers value
+          rather than software that exists to look like AI.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 md:py-24 px-4 border-t border-border">
+    <div class="container-custom max-w-desktop">
+      <p class="text-xs uppercase tracking-wider text-subtle font-medium mb-3">
+        Who we are
+      </p>
+      <h2 class="font-tight text-3xl md:text-5xl font-semibold text-ink max-w-3xl leading-[1.1]">
+        The two of us.
+      </h2>
+
+      <div class="mt-14 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
+        {founders.map((f) => (
+          <div>
+            <div class="flex items-center gap-4 mb-6">
+              <div class="w-20 h-20 rounded-full bg-border flex items-center justify-center text-ink font-tight font-semibold text-lg flex-shrink-0">
+                {f.initials}
+              </div>
+              <div>
+                <p class="font-tight text-xl font-semibold text-ink leading-tight">
+                  {f.name}
+                </p>
+                <p class="text-subtle text-sm mt-1">{f.role}</p>
+              </div>
+            </div>
+            <p class="text-body leading-relaxed">
+              {f.bio}
+            </p>
+            <div class="mt-5 flex flex-wrap gap-x-5 gap-y-2">
+              {f.links.map((l) => (
+                <a
+                  href={l.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-sm text-accent hover:text-accent-hover underline underline-offset-4 decoration-1"
+                >
+                  {l.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 md:py-24 px-4 border-t border-border">
+    <div class="container-custom max-w-desktop">
+      <p class="text-xs uppercase tracking-wider text-subtle font-medium mb-3">
+        How we work
+      </p>
+      <h2 class="font-tight text-3xl md:text-5xl font-semibold text-ink max-w-3xl leading-[1.1]">
+        Small scope, two people, coding-agent-assisted.
+      </h2>
+
+      <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl">
+        <div>
+          <h3 class="font-tight text-xl font-semibold text-ink leading-snug mb-3">
+            We engage in short cycles.
+          </h3>
+          <p class="text-body leading-relaxed">
+            Four to eight weeks per project. We don't do indefinite staff
+            augmentation. The end of an engagement is a real end &mdash; you
+            get a running system, the infrastructure-as-code, and the context
+            to run it.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-tight text-xl font-semibold text-ink leading-snug mb-3">
+            We write code with coding agents.
+          </h3>
+          <p class="text-body leading-relaxed">
+            Both of us use coding agents heavily. It's what makes a two-person
+            team viable at this scope. We're opinionated about which parts of
+            the work agents help with and which parts they don't.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-tight text-xl font-semibold text-ink leading-snug mb-3">
+            We don't introduce new platforms.
+          </h3>
+          <p class="text-body leading-relaxed">
+            Almost every engagement runs on top of the customer's existing
+            warehouse, CRM, or doc system. New systems-of-record are a
+            ten-person-team kind of project &mdash; not something we take on.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-tight text-xl font-semibold text-ink leading-snug mb-3">
+            We turn down work that isn't a fit.
+          </h3>
+          <p class="text-body leading-relaxed">
+            Enterprise compliance work, ML-platform builds, and projects that
+            need a project manager between us and the decision-makers
+            aren't a good fit for the studio. We say so up front.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 md:py-24 px-4 border-t border-border">
+    <div class="container-custom max-w-desktop">
+      <p class="text-xs uppercase tracking-wider text-subtle font-medium mb-3">
+        Get in touch
+      </p>
+      <h2 class="font-tight text-3xl md:text-5xl font-semibold text-ink max-w-3xl leading-[1.1]">
+        Send a short note.
+      </h2>
+      <p class="mt-6 text-lg text-body max-w-2xl leading-relaxed">
+        Tell us what you have in mind. We'll reply within a couple of working
+        days, even if it's to say it isn't a fit.
+      </p>
+      <div class="mt-8">
+        <a
+          href="mailto:contact@nuefunnel.com?subject=Project%20inquiry"
+          class="btn-primary"
+        >
+          contact@nuefunnel.com
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

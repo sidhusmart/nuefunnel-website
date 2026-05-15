@@ -1,0 +1,79 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { components } from '../../components/MDXComponents';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('training', ({ data }) => !data.draft);
+  return entries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<Layout
+  title={entry.data.title}
+  description={entry.data.description}
+  image={entry.data.image}
+  type="article"
+>
+  <article class="pt-28 md:pt-36 pb-24 px-4">
+    <div class="container-custom max-w-content">
+      <header class="mb-12">
+        <p class="text-xs uppercase tracking-wider text-subtle font-medium mb-3">
+          Training
+        </p>
+        <h1 class="font-tight text-3xl md:text-5xl font-semibold text-ink leading-[1.1]">
+          {entry.data.title}
+        </h1>
+        <p class="mt-6 text-lg md:text-xl text-body leading-relaxed">
+          {entry.data.description}
+        </p>
+
+        <dl class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8 text-sm">
+          {entry.data.audience && (
+            <div>
+              <dt class="text-xs uppercase tracking-wider text-subtle font-medium mb-1">Audience</dt>
+              <dd class="text-ink">{entry.data.audience}</dd>
+            </div>
+          )}
+          {entry.data.format && (
+            <div>
+              <dt class="text-xs uppercase tracking-wider text-subtle font-medium mb-1">Format</dt>
+              <dd class="text-ink">{entry.data.format}</dd>
+            </div>
+          )}
+          {entry.data.duration && (
+            <div>
+              <dt class="text-xs uppercase tracking-wider text-subtle font-medium mb-1">Duration</dt>
+              <dd class="text-ink">{entry.data.duration}</dd>
+            </div>
+          )}
+        </dl>
+      </header>
+
+      <div class="prose prose-lg max-w-none prose-headings:font-tight prose-headings:text-ink prose-headings:font-semibold prose-p:text-body prose-p:leading-relaxed prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-strong:text-ink prose-li:text-body prose-li:leading-relaxed">
+        <Content components={components} />
+      </div>
+
+      <footer class="mt-16 pt-8 border-t border-border flex flex-wrap items-center justify-between gap-4">
+        <a
+          href="/training"
+          class="text-accent font-medium hover:text-accent-hover"
+        >
+          <span aria-hidden="true">&larr;</span> All training
+        </a>
+        <a
+          href={`mailto:contact@nuefunnel.com?subject=Training%20inquiry%20%E2%80%94%20${encodeURIComponent(entry.data.title)}`}
+          class="btn-primary"
+        >
+          Request this workshop
+        </a>
+      </footer>
+    </div>
+  </article>
+</Layout>

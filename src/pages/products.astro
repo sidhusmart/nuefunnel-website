@@ -1,40 +1,81 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const products = [
+  {
+    name: '[Product one]',
+    tagline: 'AI-assisted [specific category]',
+    body: 'We built [Product one] after seeing the same problem at three different clients. It does the one specific thing they all needed, without the platform-y bloat we kept refusing to add. Used today by [N] teams.',
+    audience: 'Small to mid-size operations teams shipping AI workflows.',
+    pricing: '[Pricing model — e.g. $X per seat per month]',
+    href: 'https://[product-one].com',
+  },
+  {
+    name: '[Product two]',
+    tagline: 'Lightweight [specific tool] for small teams',
+    body: 'A small utility we use ourselves on every engagement. Public so other operators can use it too. Not a business &mdash; just a useful thing we maintain.',
+    audience: 'Engineers and operators who do their own tooling.',
+    pricing: 'Free, MIT-licensed.',
+    href: 'https://[product-two].com',
+  },
+];
 ---
 
-<Layout title="Products" description="Discover nuefunnel's AI-powered API assistance products">
-  <section class="py-20 px-4">
+<Layout title="Products" description="Products from the nuefunnel studio — built mostly because we needed them ourselves.">
+  <section class="pt-28 md:pt-36 pb-16 px-4">
     <div class="container-custom max-w-desktop">
-      <h1 class="text-5xl font-bold text-gray-900 mb-6">Our Products</h1>
-      <p class="text-xl text-gray-600 mb-12 max-w-3xl">
-        Explore our suite of AI-powered tools designed to simplify API integration
-        and enhance developer experience.
+      <p class="text-xs uppercase tracking-wider text-subtle font-medium mb-3">
+        Products
       </p>
+      <h1 class="font-tight text-4xl md:text-6xl font-semibold text-ink max-w-4xl leading-[1.05]">
+        Things we've built, mostly because we needed them.
+      </h1>
+      <p class="mt-6 text-lg md:text-xl text-body max-w-2xl leading-relaxed">
+        Two products come out of the studio. Both are byproducts of consulting
+        work &mdash; the kind of utility we kept rebuilding for clients until
+        it was cheaper to ship it once and use it everywhere.
+      </p>
+    </div>
+  </section>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl">
-        <!-- Product 1 -->
-        <div class="card p-8 shadow-lg">
-          <h3 class="text-2xl font-bold text-gray-900 mb-4">API Chat Assistant</h3>
-          <p class="text-gray-600 mb-6">
-            Interactive AI assistant that helps developers understand and integrate your APIs
-            with natural language conversations.
-          </p>
-          <a href="https://tally.so/r/w2JM7g" class="text-primary font-medium hover:underline">
-            Learn more →
-          </a>
-        </div>
+  <section class="pb-24 px-4 border-t border-border pt-16">
+    <div class="container-custom max-w-desktop">
+      <div class="flex flex-col gap-20 md:gap-28">
+        {products.map((p, idx) => (
+          <div class="max-w-3xl">
+            <p class="text-xs uppercase tracking-wider text-subtle font-medium mb-2">
+              Product 0{idx + 1}
+            </p>
+            <h2 class="font-tight text-3xl md:text-4xl font-semibold text-ink leading-snug">
+              {p.name}
+            </h2>
+            <p class="mt-2 text-base md:text-lg text-subtle">
+              {p.tagline}
+            </p>
+            <p set:html={p.body} class="mt-6 text-body leading-relaxed text-base md:text-lg" />
 
-        <!-- Product 2 -->
-        <div class="card p-8 shadow-lg">
-          <h3 class="text-2xl font-bold text-gray-900 mb-4">Documentation Enhancement</h3>
-          <p class="text-gray-600 mb-6">
-            Automatically fill documentation gaps and provide contextual, dynamic responses
-            based on your API structure.
-          </p>
-          <a href="https://tally.so/r/w2JM7g" class="text-primary font-medium hover:underline">
-            Learn more →
-          </a>
-        </div>
+            <dl class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8 text-sm border-t border-border pt-6">
+              <div>
+                <dt class="text-xs uppercase tracking-wider text-subtle font-medium mb-1">Built for</dt>
+                <dd class="text-ink">{p.audience}</dd>
+              </div>
+              <div>
+                <dt class="text-xs uppercase tracking-wider text-subtle font-medium mb-1">Pricing</dt>
+                <dd class="text-ink">{p.pricing}</dd>
+              </div>
+            </dl>
+
+            <a
+              href={p.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block mt-8 btn-primary"
+            >
+              Visit {p.name.replace(/[\[\]]/g, '')}
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        ))}
       </div>
     </div>
   </section>

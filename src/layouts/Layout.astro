@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { Agentation } from 'agentation';
 import '../styles/global.css';
 
 export interface Props {
@@ -12,7 +13,7 @@ export interface Props {
 
 const {
   title,
-  description = 'AI-powered API assistance tool offering instant and accurate responses',
+  description = 'A two-person studio building AI-native products, consulting on focused projects, and running corporate training.',
   image = '/images/og-image.jpg',
   type = 'website'
 } = Astro.props;
@@ -54,5 +55,6 @@ const fullTitle = title === 'nuefunnel' ? title : `${title} | nuefunnel`;
       <slot />
     </main>
     <Footer />
+    {import.meta.env.DEV && <Agentation client:only="react" endpoint="http://localhost:4747" />}
   </body>
 </html>

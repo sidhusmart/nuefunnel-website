@@ -9,43 +9,55 @@ function formatDate(date: Date) {
   return date.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
-    day: 'numeric'
+    day: 'numeric',
   });
 }
 ---
 
-<Layout title="Blog" description="Insights and updates from the nuefunnel team">
-  <section class="py-20 px-4 pt-28">
-    <div class="container mx-auto max-w-[800px]">
-      <h1 class="text-4xl md:text-5xl font-bold text-accent-cyan mb-12 text-center">
-        Blog posts
+<Layout title="Blog" description="Writing from the nuefunnel studio.">
+  <section class="pt-28 md:pt-36 pb-16 px-4">
+    <div class="container-custom max-w-desktop">
+      <p class="text-xs uppercase tracking-wider text-subtle font-medium mb-3">
+        Blog
+      </p>
+      <h1 class="font-tight text-4xl md:text-6xl font-semibold text-ink max-w-4xl leading-[1.05]">
+        Notes from the studio.
       </h1>
+      <p class="mt-6 text-lg md:text-xl text-body max-w-2xl leading-relaxed">
+        Things we've learned shipping AI products as a two-person team. We
+        write when we have something specific to say, not on a schedule.
+      </p>
+    </div>
+  </section>
 
-      <div class="space-y-6">
+  <section class="pb-24 px-4 border-t border-border pt-12">
+    <div class="container-custom max-w-desktop">
+      <ul class="divide-y divide-border border-t border-border max-w-3xl">
         {sortedPosts.map((post) => (
-          <article>
-            <a href={`/blog/${post.slug}`} class="flex items-start gap-6 group">
-              {post.data.image && (
-                <div class="w-[180px] h-[120px] flex-shrink-0 overflow-hidden rounded-lg bg-gray-100">
-                  <img
-                    src={post.data.image}
-                    alt={post.data.title}
-                    class="w-full h-full object-cover"
-                  />
-                </div>
-              )}
-              <div class="flex-1 pt-1">
-                <h2 class="text-lg font-semibold text-gray-900 group-hover:underline mb-1">
+          <li>
+            <a
+              href={`/blog/${post.slug}`}
+              class="flex flex-col md:flex-row md:items-baseline md:gap-6 py-6 group"
+            >
+              <span class="text-xs uppercase tracking-wider text-subtle font-medium md:w-28 md:flex-shrink-0 mb-1 md:mb-0">
+                {formatDate(post.data.date)}
+              </span>
+              <span class="flex-1">
+                <span class="block font-tight text-lg md:text-xl font-medium text-ink group-hover:text-accent transition-colors leading-snug">
                   {post.data.title}
-                </h2>
-                <p class="text-sm text-muted-purple">
-                  {formatDate(post.data.date)}
-                </p>
-              </div>
+                </span>
+                <span class="block text-sm text-subtle mt-1 leading-relaxed">
+                  {post.data.description}
+                </span>
+              </span>
             </a>
-          </article>
+          </li>
         ))}
-      </div>
+      </ul>
+
+      {sortedPosts.length === 0 && (
+        <p class="text-body">No posts yet.</p>
+      )}
     </div>
   </section>
 </Layout>

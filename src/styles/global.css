@@ -1,5 +1,5 @@
-/* Import Inter and Bungee fonts from Google Fonts - must be before @tailwind */
-@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;500;600;700;800;900&family=Inter+Tight:wght@400;500;600;700;800;900&display=swap');
+/* Inter for body + Inter Tight for headings; Bungee removed in Phase 1 */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -8,44 +8,62 @@
 @layer base {
   html {
     font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
   body {
-    @apply text-gray-900;
-    background-color: #FFFFFF;
-    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
-    background-size: 24px 24px;
+    @apply bg-paper text-body;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Inter Tight', 'Inter', system-ui, sans-serif;
+    @apply text-ink;
+    letter-spacing: -0.015em;
+  }
+
+  a {
+    @apply text-accent;
+    text-decoration: none;
+  }
+
+  a:hover {
+    @apply text-accent-hover;
   }
 }
 
 @layer components {
   .container-custom {
-    @apply mx-auto px-4;
+    @apply mx-auto px-4 md:px-6;
     max-width: 1200px;
   }
 
   .btn-primary {
-    @apply bg-muted-purple text-white px-6 py-3 rounded-lg font-medium hover:opacity-90 transition-opacity;
+    @apply inline-flex items-center gap-2 bg-accent text-white px-5 py-3 rounded-md font-medium transition-colors;
+  }
+
+  .btn-primary:hover {
+    @apply bg-accent-hover text-white;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 text-ink border border-border px-5 py-3 rounded-md font-medium transition-colors bg-surface;
+  }
+
+  .btn-secondary:hover {
+    @apply text-ink border-ink;
   }
 
   .card {
-    @apply bg-white rounded-lg overflow-hidden transition-transform hover:scale-[1.02];
+    @apply bg-surface rounded-lg overflow-hidden transition-transform;
   }
 
-  /* Gradient text for hero headings */
+  /* Deprecated utilities kept so legacy pages still render until Phase 2 */
   .gradient-text {
-    background: linear-gradient(0deg, #580DD9 16.24%, #8E2DA6 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    @apply text-ink;
   }
-
-  /* Italic gradient text for section taglines */
   .gradient-text-italic {
-    background: linear-gradient(0deg, #580DD9 16.24%, #8E2DA6 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    @apply text-ink;
     font-style: italic;
   }
 }

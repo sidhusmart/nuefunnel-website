@@ -1,0 +1,87 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { components } from '../../components/MDXComponents';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('work', ({ data }) => !data.draft);
+  return entries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+  });
+}
+---
+
+<Layout
+  title={entry.data.title}
+  description={entry.data.description}
+  image={entry.data.image}
+  type="article"
+>
+  <article class="pt-28 md:pt-36 pb-24 px-4">
+    <div class="container-custom max-w-content">
+      <header class="mb-12">
+        <div class="flex flex-wrap items-baseline gap-x-4 gap-y-1 mb-4">
+          {entry.data.industry && (
+            <p class="text-xs uppercase tracking-wider text-subtle font-medium">
+              {entry.data.industry}
+            </p>
+          )}
+          <time datetime={entry.data.date.toISOString()} class="text-xs uppercase tracking-wider text-subtle">
+            {formatDate(entry.data.date)}
+          </time>
+        </div>
+        <h1 class="font-tight text-3xl md:text-5xl font-semibold text-ink leading-[1.1]">
+          {entry.data.title}
+        </h1>
+        <p class="mt-6 text-lg md:text-xl text-body leading-relaxed">
+          {entry.data.description}
+        </p>
+        {entry.data.scope && (
+          <p class="mt-6 text-sm text-subtle font-medium">
+            {entry.data.scope}
+          </p>
+        )}
+      </header>
+
+      {entry.data.image && (
+        <div class="aspect-video overflow-hidden bg-border rounded-lg mb-12">
+          <img
+            src={entry.data.image}
+            alt={entry.data.title}
+            class="w-full h-full object-cover"
+          />
+        </div>
+      )}
+
+      <div class="prose prose-lg max-w-none prose-headings:font-tight prose-headings:text-ink prose-headings:font-semibold prose-p:text-body prose-p:leading-relaxed prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-strong:text-ink prose-li:text-body prose-li:leading-relaxed">
+        <Content components={components} />
+      </div>
+
+      <footer class="mt-16 pt-8 border-t border-border flex flex-wrap items-center justify-between gap-4">
+        <a
+          href="/work"
+          class="text-accent font-medium hover:text-accent-hover"
+        >
+          <span aria-hidden="true">&larr;</span> All work
+        </a>
+        <a
+          href="mailto:contact@nuefunnel.com?subject=Project%20inquiry"
+          class="btn-primary"
+        >
+          Start a project
+        </a>
+      </footer>
+    </div>
+  </article>
+</Layout>

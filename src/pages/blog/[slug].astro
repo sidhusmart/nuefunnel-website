@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import OptimizedImage from '../../components/OptimizedImage.astro';
 import { components } from '../../components/MDXComponents';
 
 export async function getStaticPaths() {
@@ -18,8 +17,8 @@ const { Content } = await post.render();
 function formatDate(date: Date) {
   return date.toLocaleDateString('en-US', {
     year: 'numeric',
-    month: 'short',
-    day: 'numeric'
+    month: 'long',
+    day: 'numeric',
   });
 }
 ---
@@ -30,35 +29,32 @@ function formatDate(date: Date) {
   image={post.data.image}
   type="article"
 >
-  <article class="py-20 px-4 pt-28">
-    <div class="container mx-auto max-w-[720px]">
-      <header class="mb-8 text-center">
-        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">{post.data.title}</h1>
-        <time datetime={post.data.date.toISOString()} class="text-muted-purple">
+  <article class="pt-28 md:pt-36 pb-24 px-4">
+    <div class="container-custom max-w-content">
+      <header class="mb-12">
+        <time datetime={post.data.date.toISOString()} class="text-xs uppercase tracking-wider text-subtle font-medium">
           {formatDate(post.data.date)}
         </time>
+        <h1 class="mt-3 font-tight text-3xl md:text-5xl font-semibold text-ink leading-[1.1]">
+          {post.data.title}
+        </h1>
+        {post.data.description && (
+          <p class="mt-6 text-lg md:text-xl text-body leading-relaxed">
+            {post.data.description}
+          </p>
+        )}
       </header>
 
-      {post.data.image && (
-        <div class="aspect-video overflow-hidden bg-gray-100 rounded-lg mb-10">
-          <OptimizedImage
-            src={post.data.image}
-            alt={post.data.title}
-            class="w-full h-full object-cover"
-          />
-        </div>
-      )}
-
-      <div class="prose prose-lg max-w-none prose-headings:text-gray-900 prose-headings:font-bold prose-p:text-gray-600 prose-p:leading-relaxed prose-a:text-accent-cyan prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-700 prose-li:text-gray-600">
+      <div class="prose prose-lg max-w-none prose-headings:font-tight prose-headings:text-ink prose-headings:font-semibold prose-p:text-body prose-p:leading-relaxed prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-strong:text-ink prose-li:text-body prose-li:leading-relaxed">
         <Content components={components} />
       </div>
 
-      <footer class="mt-12 pt-8 border-t border-gray-200">
+      <footer class="mt-16 pt-8 border-t border-border">
         <a
           href="/blog"
-          class="text-accent-cyan hover:underline font-medium inline-flex items-center gap-2"
+          class="text-accent font-medium hover:text-accent-hover"
         >
-          &larr; Back to Blog
+          <span aria-hidden="true">&larr;</span> All posts
         </a>
       </footer>
     </div>

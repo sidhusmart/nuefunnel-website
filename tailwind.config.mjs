@@ -4,24 +4,34 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Primary gradient colors
+        // New operator-portfolio palette (Phase 1+)
+        ink: '#111111',         // headings, wordmark, strong text
+        body: '#44444C',        // body copy
+        subtle: '#76767E',      // meta, captions, secondary text
+        border: '#E5E3DC',      // hairline borders, dividers
+        paper: '#FBFAF7',       // page background (warm off-white)
+        surface: '#FFFFFF',     // cards, panels
+        accent: {
+          DEFAULT: '#0F766E',   // deep teal, primary CTA + links
+          hover: '#0D9488',
+        },
+
+        // Deprecated tokens kept until Phase 2 page rewrites land
         'primary-purple': '#580DD9',
         'primary-magenta': '#8E2DA6',
-        // Accent color for links, logo on inner pages
         'accent-cyan': '#00A0E4',
-        // Muted purple for buttons, body text
         'muted-purple': '#6B658C',
-        // Keep old primary for backward compatibility during migration
         primary: '#6b658c',
-        accent: '#09f',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         tight: ['Inter Tight', 'Inter', 'system-ui', 'sans-serif'],
-        logo: ['Bungee', 'Impact', 'Arial Black', 'sans-serif'],
+        // logo aliased to Inter Tight so any stale font-logo references render sensibly
+        logo: ['Inter Tight', 'Inter', 'system-ui', 'sans-serif'],
       },
       maxWidth: {
         desktop: '1200px',
+        content: '720px',
         tablet: '810px',
         mobile: '390px',
       },
