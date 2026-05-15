@@ -46,3 +46,6 @@ skills-lock.json
 migration/exports/
 migration/images/
 migration/staging/
+# Numbers-exported working copy of decisions.csv (semicolon-delimited, gets
+# canonicalized into the tracked decisions.csv by verify-decisions.mjs --write)
+migration/decisions_updated.csv
