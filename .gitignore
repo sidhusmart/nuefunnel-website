@@ -40,3 +40,9 @@ pnpm-debug.log*
 .agents/
 .mcp.json
 skills-lock.json
+
+# Framer migration artifacts (raw exports + downloaded images stay local;
+# only the script and decisions.csv are tracked so the migration is reproducible)
+migration/exports/
+migration/images/
+migration/staging/
