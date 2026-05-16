@@ -1,0 +1,31 @@
+---
+title: "Faster Image Generation: How Flow Matching and LCM Unlock Real-Time AI Creativity"
+description: "Explaining how diffusion works for image generation and the promise of Latent Consistency Models to make it much faster!"
+date: "2025-01-17T00:00:00.000Z"
+image: /images/uploads/migrated/blog/flow-matching-lcm-realtime-images/cover.jpeg
+tags: [image-generation, diffusion, lcm]
+---
+
+#### _**Fast AI Image Generation with Flow Matching & Latent Consistency Models**_
+
+The moment a new capability emerges like high-quality diffusion-based image generation (e.g. StableDiffusion), we see that human creativity takes off. Our imagination runs wild and we dream of applications that might seem almost magical. What if you could have a real-time world generated as you navigate it from your AR/VR glasses!
+
+But then we hit a roadblock: our imagination often outpaces technology. Take Stable Diffusion, as an example: it brought image generation into the mainstream. As you explore further, you realize that it takes time to generate images which makes real-time applications difficult. The training cost of such models also limits how quickly & cheaply one might make a custom model.
+
+But these challenges are exactly what motivate brilliant minds to find solutions - which is what I saw recently in my paper quest. Two techniques try to solve the problem of image generation speed with completely different approaches -
+
+#### Flow Matching (FM)
+
+A re-imagination of how models like Stable Diffusion could work. Instead of step-by-step denoising, [Flow Matching](https://arxiv.org/abs/2210.02747) replaces it with a generalized approach that’s faster, more flexible, and requires fewer steps to generate an image. It's like a ground-up rethinking of the framework of image generation to make it more efficient.
+
+#### Latent Consistency Models (LCM)
+
+![](/images/uploads/migrated/blog/flow-matching-lcm-realtime-images/image-1.jpeg)
+
+While FM rewrites the rules, [LCM](https://arxiv.org/abs/2310.04378) focuses on optimizing the existing technique of diffusion-based image generation. By “teaching” a smaller, faster model to mimic diffusion models, LCM drastically reduces the time needed for inference. What used to take hundreds of steps is now possible in 1-4 steps, opening the door to real-time applications.
+
+#### So What?
+
+While there are a huge number of issues with today’s image generation model (extra fingers on hands, distorted text), it is exciting to see that new models and techniques emerge that try to solve these problems. These researchers and companies are motivated to knock down barriers so that our collective imagination can go further. As an example, [Blockade Labs](https://www.blockadelabs.com/) already provides a tool allowing developers to generate 3D, 360-degree environments and a real-time fully-generated AI game called Decart.
+
+_Updated notes_: This post was originally written towards the end of 2024 and in August 2025, Google Deepmind announced [Genie3](https://deepmind.google/discover/blog/genie-3-a-new-frontier-for-world-models/) - a huge leap in foundational world models that allows developers to generate movement-based regeneration that allows you to navigate through completely generated worlds!

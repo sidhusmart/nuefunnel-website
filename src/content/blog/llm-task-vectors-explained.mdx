@@ -1,0 +1,36 @@
+---
+title: "LLM Task Vectors: How Language Models Learn New Tasks on the Fly"
+description: Understanding what happens inside the context window of an LLM and the creation of so-called task vectors.
+date: "2024-12-20T00:00:00.000Z"
+image: /images/uploads/migrated/blog/llm-task-vectors-explained/cover.jpeg
+tags: [interpretability, llm, vector, context-window]
+---
+
+#### _**Task Vectors in LLMs: Dynamic Learning Without Retraining**_
+
+What if I told you that every time you give an LLM a few examples in a prompt, you’re actually training a tiny machine learning model on the fly?
+
+LLMs are a fascinating piece of computing because without making any changes to the underlying program, you are able to use it to generate text summaries but also perform translations as well as classification. And much much more as we have observed recently. The authors of this [paper](https://arxiv.org/pdf/2310.15916) try to explain this ability to dynamically adapt to new tasks without changing their weights through the concept of Task Vectors.
+
+### What are Task Vectors?
+
+As someone with a background in machine learning, I try to use this as the best way to explain what task vectors. Imagine that your prompt consists of two parts:
+
+-   **Part 1:** The Example Phase – You show the model a few examples, like providing a few SQL queries and their expected outputs. This is the user prompt.
+    
+
+-   **Part 2**: The Prediction Phase – The model now generates an output for a new, unseen query based on the pattern it has “picked up”. This is the output tokens from the model.
+    
+
+While it appears that the LLM is just following instructions, it’s actually constructing a temporary function inside its activation space (the vast space of it’s neural network parameters). This function, known as a Task Vector, represents the knowledge the model has inferred from your examples.
+
+### How can Task Vectors be used?
+
+1.  Replacing Examples with Task Vectors: Instead of feeding the model multiple examples every time, researchers are exploring whether we can extract task vectors and reuse them. Maybe some of the prompt caching mechanisms provided by LLM API providers are using this technique!
+    
+2.  Task Vectors to remove or [unlearn concepts](https://arxiv.org/abs/2404.03631): What if we could make a model “forget” certain capabilities? For instance, in image generation, a particular task vector could encode the ability to generate NSFW images. By subtracting this vector, the model could be prevented from generating harmful content without retraining.
+    
+3.  Task Vectors as ML Models Constructed on the Fly: Here’s what I found really interesting when thinking of the LLM as an OS - the context window acts as RAM for the OS which is where the ML model is trained in real-time! Your prompts are "compiled" into task vectors that then produce the required outputs.
+    
+
+This was my interpretation based on reading these research papers but would love to hear your thoughts!

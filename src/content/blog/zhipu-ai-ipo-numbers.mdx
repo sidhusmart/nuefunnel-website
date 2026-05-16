@@ -1,0 +1,74 @@
+---
+title: "The Numbers OpenAI Won't Show You (But China's Biggest AI Company Just Did)"
+description: "Analysis of the Zhipu AI IPO in China; Model Inference unit economics profitable!"
+date: "2025-12-31T00:00:00.000Z"
+image: /images/uploads/migrated/blog/zhipu-ai-ipo-numbers/cover.webp
+tags: [china, open-source, zhipu, enterprise]
+---
+
+I spent some time going through Zhipu AI's 504-page Hong Kong IPO prospectus (Stock: 2513). Zhipu is one of China's leading AI companies - the ones behind the GLM model series. Here's what stood out to me. I'm not a financial analyst, so take this as "here's what I found" rather than investment advice. Happy to be corrected on any of this.
+
+## 1\. Revenue Growth Looks Strong, But the Split is Interesting
+
+Revenue grew ~130% from 2022 to 2024. Impressive trajectory.
+
+But what caught my attention is _where_ the revenue comes from. Their cloud-based API business (the Model-as-a-Service \[MaaS\] model that they claim) is only **15% of revenue**. The bulk **85%** comes from on-premise deployments (p.11 of the prospectus).
+
+The gross margins tell an interesting story too. On-premise seems healthy (~60%) because they're selling packages and projects at fixed prices. The cloud business? Margins actually went **negative in H1 2025**. I guess selling tokens by the million isn't as profitable as selling enterprise deployments.
+
+## 2\. Where Does the Money Go?
+
+R&D costs are massive; roughly **7-8x their revenue**. Not surprising for a frontier AI company burning cash to stay competitive.
+
+What surprised me is the breakdown. **~70% of R&D expense is compute costs** (p.251-300 of the prospectus shows this climbing from 17% in 2022 to 72% in H1 2025). They rent all their compute and explicitly state they don't own any chips or datacenters and don't plan to.
+
+They also pre-pay for compute, presumably locking in better rates but also locking themselves into specific providers.
+
+Here's the part that puzzled me: **data annotation is only ~6-7% of R&D costs**. That seems remarkably low. Either they're using a lot of synthetic data, or annotation labor in China is incredibly cheap, or both. I would have thought that this number would be much higher given that a company like Scale AI got acquired for 8 billion.
+
+## 3\. The Technology Stack and the Chip Situation
+
+Zhipu offers the full buffet of models - LLMs, coding models (CodeGeeX), video generation (CogVideoX), reasoning models (GLM-Z1), multimodal, you name it.
+
+The interesting technical detail is that they've built a **proprietary abstraction layer** for chips. They claim compatibility with "40+ major hardware chip platforms" (p.151-200).
+
+Why so many? Because they got added to the US Entity List in January 2025. They can't buy Nvidia's latest chips. So they rely on whatever Chinese cloud providers can offer - and that turns out to be a chaotic mix:
+
+-   Huawei Ascend (910, 910B)
+    
+-   Cambricon MLU series
+    
+-   Haiguang/Hygon DCU (AMD-derived)
+    
+-   Baidu's Kunlun chips
+    
+-   Biren, Moore Threads, Enflame
+    
+-   Pre-ban Nvidia inventory (A100, A800, H800 still floating around)
+    
+-   Various edge/mobile chips
+    
+
+I had no idea the Chinese AI chip ecosystem was this fragmented. Makes sense now why having a hardware abstraction layer is a competitive advantage rather than just nice-to-have.
+
+## 4\. Some Financial Oddities
+
+A few things made me raise an eyebrow:
+
+**Circular customer-supplier relationships**: Their largest supplier in 2023-2024 (Supplier E, a cloud subsidiary of a "large internet technology company") was also a customer in the same period. Their largest customer in H1 2025 (Customer A) is also a supplier. The document explains these as normal business relationships, but it reminded me of the circular deal accusations that have followed other AI companies.
+
+**The losses aren't quite as bad as they look**: Current shareholders have redemption rights if the IPO doesn't happen by 2028. This gets accounted for as a liability. Post-IPO, it converts to equity, and the losses will narrow automatically. They're still loss-making, just not as dramatically as the headline numbers suggest.
+
+**They say the quiet part out loud**: The prospectus essentially states they have a **3-year runway** with current cash. I appreciate the honesty, but I don't know if that would give me a pause as an investor.
+
+## What I Learned
+
+The biggest takeaway for me wasn't about Zhipu specifically. I saw this as a window into China's AI landscape and GPU infrastructure post sanctions. The chip ecosystem is way more fragmented than I realized, and every serious AI company there now has to be multi-platform by necessity, not choice.
+
+Zhipu's bet seems to be: don't own the compute, abstract away the hardware chaos, make good money on enterprise solutions while still having mindshare and developer adoption with cloud API pricing.
+
+Whether that works? I genuinely don't know. But it was a fascinating read.
+
+_Source:_ [_Zhipu AI IPO Prospectus_](https://www1.hkexnews.hk/listedco/listconews/sehk/2025/1230/2025123000017.pdf)_, Hong Kong Stock Exchange (Stock Code: 2513). All page references are approximate due to PDF extraction._
+
+_Disclaimer: This is not financial advice. I was just curious about the first frontier-like model company that is going public and wanted to understand how they operate internally._

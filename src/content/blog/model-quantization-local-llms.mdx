@@ -1,0 +1,37 @@
+---
+title: "Model Quantization Explained: Run AI Models Locally on Your Laptop"
+description: Explaining model quantization - a way to reduce memory requirements of larger LLMs
+date: "2025-02-21T00:00:00.000Z"
+image: /images/uploads/migrated/blog/model-quantization-local-llms/cover.jpeg
+tags: [quantization, small models]
+---
+
+#### _**Learn how model quantization makes AI more accessible by shrinking large models to run on laptops and phones—cutting costs, boosting efficiency, and ensuring privacy.**_
+
+I've always found that the best use cases emerge from playing around with new tech. However, when it comes to AI models, it can be a hassle as you have to sign up for an online service, hand over your credit card, and hope that you don’t end up with an unexpected bill. That’s why I’m excited about quantization; it lets you run AI models locally, so you can experiment as much as you want, with zero risk of surprise costs.
+
+#### 𝐖𝐡𝐚𝐭 𝐢𝐬 𝐪𝐮𝐚𝐧𝐭𝐢𝐳𝐚𝐭𝐢𝐨𝐧?
+
+At its core, quantization involves reducing the precision with which we store the weights of the neural network.
+
+Instead of storing values in high-precision formats like FP16 (which uses more bits and therefore memory), we can use lower-precision formats like INT4 or INT8, which take up less space and less memory. This drastically reduces the RAM memory requirements of the model without 𝑠𝑒𝑣𝑒𝑟𝑒𝑙𝑦 impacting performance.
+
+Think of it like JPEG - an image format that allows pictures to be compressed without losing much information.
+
+#### 𝐖𝐡𝐲 𝐝𝐨𝐞𝐬 𝐪𝐮𝐚𝐧𝐭𝐢𝐳𝐚𝐭𝐢𝐨𝐧 𝐦𝐚𝐭𝐭𝐞𝐫?
+
+The scaling laws have shown that larger model sizes perform better. So we have gone from BERT (number of parameter: 340 million, model size: 440MB) to GPT-3 (175 billion parameters, model size: 350GB).
+
+As models grow in size, serving them requires multiple GPUs and complex engineering, best left to large organizations that provide APIs to access them.
+
+But with quantization, we can compress these models and run them on simpler hardware - sometimes even directly on your laptop or phone. This makes AI more accessible and cost-efficient for businesses and individuals alike.
+
+Here's how I've used it recently: I use [**whisper.cpp**](https://github.com/ggml-org/whisper.cpp) as my local subtitling engine to watch German content. The original content publishers don’t provide English subtitles, so instead of paying for API calls or spinning up a cloud instance, I run the transcription model directly on my laptop. The result? Accurate subtitles, no additional cost, and complete privacy - the content never leaves my device and I don't have to worry about copyright infringement.
+
+By reducing model size through quantization, you can unlock the power of AI locally, making it practical, affordable, and efficient. And who wouldn’t want that!
+
+#### Final Thoughts
+
+By reducing model size through quantization, you can unlock the power of AI locally. It’s practical, efficient, and budget-friendly, bringing cutting-edge AI within reach of everyday users.
+
+And honestly, who wouldn’t want that?

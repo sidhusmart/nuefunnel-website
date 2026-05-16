@@ -1,0 +1,20 @@
+---
+interface Props {
+  id: string;
+  title?: string;
+}
+
+const { id, title = 'YouTube video' } = Astro.props;
+const src = `https://www.youtube-nocookie.com/embed/${id}?rel=0&modestbranding=1`;
+---
+
+<div class="aspect-video overflow-hidden rounded-lg bg-border my-8">
+  <iframe
+    src={src}
+    title={title}
+    loading="lazy"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen
+    class="w-full h-full border-0"
+  ></iframe>
+</div>

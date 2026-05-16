@@ -1,0 +1,42 @@
+---
+title: "Prompting Paradigms: From One-Line Prompts to Clue and Reasoning (CARP)"
+description: Exploring a new prompting technique that tries to improve text classification through best-of-n prompting strategy
+date: "2025-05-23T00:00:00.000Z"
+image: /images/uploads/migrated/blog/prompting-paradigms-carp/cover.jpeg
+tags: [nlp, classification]
+---
+
+#### _**Prompting has evolved: from word counts to one-line prompts to CARP. Learn how structured reasoning boosts text classification accuracy.**_
+
+Remember when everyone was convinced that _Prompt Engineer_ was the next sexiest job title? Prompting is still important, but it’s evolving; today we hear the term _“Context Engineering”_, which is much more than just writing a clever prompt. While the techniques for working with LLMs is constantly evolving, this post is about a specific prompt variant that improves text classification with LLMs.
+
+#### Then vs Now
+
+Back when I started (fresh out of Andrew Ng’s ML course), almost a decade ago, I built a reputation dashboard for banks based on social media interactions. My approach was simple: count positive and negative words from open-source lexicons. It may not have been the most accurate method, but it worked remarkably well for validating the concept with stakeholders.
+
+Today, with models like _gpt-4o_, I can do sentiment classification with a **one-line prompt**.
+
+It's astonishing how this technology has evolved, providing faster and possibly more accurate results with minimal effort. This newfound efficiency has become a core principle in my work and in the courses I teach.
+
+#### Enter CARP
+
+As always, there are ways to push the boundaries further and achieve state-of-the-art results. I recently stumbled upon a [paper](https://arxiv.org/pdf/2305.08377) titled 'Text Classification via Large Language Models,' that introduced a prompt variant called Clue And Reasoning Prompting (CARP). This innovative approach enhances sentiment classification by providing clues and reasoning to the model. I found the CARP prompt to be similar to the Chain-of-Thought (CoT) paradigm but with added nuances.
+
+#### What research shows
+
+However, what caught my attention were the findings from the ablation studies:
+
+-   Position matters - where you place the few-shot examples and the order in which they are presented in the prompt has an impact on the classification accuracy.
+    
+-   LLMs can generate the 'reasoning' for the training examples which is then reused in the prediction prompt!
+    
+-   The final prediction is decided using majority or weighted voting from five calls to the LLM to overcome possible hallucinations or randomness in LLM output.
+    
+
+![](/images/uploads/migrated/blog/prompting-paradigms-carp/image-1.png)
+
+This paper has inspired me to explore how we can refine our prompts and control mechanisms to maximize performance. While a simple one-line prompt can be effective, there's immense potential for those who want to take their products to the next level.
+
+#### Why it mattters?
+
+Prompting started as a hack, but it’s fast becoming a science. With approaches like CARP, we’re learning how to guide LLMs with structure, reasoning, and context, not just clever phrasing. The future of prompting is less about tricking the model and more about _engineering reliable systems_.

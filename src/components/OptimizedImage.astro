@@ -12,7 +12,9 @@ interface Props {
 
 const { src, alt = '', class: className = '', loading = 'lazy', decoding = 'async' } = Astro.props;
 
-// Helper to get metadata for optimized images
+// Helper to get metadata for optimized images. The optimizer mirrors the
+// uploads/ directory structure inside optimized/, so we must preserve the
+// subpath (not just the basename) when looking up the metadata sidecar.
 function getOptimizedImageData(imageSrc: string) {
   // Extract path from src (remove leading slash if present)
   const cleanSrc = imageSrc.startsWith('/') ? imageSrc.slice(1) : imageSrc;
@@ -22,11 +24,12 @@ function getOptimizedImageData(imageSrc: string) {
     return null;
   }
 
-  // Get the base filename
-  const { name } = parse(cleanSrc);
-
-  // Construct path to metadata JSON
-  const metadataPath = join(process.cwd(), 'public', 'images', 'optimized', `${name}.json`);
+  // Preserve the subpath inside uploads/ so nested directories
+  // (e.g. images/uploads/migrated/blog/<slug>/cover.png) resolve to the
+  // matching metadata under optimized/.
+  const relPath = cleanSrc.replace(/^images\/uploads\//, '');
+  const { dir, name } = parse(relPath);
+  const metadataPath = join(process.cwd(), 'public', 'images', 'optimized', dir, `${name}.json`);
 
   if (!existsSync(metadataPath)) {
     return null;

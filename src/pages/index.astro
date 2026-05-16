@@ -1,4 +1,5 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 
 const founders = [
@@ -14,32 +15,20 @@ const founders = [
   },
 ];
 
-const caseStudies = [
-  {
-    slug: 'whatsapp-llm-fintech',
-    industry: 'Financial services',
-    headline: 'WhatsApp + LLM customer support for a regional fintech',
-    outcome: '60% of first-touch tickets deflected; the support team now handles only edge cases.',
-    scope: '5 weeks · 2 people · coding-agent-assisted',
-    detail: 'Structured tool calls bridge the LLM with their internal CRM — no new system of record.',
-  },
-  {
-    slug: 'engineering-rag',
-    industry: 'B2B SaaS',
-    headline: 'Internal RAG for engineering onboarding',
-    outcome: 'New-hire ramp time dropped from three days of pair-programming to roughly six hours of supervised exploration.',
-    scope: '4 weeks · 2 people · coding-agent-assisted',
-    detail: 'Indexed against their existing Notion and GitHub corpus. We did not introduce a new docs platform.',
-  },
-  {
-    slug: 'conversational-analytics',
-    industry: 'Consumer e-commerce',
-    headline: 'Natural-language analytics for the ops team',
-    outcome: 'The weekly 4-hour reporting cycle is gone. Ops asks questions in plain English and reads numbers directly.',
-    scope: '6 weeks · 2 people',
-    detail: 'SQL generation over their existing Snowflake warehouse. Zero data migration.',
-  },
-];
+// Pull the three most-recent work entries from the collection so this stays
+// in sync with /work automatically. Drafts are excluded.
+const allWork = await getCollection('work', ({ data }) => !data.draft);
+const caseStudies = allWork
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3)
+  .map((entry) => ({
+    slug: entry.slug,
+    industry: entry.data.industry ?? '',
+    headline: entry.data.title,
+    outcome: entry.data.outcome ?? entry.data.description,
+    scope: entry.data.scope ?? '',
+    detail: entry.data.description,
+  }));
 
 const products = [
   {
@@ -56,32 +45,17 @@ const products = [
   },
 ];
 
-const writing = [
-  {
-    type: 'Book',
-    title: '[Book title]',
-    meta: 'O’Reilly · 2024',
-    href: '#',
-  },
-  {
-    type: 'Talk',
-    title: 'Why most enterprise AI POCs fail before any code is written',
-    meta: 'QCon London · 2024',
-    href: '#',
-  },
-  {
+// Pull the four most-recent blog posts from the collection.
+const allBlog = await getCollection('blog', ({ data }) => !data.draft);
+const writing = allBlog
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 4)
+  .map((entry) => ({
     type: 'Post',
-    title: 'Coding agents change the unit economics of small consultancies',
-    meta: 'nuefunnel blog',
-    href: '/blog/coding-agents-change-unit-economics',
-  },
-  {
-    type: 'Podcast',
-    title: 'Designing for two-person AI teams',
-    meta: 'Practical AI · 2024',
-    href: '#',
-  },
-];
+    title: entry.data.title,
+    meta: entry.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }),
+    href: `/blog/${entry.slug}`,
+  }));
 ---
 
 <Layout title="nuefunnel">

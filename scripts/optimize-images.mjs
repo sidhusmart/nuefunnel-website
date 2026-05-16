@@ -12,10 +12,12 @@ const CONFIG = {
   formats: ['webp'],
 };
 
-// Helper to check if file is an image
+// Helper to check if file is an image. Includes .webp because Framer
+// covers and inline images sometimes arrive as webp; sharp can read them
+// natively and re-encode at our target quality/widths.
 function isImageFile(filename) {
   const ext = filename.toLowerCase();
-  return ext.endsWith('.png') || ext.endsWith('.jpg') || ext.endsWith('.jpeg');
+  return ext.endsWith('.png') || ext.endsWith('.jpg') || ext.endsWith('.jpeg') || ext.endsWith('.webp');
 }
 
 // Get all image files recursively

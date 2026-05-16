@@ -1,0 +1,99 @@
+---
+title: Introducing Whatsapp QuizBot
+description: Simple WhatsApp-based Quizzing bot that helps NHS doctors prepare
+date: "2025-11-10T00:00:00.000Z"
+image: /images/uploads/migrated/blog/whatsapp-quizbot/cover.jpeg
+tags: [whatsapp, product, lab, open-source]
+---
+
+### _**How We Built a WhatsApp Quiz Bot to Help a Doctor Prepare for Her Exams (and Why We’re Sharing It)**_
+
+#### **The Spark: Helping Those Who Help Everyone Else**
+
+It all started with a close family member; a medical professional working for the NHS in the UK. Watching her life’s work has always been inspiring to us: the long shifts, the precision, the responsibility of saving human lives. But something else stood out too! While we rely so much on doctors for their expertise every single day, there aren’t many tools that make _their_ lives easier, especially when it comes to keeping up with the endless learning that the profession demands.
+
+Between managing patients, keeping up with new treatments, and preparing for regular certification exams, it often feels like an uphill climb. Medical professionals aren’t just expected to master what’s already known, they also have to stay updated on _what’s new_. These exams often include questions drawn from the latest research papers, clinical trials, and medical guidelines.
+
+That’s a tough balance: saving lives during the day and studying late into the night.
+
+#### **The Idea: Turning Research Into Practice (and Play)**
+
+While we couldn’t exactly help with the _medical_ part, no amount of AI or coding could help her in performing a surgery! We realized that we could help make learning and revision more accessible, engaging, and time-efficient.
+
+That’s how the idea for the **WhatsApp Quiz Bot** was born.
+
+We built a system that automatically scans the latest research papers in a chosen field, extracts key facts, tables, and figures, and turns them into multiple-choice questions (MCQs). These questions are then sent via WhatsApp, making it as easy as chatting with a friend.
+
+<YouTube id="MKbXat2txGc" />
+
+Instead of passively scrolling through dense academic papers, medical professionals can test themselves on the go. When they get a question wrong, it nudges them to look up the original research; turning curiosity into motivation.
+
+#### **🤝 Learning Together: The Accountability Effect**
+
+One key insight that shaped this project wasn’t about technology at all, it was about **motivation**.
+
+Doctors already juggle demanding schedules, long shifts, and constant learning. Finding uninterrupted study time is almost impossible. So instead of expecting them to _make_ time, we decided to meet them where they already are; on **WhatsApp**.
+
+But here’s what made it interesting: we didn’t make it just a one-on-one chat. We added the quiz bot to our small **family group**.
+
+That simple choice changed everything.
+
+Suddenly, the act of taking a quiz wasn’t private anymore, it was _visible_. Your family could see how often you took quizzes, how consistent you were. It wasn’t about pressure; it was about **accountability**. The gentle awareness that others were watching brought a level of seriousness that solo study sessions rarely achieve. We all slack off sometimes, but when your family or friends can see how often you participate, it’s hard to ignore the reminder.
+
+And as we saw how naturally this dynamic worked, we felt that it could be extended even further. Imagine **group quizzes**, where a bit of friendly competition or even a quick “who answered it first” moment turns studying into a game. Learning doesn’t have to be lonely or boring.
+
+#### **How It Works: Stitching AI Together for Smarter Quizzes**
+
+In our consulting projects, we had already helped clients ingest and structure their documents so we applied some of the same tricks in this case as well. We wanted to create questions grounded on each research paper and ensure that they were relevant and reflective of the actual certification exams, not generic trivia.
+
+Here’s how we made it work:
+
+#### **1️⃣ Extracting the Essentials (Text, Tables, and Diagrams)**
+
+We started with [Docling](https://github.com/docling-project/docling); a library that provides multiple document-processing techniques. It supports multiple document formats (PDFs, Word, powerpoint) and intelligently separate text, images, and tables.
+
+This was critical because medical papers are packed with visual content such as diagnostic charts, anatomical diagrams, and reference tables ; each of which play a significant role in overall understanding. By isolating these elements, we could feed a much richer dataset into the next stage as opposed to simply extracting the text.
+
+#### **2️⃣ Turning Research Into Questions**
+
+Next, we used [**Gemini 2.5 Pro**](https://deepmind.google/models/gemini/pro/) to transform this extracted content into multiple-choice questions (MCQs) that mirror real exam formats.
+
+We tested several prompt styles; from long, detailed instructions to short, example-based ones and in the end settled on a **simple few-shot prompt** with a handful of well-chosen example question. The model generates the question, four answer options, and the correct response, all neatly formatted for use in the quiz.
+
+_Both extraction and question generation run as a batch process_, allowing us to process multiple papers at once and store the results as structured JSON files. These files then act as the quiz database for the WhatsApp bot.
+
+#### **3️⃣ Delivering the Quiz Over WhatsApp**
+
+Finally, we wanted to make accessing these quizzes as easy as sending a message. Enter **WhatsApp**.
+
+Using the [**Whatsmeow**](https://github.com/tulir/whatsmeow) library, we built a bot that delivers questions directly in chat, tracks responses, and reveals the right answers. We ran it locally for our purpose, but it can easily be deployed to the cloud if needed.
+
+Disclaimer: **Whatsmeow isn’t an official Meta API**, but it’s a fantastic community-driven solution that works perfectly for personal or small-group use.
+
+The end result?
+
+A pipeline that reads research papers → extracts key insights → generates exam-style MCQs → and delivers them straight to your group chat.
+
+No dashboards. No logins. Learning and revision, one message at a time.
+
+#### **Why We’re Sharing It - and What Drives Us**
+
+This project started as a small side experiment to help one person. But somewhere along the way, it became something more meaningful as a reminder of why we build things in the first place.
+
+At **NueFunnel**, we’re a collective of curious tech nerds who believe that AI, when used thoughtfully, can empower people and make their everyday lives a little easier. We love exploring how technology can simplify, accelerate, or even just _brighten_ a part of someone’s day.
+
+We don’t always do this for profit. Sometimes, we build things simply because we _can -_ because it’s fun, because it helps someone, or because it pushes the boundaries of what one can do with AI.
+
+That’s the same spirit that drove this project. We saw how hard-working medical professionals constantly push themselves to help others, and we thought:
+
+> “If we can make their lives easier or calmer by even 1%, that’s worth doing.”
+
+And now that we’ve seen how well it worked, we want to share it - not as a finished product, but as an open invitation to the community. The entire project is **open-source ,** from the extraction pipeline to the WhatsApp bot. You can explore the code, adapt it to your own use case, or even repurpose it for entirely different domains like education, training, or knowledge sharing.
+
+We’ve kept it modular, added reasonable documentation and hopefully clean enough so that others can experiment, extend, and learn from it. View the [Github repository](https://github.com/nuefunnel/whatsapp-quiz-bot) and feel free to submit pull requests or share with others.
+
+#### **🚀 Why We’re Launching on ProductHunt**
+
+We’re sharing this on **ProductHunt** because we believe small, thoughtful experiments like this deserve a spotlight. It’s not a commercial product; it’s a proof of how creative builders can use AI to solve very human problems.
+
+If this resonates with you, we reserve some pro-bono time each month to help people get things done with AI. Drop us a message and we'll be happy to see if we can help.

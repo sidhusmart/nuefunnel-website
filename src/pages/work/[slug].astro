@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import { components } from '../../components/MDXComponents';
+import OptimizedImage from '../../components/OptimizedImage.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection('work', ({ data }) => !data.draft);
@@ -56,10 +57,11 @@ function formatDate(date: Date) {
 
       {entry.data.image && (
         <div class="aspect-video overflow-hidden bg-border rounded-lg mb-12">
-          <img
+          <OptimizedImage
             src={entry.data.image}
             alt={entry.data.title}
             class="w-full h-full object-cover"
+            loading="eager"
           />
         </div>
       )}
