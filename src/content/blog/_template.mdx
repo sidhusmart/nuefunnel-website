@@ -1,0 +1,163 @@
+---
+# ──────────────────────────────────────────────────────────────────────
+# BLOG POST TEMPLATE — copy this file to start a new post.
+#
+# Quick start:
+#   cp _template.mdx your-post-slug.mdx
+#   # edit frontmatter + body, then `npm run dev`
+#
+# The filename becomes the URL: src/content/blog/foo.mdx → /blog/foo.
+# Use lowercase with hyphens. No spaces. No special characters.
+#
+# Astro ignores files starting with `_`, so this template never
+# appears on /blog or in search engines.
+# ──────────────────────────────────────────────────────────────────────
+
+# REQUIRED. Shown as the page <h1>. Also used as the browser tab title
+# and the OpenGraph title for social shares. Keep under ~60 characters.
+title: "Replace with your post title"
+
+# REQUIRED. 1–2 sentences. Used in three places: the <meta description>
+# Google shows in search results, the social card preview when shared,
+# and the excerpt under the title on /blog and the home page.
+# Keep under ~160 characters. Write something more *useful* than the
+# title repeats — what will the reader learn?
+description: "One- or two-sentence summary explaining what the reader will learn."
+
+# REQUIRED. Used for sort order on /blog and home page. ISO 8601 works;
+# so does YYYY-MM-DD. Use the actual publication date (not the date you
+# started drafting), since changing it later can confuse RSS readers
+# and search engines.
+date: 2026-01-01
+
+# Optional. Defaults to "nuefunnel Team" if omitted.
+author: "nuefunnel"
+
+# Optional but recommended. The hero image at the top of the post,
+# and the OpenGraph image used for social card previews.
+# Drop your file into public/images/uploads/ and reference it as
+# /images/uploads/<filename>. Build-time optimization automatically
+# generates responsive WebP variants — no extra action needed.
+image: /images/uploads/REPLACE-WITH-YOUR-COVER.png
+
+# Optional. Comma-separated array. Used for filtering/grouping later.
+# Lowercase, short, focused. Pick 2–5; more isn't better.
+tags: [ai, replace-me]
+
+# Set to false (or delete this line) when the post is ready to publish.
+# While `draft: true`, the post is hidden from /blog, the home page,
+# and the sitemap — but you can still preview it at the direct URL.
+draft: true
+---
+
+{/*
+  ====================================================================
+  BODY GUIDE — everything below is an example of one Markdown/MDX
+  feature, with an HTML comment above it explaining the syntax.
+  Delete the comments and the example content as you write your post.
+  ====================================================================
+*/}
+
+{/* Open with a hook paragraph. No heading — the page template already
+    renders the title as h1. Start at h2 (##) for section headings. */}
+
+This is the opening paragraph. It should pull the reader in — a specific
+observation, a tension, a number that surprised you. Avoid "In this post
+we'll discuss..." preambles; just start with the substance.
+
+{/* ── Section headings — use ## for top-level sections in the body.
+       Use ### for subsections, #### sparingly. Don't use # — that's the title. */}
+
+## A section heading (h2)
+
+Body text. **Bold for emphasis** when something genuinely matters.
+_Italic for softer emphasis_ — typically titles, foreign phrases, or
+introducing a term. Use `inline code` for filenames, command names,
+function names, or short technical strings.
+
+### A subsection heading (h3)
+
+More body content.
+
+#### A subsubsection (h4 — use rarely)
+
+Most posts don't need this depth.
+
+{/* ── Links — internal and external. Internal links should be relative
+       paths (start with /), not full URLs. */}
+
+You can [link to another post on this site](/blog/some-other-slug)
+using a relative path. External links work the same way:
+[Astro docs](https://docs.astro.build) opens in the same tab by default.
+
+{/* ── Lists. Unordered uses `-`. Ordered uses `1.` `2.` etc. The
+       numbers don't have to be in order — Markdown renumbers them. */}
+
+A bulleted list:
+
+- First item
+- Second item, with **bold** inside
+- Third item
+
+A numbered list:
+
+1. First step
+2. Second step
+3. Third step
+
+{/* ── Blockquotes — for pull quotes, citations, or sources. */}
+
+> "A quote stands out visually and slows the reader down. Use it for
+> a sentence that's worth pausing on."
+>
+> — Source name (publication, year)
+
+{/* ── Inline images. Use the same /images/uploads/ path convention as
+       the cover image. Optimization happens at build time. The text in
+       the brackets is the alt text — write something a screen reader
+       could read aloud, not just "image of X". */}
+
+![Alt text describing the image for accessibility](/images/uploads/REPLACE-WITH-YOUR-IMAGE.png)
+
+{/* ── Tables — GitHub-Flavored Markdown. The first row is the header,
+       the second row is the separator (`---` per column), then data rows. */}
+
+| Column header | Another column | Third column |
+| --- | --- | --- |
+| Cell 1 | Cell 2 | Cell 3 |
+| **Bold cell** | _Italic cell_ | `code cell` |
+| Multi-word cell | More content | Final cell |
+
+{/* ── YouTube embeds — use the <YouTube /> component with just the
+       video ID (the part after watch?v= in the URL). The component
+       handles responsive sizing, lazy loading, and uses the
+       privacy-enhanced youtube-nocookie.com endpoint. */}
+
+<YouTube id="dQw4w9WgXcQ" />
+
+{/* ── Code blocks — triple backticks, specify the language for syntax
+       highlighting. Supported languages include js, ts, py, sh, css,
+       html, mdx, json, yaml, sql, etc. */}
+
+```js
+function example(input) {
+  return `processed: ${input}`;
+}
+```
+
+```sh
+npm run dev
+# open http://localhost:4321
+```
+
+{/* ── Horizontal rule — use to separate major sections of a long post. */}
+
+---
+
+{/* End with a closing thought, a takeaway, or a call to action.
+    Don't summarize — readers don't need to re-read the post they
+    just read. End forward-looking or actionable. */}
+
+A closing paragraph that points the reader somewhere useful — to a
+related post, to an action they can take, to an open question worth
+sitting with.

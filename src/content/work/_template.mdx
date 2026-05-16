@@ -1,0 +1,159 @@
+---
+# ──────────────────────────────────────────────────────────────────────
+# WORK / CASE STUDY TEMPLATE — copy this file to start a new entry.
+#
+# Quick start:
+#   cp _template.mdx your-case-study-slug.mdx
+#   # edit frontmatter + body, then `npm run dev`
+#
+# The filename becomes the URL: src/content/work/foo.mdx → /work/foo.
+# Use lowercase with hyphens. No spaces or special characters.
+#
+# Astro ignores files starting with `_`, so this template never
+# appears on /work or in search engines.
+# ──────────────────────────────────────────────────────────────────────
+
+# REQUIRED. Headline of the engagement. Aim for a punchy, specific
+# claim rather than a generic descriptor. ~60 chars max for clean
+# display on listings.
+title: "Replace with your case study title"
+
+# REQUIRED. 1–2 sentence summary. Appears on the /work index, the home
+# page "Recent work" section, OG card previews, and as the lead under
+# the title on the post page. Focus on what the result was, in
+# concrete terms.
+description: "One sentence explaining what you did and what changed for the client."
+
+# REQUIRED. Date the engagement completed (not started). Used for sort
+# order. ISO 8601 or YYYY-MM-DD both work.
+date: 2026-01-01
+
+# Optional. Client name if named, or an anonymized descriptor like
+# "Top-3 European fashion retailer" or "[Fintech client]" if under NDA.
+# Many B2B case studies omit this entirely — leave blank if so.
+client: ""
+
+# Optional. The client's industry or sector. Used as the small uppercase
+# tag above the title on listings.
+industry: "Industry name"
+
+# Optional. Short string describing the engagement shape. Often the
+# format is "<duration> · <team size>" e.g. "6 weeks · 2 people".
+# Shown in italic-grey under the post.
+scope: "X weeks · N people"
+
+# Optional. The headline number or short phrase capturing the result.
+# Used for the "outcome" line on home page case-study cards.
+outcome: "The specific, measurable result"
+
+# Optional but recommended. Hero image at the top of the post and the
+# OpenGraph image when shared. Drop your file in public/images/uploads/
+# (build-time optimization runs automatically).
+image: /images/uploads/REPLACE-WITH-YOUR-COVER.png
+
+# Optional. If true, the case study can be highlighted in featured
+# sections (none implemented yet, but the schema reserves it).
+featured: false
+
+# Set to false (or remove the line) when the case study is ready
+# to publish. While draft, hidden from /work, home page, and sitemap.
+draft: true
+---
+
+{/*
+  ====================================================================
+  CASE STUDY STRUCTURE — the body of a work entry typically follows
+  this shape:
+    1. Context (who, what they sell, what they tried)
+    2. The challenge (what was broken or aspirational)
+    3. Approach (how you tackled it)
+    4. Implementation details (with images, tables if useful)
+    5. The outcome (metrics, quotes)
+    6. What's next (optional)
+
+  Every body feature available in /blog also works here — headings,
+  links, lists, blockquotes, inline images, tables, YouTube embeds,
+  code blocks. Examples of each are below.
+  ====================================================================
+*/}
+
+{/* Open by describing the client and their situation. One short
+    paragraph; don't bury the lede in setup. */}
+
+A leading [industry] company with [scale signal: # countries, # users,
+# revenue] approached us with a specific problem. They were already
+[what they had]; they wanted to [what they aspired to].
+
+{/* ── The Challenge — what was actually hard about this. Use a
+       blockquote for a client-quote-style hook if you have one. */}
+
+## The Challenge
+
+> "A direct quote from the client that frames the pain point."
+
+The challenge was concretely:
+
+- A specific limitation of the existing system
+- A second specific limitation
+- A third — keep this list to 3–5 items so it doesn't blur
+
+{/* ── Approach — sub-sections work well here. */}
+
+## Our Approach
+
+We split the engagement into [N] phases.
+
+### Phase 1: Foundation
+
+What you did first, and why this order.
+
+### Phase 2: The Core Build
+
+The substantive engineering. Include images of UI / system diagrams /
+schema changes if useful.
+
+![Diagram description for screen readers](/images/uploads/REPLACE-WITH-YOUR-IMAGE.png)
+
+### Phase 3: Rollout
+
+How it went from prototype to actually-used.
+
+{/* ── Tables work well for before/after comparisons or capability
+       grids. The first row is the header. */}
+
+## What Changed
+
+| Capability | Before | After |
+| --- | --- | --- |
+| **First capability** | Limited behavior | New behavior |
+| **Second capability** | What didn't work | What now works |
+| **Third capability** | Manual process | Automated process |
+
+{/* ── Outcome — concrete numbers and a quote if you have one. */}
+
+## The Outcome
+
+The headline number, stated plainly: "[X] % improvement on [metric]"
+or "[Y] hours saved per week" or "[Z] new users / month."
+
+- Specific result #1
+- Specific result #2
+- Specific result #3
+
+> "A closing client quote that captures the qualitative change —
+> not just the metric."
+>
+> — Role and team name
+
+{/* ── If a video demo exists, embed it. Pass just the YouTube video ID. */}
+
+<YouTube id="dQw4w9WgXcQ" />
+
+{/* ── Optional closing section: lessons learned, what's next, or a CTA. */}
+
+## What We Learned
+
+Two or three short paragraphs of reflection. What surprised you. What
+you'd do differently. What the next engagement in this space might
+look like. This section is what makes a case study more than a brag —
+it shows you reason about your work.
