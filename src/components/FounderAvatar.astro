@@ -1,0 +1,32 @@
+---
+import OptimizedImage from './OptimizedImage.astro';
+
+interface Props {
+  photo?: string;
+  initials: string;
+  name: string;
+  size?: 'sm' | 'md';
+  loading?: 'lazy' | 'eager';
+}
+
+const { photo, initials, name, size = 'md', loading = 'lazy' } = Astro.props;
+
+// Hero teaser uses the smaller circle; the About profile grid uses the larger.
+const box = size === 'sm' ? 'w-16 h-16' : 'w-20 h-20';
+const initialsText = size === 'sm' ? 'text-base' : 'text-lg';
+---
+
+{photo ? (
+  <div class={`${box} rounded-full overflow-hidden grayscale flex-shrink-0`}>
+    <OptimizedImage
+      src={photo}
+      alt={name}
+      class="w-full h-full object-cover"
+      loading={loading}
+    />
+  </div>
+) : (
+  <div class={`${box} rounded-full bg-border flex items-center justify-center text-ink font-tight font-semibold ${initialsText} flex-shrink-0`}>
+    {initials}
+  </div>
+)}

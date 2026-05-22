@@ -58,9 +58,31 @@ const trainingCollection = defineCollection({
   }),
 });
 
+// Founder/team profiles. A `data` collection (JSON entries) so the same source
+// of truth feeds both the homepage hero and the About page, instead of being
+// hardcoded — and drifting — in each page.
+const teamCollection = defineCollection({
+  type: 'data',
+  schema: z.object({
+    name: z.string(),
+    role: z.string(),
+    bio: z.string(),
+    initials: z.string(),
+    // Path under public/ that the build-time image optimizer can pick up.
+    photo: z.string().optional(),
+    // Display order; getCollection() makes no ordering guarantee.
+    order: z.number().default(0),
+    links: z.array(z.object({
+      label: z.string(),
+      href: z.string().url(),
+    })).optional().default([]),
+  }),
+});
+
 export const collections = {
   blog: blogCollection,
   work: workCollection,
   products: productsCollection,
   training: trainingCollection,
+  team: teamCollection,
 };

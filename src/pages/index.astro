@@ -1,19 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
+import FounderAvatar from '../components/FounderAvatar.astro';
 
-const founders = [
-  {
-    initials: 'F1',
-    name: '[Founder one]',
-    role: '[Background — e.g. data science, ML]',
-  },
-  {
-    initials: 'F2',
-    name: '[Founder two]',
-    role: '[Background — e.g. conversational AI, product]',
-  },
-];
+// Single source of truth for founder profiles (shared with /about).
+const founders = (await getCollection('team')).sort(
+  (a, b) => a.data.order - b.data.order
+);
 
 // Pull the three most-recent work entries from the collection so this stays
 // in sync with /work automatically. Drafts are excluded.
@@ -65,12 +58,16 @@ const writing = allBlog
       <div class="flex flex-wrap gap-x-12 gap-y-6 mb-14">
         {founders.map((f) => (
           <div class="flex items-center gap-4">
-            <div class="w-16 h-16 rounded-full bg-border flex items-center justify-center text-ink font-tight font-semibold text-base">
-              {f.initials}
-            </div>
+            <FounderAvatar
+              photo={f.data.photo}
+              initials={f.data.initials}
+              name={f.data.name}
+              size="sm"
+              loading="eager"
+            />
             <div>
-              <p class="text-ink font-medium leading-tight">{f.name}</p>
-              <p class="text-subtle text-sm leading-tight mt-1">{f.role}</p>
+              <p class="text-ink font-medium leading-tight">{f.data.name}</p>
+              <p class="text-subtle text-sm leading-tight mt-1">{f.data.role}</p>
             </div>
           </div>
         ))}

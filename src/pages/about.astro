@@ -1,55 +1,65 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
+import OptimizedImage from '../components/OptimizedImage.astro';
+import FounderAvatar from '../components/FounderAvatar.astro';
 
-const founders = [
-  {
-    initials: 'F1',
-    name: '[Founder one]',
-    role: '[Background — e.g. data science, ML]',
-    bio: 'Spent the last decade building production ML systems at [company], [company], and [company]. Wrote [book or notable paper] in 2023. Started nuefunnel because most AI-product engagements are too large to be useful — a two-person team with coding agents can do in five weeks what a ten-person consultancy used to do in six months.',
-    links: [
-      { label: 'GitHub', href: 'https://github.com/[handle]' },
-      { label: 'LinkedIn', href: 'https://linkedin.com/in/[handle]' },
-      { label: 'Personal site', href: 'https://[domain]' },
-    ],
-  },
-  {
-    initials: 'F2',
-    name: '[Founder two]',
-    role: '[Background — e.g. conversational AI, product]',
-    bio: 'Previously led [team] at [company], shipped [notable product] used by [N] customers. Has a long-standing interest in the seam where conversational interfaces meet operational data. Joined to focus on what AI-native products actually look like when they\'re not glued onto an existing SaaS.',
-    links: [
-      { label: 'GitHub', href: 'https://github.com/[handle]' },
-      { label: 'LinkedIn', href: 'https://linkedin.com/in/[handle]' },
-    ],
-  },
-];
+// Single source of truth for founder profiles (shared with the homepage hero).
+const founders = (await getCollection('team')).sort(
+  (a, b) => a.data.order - b.data.order
+);
 ---
 
 <Layout title="About" description="Two operators, one studio. Here's how we work and why.">
   <section class="pt-28 md:pt-36 pb-16 px-4">
     <div class="container-custom max-w-desktop">
-      <p class="text-xs uppercase tracking-wider text-subtle font-medium mb-3">
-        Where the name comes from
-      </p>
-      <h1 class="font-tight text-4xl md:text-6xl font-semibold text-ink max-w-4xl leading-[1.05]">
-        The Nürnberg Trichter, but for AI.
-      </h1>
-      <div class="mt-8 max-w-2xl space-y-6 text-lg md:text-xl text-body leading-relaxed">
-        <p>
-          The name nuefunnel is an homage to the
-          <em>Nürnberger Trichter</em> &mdash; a 17th-century satirical
-          notion of a magical funnel that pours knowledge straight into the
-          minds of students who'd rather not study. It's a joke that has
-          stuck around in German for nearly four hundred years.
-        </p>
-        <p>
-          We're based in Nuremberg, so the image was hard to resist. In our
-          version the funnel runs the other way: human taste and judgement
-          go in at the top, and what comes out the bottom is AI pointed at
-          things that actually matter &mdash; software that delivers value
-          rather than software that exists to look like AI.
-        </p>
+      <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-12 md:gap-16 items-start">
+        <div>
+          <p class="text-xs uppercase tracking-wider text-subtle font-medium mb-3">
+            Where the name comes from
+          </p>
+          <h1 class="font-tight text-4xl md:text-5xl font-semibold text-ink max-w-3xl leading-[1.1]">
+            Inspired by a 17th-century metaphor. Driven by 21st-century
+            intelligence.
+          </h1>
+          <div class="mt-8 max-w-2xl space-y-6 text-lg md:text-xl text-body leading-relaxed">
+            <p>
+              nuefunnel was born in Nuremberg, Germany &mdash; inspired by the
+              <strong class="text-ink font-semibold">Nuremberg Funnel
+              (Nürnberger Trichter)</strong>, a centuries-old metaphor for
+              pouring knowledge directly into the mind. We loved that idea
+              because it captures what we're trying to do with AI:
+              <strong class="text-ink font-semibold">make complex things feel
+              simple</strong>.
+            </p>
+            <p>
+              One might call it context engineering or prompting skills,
+              but ensuring that an AI solution has relevant knowledge about
+              your business, processes and tools is the key to success. 
+              We build
+              <strong class="text-ink font-semibold">AI-native products and
+              solutions</strong> that help businesses streamline processes,
+              boost productivity, and unlock the full potential of modern AI.
+            </p>
+          </div>
+        </div>
+
+        <figure class="w-full max-w-[260px]">
+          <OptimizedImage
+            src="/images/uploads/nue-trichter.png"
+            alt="1910 Nuremberg poster stamp depicting the Nuremberg funnel"
+            class="w-full h-auto rounded-md border border-border shadow-sm"
+            loading="eager"
+          />
+          <figcaption class="mt-3 text-xs text-subtle leading-relaxed">
+            A 1910 Nuremberg poster stamp depicting the Nuremberg funnel, with
+            the slogan:
+            <span class="block mt-1 italic">
+              &ldquo;If you lack wisdom in some matters, let them bring you the
+              Funnel from Nuremberg.&rdquo;
+            </span>
+          </figcaption>
+        </figure>
       </div>
     </div>
   </section>
@@ -67,21 +77,24 @@ const founders = [
         {founders.map((f) => (
           <div>
             <div class="flex items-center gap-4 mb-6">
-              <div class="w-20 h-20 rounded-full bg-border flex items-center justify-center text-ink font-tight font-semibold text-lg flex-shrink-0">
-                {f.initials}
-              </div>
+              <FounderAvatar
+                photo={f.data.photo}
+                initials={f.data.initials}
+                name={f.data.name}
+                size="md"
+              />
               <div>
                 <p class="font-tight text-xl font-semibold text-ink leading-tight">
-                  {f.name}
+                  {f.data.name}
                 </p>
-                <p class="text-subtle text-sm mt-1">{f.role}</p>
+                <p class="text-subtle text-sm mt-1">{f.data.role}</p>
               </div>
             </div>
             <p class="text-body leading-relaxed">
-              {f.bio}
+              {f.data.bio}
             </p>
             <div class="mt-5 flex flex-wrap gap-x-5 gap-y-2">
-              {f.links.map((l) => (
+              {f.data.links.map((l) => (
                 <a
                   href={l.href}
                   target="_blank"
@@ -114,7 +127,7 @@ const founders = [
           </h3>
           <p class="text-body leading-relaxed">
             Four to eight weeks per project. We don't do indefinite staff
-            augmentation. The end of an engagement is a real end &mdash; you
+            augmentation. The end of an engagement is a real end - you
             get a running system, the infrastructure-as-code, and the context
             to run it.
           </p>
@@ -136,7 +149,7 @@ const founders = [
           <p class="text-body leading-relaxed">
             Almost every engagement runs on top of the customer's existing
             warehouse, CRM, or doc system. New systems-of-record are a
-            ten-person-team kind of project &mdash; not something we take on.
+            ten-person-team kind of project - not something we take on.
           </p>
         </div>
         <div>
@@ -162,8 +175,8 @@ const founders = [
         Send a short note.
       </h2>
       <p class="mt-6 text-lg text-body max-w-2xl leading-relaxed">
-        Tell us what you have in mind. We'll reply within a couple of working
-        days, even if it's to say it isn't a fit.
+        We’re proudly bootstrapped, deeply curious, and aim to deliver value. 
+        Tell us what you have in mind and we'll reply within a couple of working days.
       </p>
       <div class="mt-8">
         <a

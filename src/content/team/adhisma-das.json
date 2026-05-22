@@ -1,0 +1,12 @@
+{
+  "order": 2,
+  "name": "Adhisma Das",
+  "role": "[Conversational AI, Partnerships & Consulting]",
+  "initials": "F2",
+  "photo": "/images/uploads/founders/adhisma-das.jpeg",
+  "bio": "Led partnerships with Meta, Viber and Apple for conversational AI bots. Previously managed consulting assignments across EMEA and Latin America for a large consulting firm. Has a long-standing interest in the seam where conversational interfaces meet operational data. Joined to focus on what AI-native products actually look like when they're not glued onto an existing SaaS.",
+  "links": [
+    { "label": "LinkedIn", "href": "https://www.linkedin.com/in/adhisma-das-11a79bb/" },
+    { "label": "Personal site", "href": "https://www.adhismadas.com/" }
+  ]
+}

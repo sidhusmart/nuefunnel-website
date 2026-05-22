@@ -1,0 +1,13 @@
+{
+  "order": 1,
+  "name": "Sidharth Ramachandran",
+  "role": "[Data science, ML]",
+  "initials": "F1",
+  "photo": "/images/uploads/founders/sidharth-ramachandran.jpeg",
+  "bio": "Spent the last decade leading multiple data and product teams at RTL, Citibank and Transunion. Co-authored an O'Reilly book on Natural Language Processing. Started nuefunnel because most AI-product engagements are too large to be useful — a two-person team with coding agents can do in five weeks what a ten-person consultancy used to do in six months.",
+  "links": [
+    { "label": "X", "href": "https://x.com/sidhusmart" },
+    { "label": "LinkedIn", "href": "https://www.linkedin.com/in/sidharthramachandran/" },
+    { "label": "Personal site", "href": "https://www.sidharthramachandran.com/" }
+  ]
+}
