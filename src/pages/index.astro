@@ -55,24 +55,6 @@ const writing = allBlog
   <!-- Hero -->
   <section class="pt-28 md:pt-36 pb-20 px-4">
     <div class="container-custom max-w-desktop">
-      <div class="flex flex-wrap gap-x-12 gap-y-6 mb-14">
-        {founders.map((f) => (
-          <div class="flex items-center gap-4">
-            <FounderAvatar
-              photo={f.data.photo}
-              initials={f.data.initials}
-              name={f.data.name}
-              size="sm"
-              loading="eager"
-            />
-            <div>
-              <p class="text-ink font-medium leading-tight">{f.data.name}</p>
-              <p class="text-subtle text-sm leading-tight mt-1">{f.data.role}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-
       <h1 class="font-tight text-5xl md:text-7xl font-semibold text-ink max-w-4xl leading-[1.05]">
         Shipping AI products with small teams.
       </h1>
@@ -295,6 +277,24 @@ const writing = allBlog
             Tell us about the cause <span aria-hidden="true">&rarr;</span>
           </a>
         </div>
+      </div>
+
+      <div class="mt-16 md:mt-20 pt-12 border-t border-border flex flex-wrap gap-x-12 gap-y-6">
+        {founders.map((f) => (
+          <div class="flex items-center gap-4">
+            <FounderAvatar
+              photo={f.data.photo}
+              initials={f.data.initials}
+              name={f.data.name}
+              size="sm"
+              loading="lazy"
+            />
+            <div>
+              <p class="text-ink font-medium leading-tight">{f.data.name}</p>
+              <p class="text-subtle text-sm leading-tight mt-1">{f.data.role}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   </section>
