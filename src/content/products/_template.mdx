@@ -1,28 +1,54 @@
 ---
-# REQUIRED: product name
+# ──────────────────────────────────────────────────────────────────────
+# PRODUCT TEMPLATE — copy this file to start a new product entry.
+#
+#   cp _template.mdx your-product-slug.mdx
+#   # edit frontmatter + body, then `npm run dev`
+#
+# Files starting with `_` are ignored by Astro, so this template never
+# appears on /products or the home page.
+# ──────────────────────────────────────────────────────────────────────
+
+# REQUIRED: product name. Shown as the heading on /products and the home page.
 title: "Product Name"
 
-# REQUIRED: short product description (shown on listing card)
+# OPTIONAL: short category line shown under the name.
+tagline: "AI-assisted [specific category]"
+
+# REQUIRED: one-sentence summary. Used verbatim as the condensed blurb in the
+# home page "Built things" highlight, and as the page <meta> description. The
+# longer pitch goes in the MDX body below.
 description: "One-sentence description of what this product does."
 
-# OPTIONAL: pricing label (e.g. "$99/month", "From $1,000", "Contact us")
+# OPTIONAL: external link for the "Visit" button. Must be a valid URL.
+# Omit the line entirely to render no button.
+# url: "https://example.com"
+
+# OPTIONAL: who it's built for — shown in the "Built for" detail on /products.
+# audience: "Small to mid-size operations teams shipping AI workflows."
+
+# OPTIONAL: pricing label — shown in the "Pricing" detail on /products.
 # price: "$99/month"
 
-# OPTIONAL: feature list. Inline YAML array, double-quoted strings.
+# OPTIONAL: feature list. Reserved in the schema; not rendered by the current
+# layout. Inline YAML array, double-quoted strings.
 # features: ["Feature one", "Feature two", "Feature three"]
 
-# OPTIONAL: hero image shown on listing card.
-# Drop the file into public/images/uploads/, then uncomment and update the path below.
-# image: "/images/uploads/product-image.png"
+# OPTIONAL: product logo/icon. Drop the file into public/images/uploads/, then
+# uncomment and update the path below. Shown as a rounded-square tile on
+# /products and the home page; if omitted, the product's initial letter shows.
+# logo: "/images/uploads/product-logo.png"
 
-# OPTIONAL: display order on the listing page (lower numbers appear first; defaults to 0)
+# OPTIONAL: display order on /products and the home page (lower numbers first).
 order: 0
 
-# OPTIONAL: set to true to keep this product hidden from the listing
+# OPTIONAL: set to true to keep this product hidden from the site.
 draft: false
 ---
 
-Opening paragraph describing the product's purpose and primary value proposition.
+Opening paragraph describing the product's purpose and primary value
+proposition. This is the MDX body — it renders in full on /products, beneath
+the tagline, while the home page shows only the `description` above.
 
 ## What it does
 
@@ -37,7 +63,3 @@ Brief explanation of the product's core functionality. Two or three sentences.
 ## Who it's for
 
 Target audience description — typical use cases, role types, or company sizes.
-
----
-
-**Note:** The `/products` page is currently hardcoded HTML and does not yet read this collection. Once `src/pages/products.astro` is migrated to use `getCollection('products')`, this content will start appearing on the site.

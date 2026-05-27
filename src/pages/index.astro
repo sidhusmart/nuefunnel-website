@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import FounderAvatar from '../components/FounderAvatar.astro';
+import ProductLogo from '../components/ProductLogo.astro';
 
 // Single source of truth for founder profiles (shared with /about).
 const founders = (await getCollection('team')).sort(
@@ -23,20 +24,18 @@ const caseStudies = allWork
     detail: entry.data.description,
   }));
 
-const products = [
-  {
-    name: '[Product one]',
-    tagline: 'AI-assisted [specific category]',
-    body: 'We built [Product one] after seeing the same problem at three different clients. It does the one specific thing they all needed, without the platform-y bloat we kept refusing to add.',
-    href: 'https://[product-one].com',
-  },
-  {
-    name: '[Product two]',
-    tagline: 'Lightweight [specific tool] for small teams',
-    body: 'A small utility we use ourselves on every engagement. Public so other operators can use it too. Not a business — just a useful thing.',
-    href: 'https://[product-two].com',
-  },
-];
+// Pull published products from the same collection that drives /products, so
+// this highlight can't drift from the full page. It shows fewer fields:
+// name, tagline, and the short `description` (not the full MDX body).
+const products = (await getCollection('products', ({ data }) => !data.draft))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((entry) => ({
+    name: entry.data.title,
+    tagline: entry.data.tagline ?? '',
+    body: entry.data.description,
+    href: entry.data.url,
+    logo: entry.data.logo,
+  }));
 
 // Pull the four most-recent blog posts from the collection.
 const allBlog = await getCollection('blog', ({ data }) => !data.draft);
@@ -135,7 +134,8 @@ const writing = allBlog
       <div class="mt-14 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
         {products.map((p) => (
           <div>
-            <p class="text-xs uppercase tracking-wider text-subtle font-medium mb-2">
+            <ProductLogo logo={p.logo} name={p.name} size="sm" />
+            <p class="mt-4 text-xs uppercase tracking-wider text-subtle font-medium mb-2">
               Product
             </p>
             <h3 class="font-tight text-2xl md:text-3xl font-semibold text-ink">

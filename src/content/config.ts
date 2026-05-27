@@ -35,10 +35,23 @@ const productsCollection = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
+    // Short category line shown under the name on /products and the home page.
+    tagline: z.string().optional(),
+    // One-sentence summary. Drives the condensed home-page highlight and the
+    // page <meta> description; the full pitch lives in the MDX body.
     description: z.string(),
+    // External "Visit" link — the product's own site acts as its detail page,
+    // so there are no internal /products/[slug] routes.
+    url: z.string().url().optional(),
+    // "Built for" detail row on /products.
+    audience: z.string().optional(),
+    // "Pricing" detail row on /products.
     price: z.string().optional(),
     features: z.array(z.string()).optional().default([]),
-    image: z.string().optional(),
+    // Product logo/icon. Path under public/images/uploads/ (build-time
+    // optimized). Rendered as a rounded-square tile on /products and the home
+    // highlight; falls back to the product's initial letter when unset.
+    logo: z.string().optional(),
     order: z.number().optional().default(0),
     draft: z.boolean().optional().default(false),
   }),

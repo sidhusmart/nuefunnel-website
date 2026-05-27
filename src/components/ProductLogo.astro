@@ -1,0 +1,37 @@
+---
+import OptimizedImage from './OptimizedImage.astro';
+
+interface Props {
+  logo?: string;
+  name: string;
+  size?: 'sm' | 'md';
+  loading?: 'lazy' | 'eager';
+}
+
+const { logo, name, size = 'md', loading = 'lazy' } = Astro.props;
+
+// Mirrors FounderAvatar's sizing approach, but a product logo renders as a
+// rounded-square "app icon" tile in full colour — not a grayscale circle.
+const box = size === 'sm' ? 'w-12 h-12' : 'w-16 h-16';
+const pad = size === 'sm' ? 'p-1.5' : 'p-2';
+const fallbackText = size === 'sm' ? 'text-lg' : 'text-2xl';
+
+// Fallback glyph: the product's first real letter, with placeholder brackets
+// (e.g. "[Product one]") stripped first.
+const initial = (name.replace(/[\[\]]/g, '').trim().charAt(0) || '?').toUpperCase();
+---
+
+{logo ? (
+  <div class={`${box} rounded-xl border border-border bg-white overflow-hidden flex-shrink-0`}>
+    <OptimizedImage
+      src={logo}
+      alt={`${name} logo`}
+      class={`w-full h-full object-contain ${pad}`}
+      loading={loading}
+    />
+  </div>
+) : (
+  <div class={`${box} rounded-xl bg-border flex items-center justify-center text-ink font-tight font-semibold ${fallbackText} flex-shrink-0`}>
+    {initial}
+  </div>
+)}
