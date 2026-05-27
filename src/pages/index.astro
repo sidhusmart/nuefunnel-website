@@ -281,7 +281,11 @@ const writing = allBlog
 
       <div class="mt-16 md:mt-20 pt-12 border-t border-border flex flex-wrap gap-x-12 gap-y-6">
         {founders.map((f) => (
-          <div class="flex items-center gap-4">
+          <a
+            href="/about#who-we-are"
+            class="flex items-center gap-4 group"
+            aria-label={`Read more about ${f.data.name}`}
+          >
             <FounderAvatar
               photo={f.data.photo}
               initials={f.data.initials}
@@ -290,10 +294,10 @@ const writing = allBlog
               loading="lazy"
             />
             <div>
-              <p class="text-ink font-medium leading-tight">{f.data.name}</p>
+              <p class="text-ink font-medium leading-tight group-hover:text-accent transition-colors">{f.data.name}</p>
               <p class="text-subtle text-sm leading-tight mt-1">{f.data.role}</p>
             </div>
-          </div>
+          </a>
         ))}
       </div>
     </div>
