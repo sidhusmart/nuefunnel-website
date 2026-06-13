@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "optimize:images": "node scripts/optimize-images.mjs",
+    "brand:assets": "node scripts/generate-brand-assets.mjs",
     "build": "npm run optimize:images && astro check && astro build",
     "preview": "astro preview",
     "astro": "astro"
@@ -14,6 +15,7 @@
     "@astrojs/check": "^0.9.4",
     "@astrojs/mdx": "^3.1.8",
     "@astrojs/react": "^3.6.3",
+    "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.2.1",
     "@astrojs/tailwind": "^5.1.2",
     "agentation": "^3.0.2",
@@ -27,6 +29,7 @@
   "devDependencies": {
     "@joplin/turndown-plugin-gfm": "^1.0.67",
     "@tailwindcss/typography": "^0.5.15",
+    "fontkit": "^2.0.4",
     "turndown": "^7.2.4"
   }
 }

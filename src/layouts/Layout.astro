@@ -8,18 +8,91 @@ export interface Props {
   title: string;
   description?: string;
   image?: string;
+  imageAlt?: string;
   type?: 'website' | 'article';
+  publishedTime?: Date;
+  author?: string;
 }
 
 const {
   title,
   description = 'A two-person studio building AI-native products, consulting on focused projects, and running corporate training.',
   image = '/images/og-image.jpg',
-  type = 'website'
+  imageAlt = 'nuefunnel — shipping AI products with small teams',
+  type = 'website',
+  publishedTime,
+  author,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const imageURL = new URL(image, Astro.site);
 const fullTitle = title === 'nuefunnel' ? title : `${title} | nuefunnel`;
+
+// ── Structured data (JSON-LD) ──────────────────────────────────────────────
+// Sitewide Organization + WebSite nodes, anchored by stable @id so every page
+// references the same entity (search engines consolidate them). Article pages
+// append a BlogPosting node. Absolute URLs are required by schema.org.
+const abs = (path: string) => new URL(path, Astro.site).href;
+const orgId = `${Astro.site}#organization`;
+const websiteId = `${Astro.site}#website`;
+
+const organization = {
+  '@type': 'Organization',
+  '@id': orgId,
+  name: 'nuefunnel',
+  url: Astro.site?.href,
+  logo: abs('/icon-512.png'),
+  image: abs('/images/og-image.jpg'),
+  email: 'contact@nuefunnel.com',
+  description:
+    'A two-person studio building AI-native products, consulting on focused projects, and running corporate training.',
+  founder: [
+    {
+      '@type': 'Person',
+      name: 'Sidharth Ramachandran',
+      sameAs: [
+        'https://www.linkedin.com/in/sidharthramachandran/',
+        'https://x.com/sidhusmart',
+        'https://www.sidharthramachandran.com/',
+      ],
+    },
+    {
+      '@type': 'Person',
+      name: 'Adhisma Das',
+      sameAs: [
+        'https://www.linkedin.com/in/adhisma-das-11a79bb/',
+        'https://www.adhismadas.com/',
+      ],
+    },
+  ],
+  sameAs: ['https://www.linkedin.com/company/nuefunnel/', 'https://x.com/nuefunnel'],
+};
+
+const website = {
+  '@type': 'WebSite',
+  '@id': websiteId,
+  url: Astro.site?.href,
+  name: 'nuefunnel',
+  publisher: { '@id': orgId },
+};
+
+const graph: Record<string, unknown>[] = [organization, website];
+
+if (type === 'article') {
+  graph.push({
+    '@type': 'BlogPosting',
+    headline: title,
+    description,
+    url: canonicalURL.href,
+    mainEntityOfPage: canonicalURL.href,
+    image: imageURL.href,
+    ...(publishedTime && { datePublished: publishedTime.toISOString() }),
+    author: { '@type': 'Person', name: author ?? 'nuefunnel Team' },
+    publisher: { '@id': orgId },
+  });
+}
+
+const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
 ---
 
 <!doctype html>
@@ -27,8 +100,15 @@ const fullTitle = title === 'nuefunnel' ? title : `${title} | nuefunnel`;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Favicons / PWA -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#FBFAF7" />
+    <link rel="alternate" type="application/rss+xml" title="nuefunnel — Blog" href="/rss.xml" />
 
     <!-- SEO -->
     <title>{fullTitle}</title>
@@ -37,17 +117,30 @@ const fullTitle = title === 'nuefunnel' ? title : `${title} | nuefunnel`;
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content={type} />
+    <meta property="og:site_name" content="nuefunnel" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta property="og:image" content={imageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={imageAlt} />
+    {type === 'article' && publishedTime && (
+      <meta property="article:published_time" content={publishedTime.toISOString()} />
+    )}
+    {type === 'article' && author && <meta property="article:author" content={author} />}
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={canonicalURL} />
     <meta property="twitter:title" content={fullTitle} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={new URL(image, Astro.site)} />
+    <meta property="twitter:image" content={imageURL} />
+    <meta property="twitter:image:alt" content={imageAlt} />
+
+    <!-- Structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
   </head>
   <body>
     <Header />
