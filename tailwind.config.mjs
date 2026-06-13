@@ -24,10 +24,10 @@ export default {
         primary: '#6b658c',
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        tight: ['Inter Tight', 'Inter', 'system-ui', 'sans-serif'],
+        sans: ['Inter Variable', 'Inter', 'system-ui', 'sans-serif'],
+        tight: ['Inter Tight Variable', 'Inter Tight', 'Inter', 'system-ui', 'sans-serif'],
         // logo aliased to Inter Tight so any stale font-logo references render sensibly
-        logo: ['Inter Tight', 'Inter', 'system-ui', 'sans-serif'],
+        logo: ['Inter Tight Variable', 'Inter Tight', 'Inter', 'system-ui', 'sans-serif'],
       },
       maxWidth: {
         desktop: '1200px',

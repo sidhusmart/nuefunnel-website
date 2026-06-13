@@ -18,6 +18,8 @@
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.2.1",
     "@astrojs/tailwind": "^5.1.2",
+    "@fontsource-variable/inter": "^5.2.8",
+    "@fontsource-variable/inter-tight": "^5.2.7",
     "agentation": "^3.0.2",
     "astro": "^4.16.18",
     "react": "^19.2.6",

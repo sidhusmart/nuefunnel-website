@@ -1,5 +1,5 @@
-/* Inter for body + Inter Tight for headings; Bungee removed in Phase 1 */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700;800&display=swap');
+/* Inter for body + Inter Tight for headings. Fonts are self-hosted and
+   imported in Layout.astro via @fontsource-variable (no Google Fonts CDN). */
 
 @tailwind base;
 @tailwind components;
@@ -7,7 +7,7 @@
 
 @layer base {
   html {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Inter Variable', 'Inter', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
@@ -17,7 +17,7 @@
   }
 
   h1, h2, h3, h4 {
-    font-family: 'Inter Tight', 'Inter', system-ui, sans-serif;
+    font-family: 'Inter Tight Variable', 'Inter Tight', 'Inter', system-ui, sans-serif;
     @apply text-ink;
     letter-spacing: -0.015em;
   }
