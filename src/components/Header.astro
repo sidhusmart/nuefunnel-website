@@ -61,11 +61,5 @@ function isActive(href: string) {
   </nav>
 </header>
 
-<script>
-  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-
-  mobileMenuBtn?.addEventListener('click', () => {
-    mobileMenu?.classList.toggle('hidden');
-  });
-</script>
+<!-- External (not inline) so a strict CSP `script-src 'self'` covers it. -->
+<script is:inline src="/scripts/menu.js" defer></script>
