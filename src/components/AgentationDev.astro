@@ -1,0 +1,9 @@
+---
+// Dev-only visual-feedback toolbar, isolated in its own component so it can be
+// dynamically imported behind an `import.meta.env.DEV` guard in Layout.astro.
+// That keeps the agentation + React client bundle out of the production build
+// entirely (the compiler never sees this island in a prod build).
+import { Agentation } from 'agentation';
+---
+
+<Agentation client:only="react" endpoint="http://localhost:4747" />

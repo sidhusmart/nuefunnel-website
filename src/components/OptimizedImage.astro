@@ -8,9 +8,14 @@ interface Props {
   class?: string;
   loading?: 'lazy' | 'eager';
   decoding?: 'async' | 'sync' | 'auto';
+  fetchpriority?: 'high' | 'low' | 'auto';
 }
 
-const { src, alt = '', class: className = '', loading = 'lazy', decoding = 'async' } = Astro.props;
+const { src, alt = '', class: className = '', loading = 'lazy', decoding = 'async', fetchpriority } = Astro.props;
+
+// An eager image is almost always the LCP element, so hint the browser to
+// fetch it first unless the caller overrides. Lazy images get no hint.
+const fetchPriority = fetchpriority ?? (loading === 'eager' ? 'high' : undefined);
 
 // Helper to get metadata for optimized images. The optimizer mirrors the
 // uploads/ directory structure inside optimized/, so we must preserve the
@@ -76,6 +81,7 @@ if (imageData) {
     class={className}
     loading={loading}
     decoding={decoding}
+    fetchpriority={fetchPriority}
   />
 ) : (
   <picture>
@@ -92,6 +98,7 @@ if (imageData) {
       class={className}
       loading={loading}
       decoding={decoding}
+      fetchpriority={fetchPriority}
       width={width}
       height={height}
     />

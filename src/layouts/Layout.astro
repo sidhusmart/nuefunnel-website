@@ -1,7 +1,6 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { Agentation } from 'agentation';
 // Self-hosted variable fonts (latin lazy-loaded via unicode-range). Replaces
 // the render-blocking Google Fonts @import; Astro fingerprints + serves these
 // from our own origin. wght axis only (normal) — italics use faux-oblique.
@@ -98,6 +97,13 @@ if (type === 'article') {
 }
 
 const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
+
+// Dev-only feedback toolbar. The dynamic import lives in a dead branch in prod
+// builds (import.meta.env.DEV → false), so the agentation + React bundle is
+// tree-shaken out of production entirely.
+const AgentationDev = import.meta.env.DEV
+  ? (await import('../components/AgentationDev.astro')).default
+  : null;
 ---
 
 <!doctype html>
@@ -153,6 +159,6 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
       <slot />
     </main>
     <Footer />
-    {import.meta.env.DEV && <Agentation client:only="react" endpoint="http://localhost:4747" />}
+    {AgentationDev && <AgentationDev />}
   </body>
 </html>

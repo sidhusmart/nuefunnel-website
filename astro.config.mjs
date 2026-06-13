@@ -30,6 +30,11 @@ function collectDates(collection, urlPrefix) {
   return { map, newest };
 }
 
+// The React integration exists solely for the dev-only agentation toolbar.
+// Registering it only under `astro dev` keeps React's client runtime out of
+// production builds entirely (no orphaned ~190KB chunk).
+const isDev = process.argv.includes('dev');
+
 const blog = collectDates('blog', '/blog/');
 const work = collectDates('work', '/work/');
 const training = collectDates('training', '/training/');
@@ -62,7 +67,7 @@ export default defineConfig({
       },
     }),
     tailwind(),
-    react(),
+    ...(isDev ? [react()] : []),
   ],
   output: 'static',
   build: {
