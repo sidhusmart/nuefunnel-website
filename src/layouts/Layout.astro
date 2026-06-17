@@ -40,6 +40,17 @@ const abs = (path: string) => new URL(path, Astro.site).href;
 const orgId = `${Astro.site}#organization`;
 const websiteId = `${Astro.site}#website`;
 
+// Reciprocal link to Podsumo (a nuefunnel product/sub-brand). Apex podsumo.io
+// is Podsumo's canonical host (www 301s to it) and matches the url its own
+// JSON-LD declares, so search engines reconcile both references as one entity —
+// the mirror of Podsumo's parentOrganization pointing back here.
+const podsumoOrg = {
+  '@type': 'Organization',
+  '@id': 'https://podsumo.io/#organization',
+  name: 'Podsumo',
+  url: 'https://podsumo.io/',
+};
+
 const organization = {
   '@type': 'Organization',
   '@id': orgId,
@@ -70,6 +81,7 @@ const organization = {
     },
   ],
   sameAs: ['https://www.linkedin.com/company/nuefunnel/', 'https://x.com/nuefunnel'],
+  subOrganization: [podsumoOrg],
 };
 
 const website = {
