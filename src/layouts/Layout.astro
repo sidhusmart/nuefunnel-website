@@ -51,6 +51,17 @@ const podsumoOrg = {
   url: 'https://podsumo.io/',
 };
 
+// Reciprocal link to WACAO (a nuefunnel product). Apex wacao.in is WACAO's
+// canonical host and matches the @id its own JSON-LD declares, so search engines
+// reconcile both references as one entity — the mirror of WACAO's
+// parentOrganization pointing back here.
+const wacaoOrg = {
+  '@type': 'Organization',
+  '@id': 'https://wacao.in/#organization',
+  name: 'WACAO',
+  url: 'https://wacao.in/',
+};
+
 const organization = {
   '@type': 'Organization',
   '@id': orgId,
@@ -81,7 +92,7 @@ const organization = {
     },
   ],
   sameAs: ['https://www.linkedin.com/company/nuefunnel/', 'https://x.com/nuefunnel'],
-  subOrganization: [podsumoOrg],
+  subOrganization: [podsumoOrg, wacaoOrg],
 };
 
 const website = {
