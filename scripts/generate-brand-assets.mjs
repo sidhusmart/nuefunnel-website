@@ -177,6 +177,77 @@ function ogSVG() {
     `</svg>`;
 }
 
+// ── Social header / cover banners ───────────────────────────────────────────
+
+// Wide brand banner, re-laid-out per platform from the same tokens and glyph
+// outlines as the OG image — so it stays pixel-consistent with the favicon/OG
+// family. Background is PAPER (light) so the teal avatar tile pops against it;
+// the avatar/logo overlay corner each platform drops into the lower-left is
+// kept clear (text shifts right on compact covers; the domain sits bottom-right).
+function bannerSVG({ W, H }) {
+  const compact = H < 260; // very short covers (LinkedIn company page)
+  const padX = Math.round(W * (compact ? 0.05 : 0.06));
+  const els = [];
+
+  // Right-side "nf" monogram echo, vertically centered.
+  const tileSize = compact ? Math.round(H * 0.62) : Math.round(H * 0.3);
+  const tileX = W - padX - tileSize;
+  const tileY = Math.round((H - tileSize) / 2);
+  els.push(
+    `<g transform="translate(${tileX} ${tileY})">` +
+    `<rect width="${tileSize}" height="${tileSize}" rx="${r(tileSize * 0.22)}" fill="${ACCENT}"/>` +
+    centeredRun(runData('nf'), tileSize / 2, tileSize / 2, tileSize * 0.58, PAPER) +
+    `</g>`,
+  );
+
+  // Left text column. On compact covers, shift right to clear the page-logo
+  // tile platforms overlay onto the lower-left — it reaches ~21% of the width
+  // and ~half the height, so we start the text well past it (~28%).
+  const textX = compact ? Math.round(W * 0.28) : padX;
+
+  if (compact) {
+    // Keep the stack tight and vertically centered so it sits in the safe
+    // middle band, clear of both the logo overlay and any edge crop. Same
+    // wordmark → teal rule → tagline rhythm as the wide layout, scaled down.
+    const wmSize = Math.round(H * 0.26);
+    const wmBaseline = Math.round(H * 0.40);
+    els.push(baselineRun(runData('nuefunnel'), textX, wmBaseline, wmSize, INK));
+
+    const ruleY = wmBaseline + Math.round(wmSize * 0.26);
+    els.push(`<rect x="${textX + 2}" y="${ruleY}" width="${Math.round(wmSize * 1.1)}" height="${Math.max(3, Math.round(wmSize * 0.07))}" rx="3" fill="${ACCENT}"/>`);
+
+    const tagSize = Math.round(H * 0.105);
+    els.push(baselineRun(
+      runData('Shipping AI products with small teams.'),
+      textX, ruleY + Math.round(tagSize * 1.7), tagSize, BODY,
+    ));
+  } else {
+    const wmSize = Math.round(H * 0.22);
+    const wmBaseline = Math.round(H * 0.40);
+    els.push(baselineRun(runData('nuefunnel'), textX, wmBaseline, wmSize, INK));
+
+    const ruleY = wmBaseline + Math.round(wmSize * 0.28);
+    els.push(`<rect x="${textX + 2}" y="${ruleY}" width="${Math.round(wmSize * 1.1)}" height="${Math.round(wmSize * 0.07)}" rx="4" fill="${ACCENT}"/>`);
+
+    const tagSize = Math.round(H * 0.078);
+    const tagStart = ruleY + Math.round(tagSize * 1.7);
+    const tagLines = wrapText('Shipping AI products with small teams.', tagSize, W * 0.5);
+    tagLines.forEach((line, i) => {
+      els.push(baselineRun(runData(line), textX, tagStart + i * Math.round(tagSize * 1.3), tagSize, BODY));
+    });
+
+    // Domain, bottom-right (avatars overlay the bottom-LEFT on these platforms).
+    const domSize = Math.round(H * 0.052);
+    const domRun = runData('nuefunnel.com');
+    const domW = domRun.advance * (domSize / UPM);
+    els.push(baselineRun(domRun, W - padX - domW, H - Math.round(H * 0.09), domSize, SUBTLE));
+  }
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">` +
+    `<rect width="${W}" height="${H}" fill="${PAPER}"/>` + els.join('') +
+    `</svg>`;
+}
+
 // ── ICO encoder (no external dependency) ────────────────────────────────────
 // Packs PNG buffers into a multi-size .ico (icons embed PNG data directly).
 function buildIco(pngs) {
@@ -257,9 +328,23 @@ async function main() {
   await writeFile(join(IMAGES, 'og-source.svg'), og); // keep the editable source
   await sharp(Buffer.from(og)).resize(1200, 630).jpeg({ quality: 90, mozjpeg: true }).toFile(join(IMAGES, 'og-image.jpg'));
 
+  // Social header / cover banners — uploaded manually to profiles, not served
+  // by the site, but committed here as the brand source of truth.
+  const banners = [
+    { name: 'social-banner-twitter', W: 1500, H: 500 },        // X/Twitter header
+    { name: 'social-banner-linkedin-company', W: 1128, H: 191 }, // LinkedIn company cover
+  ];
+  for (const { name, W, H } of banners) {
+    const svg = bannerSVG({ W, H });
+    await writeFile(join(IMAGES, `${name}.svg`), svg); // editable source
+    await sharp(Buffer.from(svg)).resize(W, H).png().toFile(join(IMAGES, `${name}.png`));
+  }
+
   console.log('✓ favicon.svg / .ico / -32 / -96 / apple-touch-icon');
   console.log('✓ icon-192.png / icon-512.png / site.webmanifest');
   console.log('✓ images/og-image.jpg (1200×630) + og-source.svg');
+  console.log('✓ images/social-banner-twitter.png (1500×500)');
+  console.log('✓ images/social-banner-linkedin-company.png (1128×191)');
 }
 
 main().catch((err) => { console.error(err); process.exit(1); });
