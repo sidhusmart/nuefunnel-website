@@ -1,0 +1,91 @@
+---
+title: "Harnesses & Plugins: Building U-Bahn TV and Readback"
+description: "What an AI harness is, and what we learned building two open-source plugins: U-Bahn TV for Claude Code and Readback for the ChatGPT desktop app."
+date: 2026-11-20
+image: /images/uploads/blog/harness-and-plugins/cover.jpg
+tags: [lab, product, open-source, claude-code, chatgpt]
+draft: false
+---
+
+When Claude Code launched in February 2025, it became clear that there was much more to AI than asking questions and getting answers. Models could now explore their surroundings, use tools and actually get things done.
+
+This is where the harness comes in. A harness provides the environment around a model, giving it access to tools, context and the ability to take actions. It transforms an AI model from something we interact with through conversations into an agent that can explore, experiment and get things done.
+
+The simplest way to explain what a harness is and how it works with a model comes from [Ethan Mollick](https://www.oneusefulthing.org/p/a-guide-to-which-ai-to-use-in-the). He visualises it as a three-layer model:
+
+- **The App**: typically the website you open like [chatgpt.com](https://chatgpt.com) or the app you use like the Claude Desktop or mobile app. This is just the interface that you see.
+- **The Model**: the billion-parameter neural networks that the AI Labs keep training and releasing every so often, like Claude Opus 5.5 or the recently released OpenAI GPT 6.2. This is where the intelligence and thinking capability lies.
+- **The Harness**: a wrapper around the model that allows it to take actions. In the case of Claude Code, this harness allows it to take actions on the computer where it's running. For instance, it can search for files in the folder you point it at. Or it might be able to use a browser to open and view a website. What an AI agent can do is determined by the harness.
+
+The harness has been one of the most significant unlocks in leveraging the power of AI models to do actual work.
+
+Since we now spend so much time in these harnesses performing our daily tasks, we thought it would be nice to think about ways in which to personalise them. Just like how you might set up your phone by grouping certain apps together or creating shortcuts for commonly used functions - customising our tools is a way to make them more delightful to use!
+
+While there has been an explosion of harnesses, we spend most of our time in the Claude Code CLI and Codex (within the ChatGPT desktop app). We have also tested other harnesses like [Hermes](https://hermes-agent.nousresearch.com/), [Pi](https://pi.dev/) (and [Oh My Pi](https://omp.sh/)) and the [DeepSeek Harness](https://www.deepseek.com/en/harness/) (which is the most interesting concept of all). An excellent way to understand a piece of technology is to build for it or with it, and that's exactly what we did. We created two plugins you can install today into your own harness:
+
+1. [U-Bahn TV](#u-bahn-tv)
+2. [Readback](#readback)
+
+You can add them to your harnesses directly from our [GitHub repo](https://github.com/nuefunnel/nuefunnel-labs), or read on to learn what they are.
+
+## U-Bahn TV
+
+We love to work in Claude Code (both the CLI and Desktop app) and currently Opus 5.5 is our preferred model in terms of capabilities. Anyone who has worked even a little with coding agents soon realises that the waiting time in between agent turns can be extremely distracting. In a lot of ways it reminds us of the waiting time for code compilation and build runs in the past. Given our impatient nature, what we tend to do is switch to another terminal and start working on a different task. This can prove to be cognitively intense, such that you lose track of what you were working on in the first terminal when you switch back. We've also found it useful to observe what Claude Code does while it works - keeping an eye on the actions it takes. We've discovered many things that we weren't aware of - like using [Ghostscript](https://ghostscript.com/) to reduce the size of PDFs, or the fact that there are libraries like [vtracer](https://github.com/visioncortex/vtracer) out there that allow you to trace vector lines from images to convert them into SVG. So much excellent software and so many techniques already exist, but we were simply not aware of them! All that to say: it helps to observe what the agent is doing and learn in the process while also staying focused.
+
+But of course, this can still be boring with a lot of waiting. That's exactly where the idea for U-Bahn TV came in. We love taking the underground (called U-Bahn in German) in Nuremberg, especially the U2 and U3 lines as they are driverless and run very efficiently. While travelling one day we noticed that the info-screens on the U-Bahn showed a lot of valuable, local information in a non-distracting way. This included advertisements for the opera, local events as well as trivia and images from the city archives. It's not distracting like Instagram Reels or TikTok, and it also doesn't matter if you miss a clip as it tends to play in a loop. That's when the idea for U-Bahn TV struck - could we recreate this Info-TV kind of experience in the environment where we work - Claude Code?
+
+![An info screen on a U2 train in Nuremberg, showing the upcoming stops on the left and a rotating clip on the right](/images/uploads/blog/harness-and-plugins/ubahn-info-screen.jpg)
+
+*An info screen on the U2 in Nuremberg: the route on one side, a rotating clip on the other.*
+
+Around the same time, Anthropic released Claude Code [mods](https://code.claude.com/docs/en/plugins/mods/overview) - and this was the perfect opportunity to customise the harness. Claude Mods allow you to tweak various aspects of the harness, including adding messages above the status line and even adding its own side panel. The side panel was key, as we want to keep an eye on what the agent is doing but also not get so bored that we switch to another terminal. The mod should also trigger only for longer agent turns: when the agent takes longer than 10 seconds, a side panel pops up with U-Bahn TV. You can configure what plays in your U-Bahn TV using any Media RSS (MRSS) feeds that you like. MRSS is an extension of RSS that adds media and graphic elements. We make use of the MRSS feeds generated by Podsumo, based on the podcasts that we subscribe to. In addition, we also added an adapter that converts Nuremberg's Info-TV service provided by [regiofokus.de](https://regiofokus.de) into its own MRSS feed to work with the mod.
+
+<video
+  autoplay
+  muted
+  loop
+  playsinline
+  preload="metadata"
+  poster="/videos/blog/harness-and-plugins/ubahn-tv-demo-poster.jpg"
+  aria-label="Ten seconds into a Claude Code turn, a U-Bahn TV pane opens beside the conversation and plays the Nuremberg screens and Podsumo episodes"
+  class="w-full rounded-lg"
+>
+  <source src="/videos/blog/harness-and-plugins/ubahn-tv-demo.webm" type="video/webm" />
+  <source src="/videos/blog/harness-and-plugins/ubahn-tv-demo.mp4" type="video/mp4" />
+</video>
+
+*Ten seconds into a turn, U-Bahn TV opens beside the conversation and plays the Nuremberg screens and Podsumo episodes. Watch the [full 1-minute demo](https://github.com/nuefunnel/nuefunnel-labs#u-bahn-tv) in the Claude Code terminal and the Desktop app.*
+
+We've been using this actively for the last few weeks and enjoying the experience. It helps to keep us focused while also not being distracting. Feel free to install it and add your own preferred feeds - it's completely open source.
+
+## Readback
+
+Having experimented with customising Claude Code, we wanted to see what the experience would look like in another harness. Since we spend a lot of time in ChatGPT as well, it felt like a natural place to explore next. Unlike mods, OpenAI has gone with a different approach, creating Plugin Extensions that rely on the MCP standard as the base and add their own custom extensions. We first wrote about where this could lead when OpenAI launched its Apps SDK, in [OpenAI Apps SDK: The New Browser Moment](/blog/openai-apps-sdk-the-new-browser-moment).
+
+We predominantly use the Desktop app, and it allows you to customise the side panel to add your own app and have it open in a full-screen experience, all while staying within ChatGPT. This also connects the content in your app with your own ChatGPT subscription automatically! We've been avid users of NetNewsWire to track and read several blogs but always found a missing AI component there. When we came across something unfamiliar or wanted to dive deeper, it would be cool to have an additional sidebar where one could chat and ask questions with the help of an LLM. This is exactly what Readback is - it runs an MCP server on your Mac that renders a NetNewsWire-like view, full screen inside your ChatGPT desktop app.
+
+![Readback open in the ChatGPT desktop app, with folders and feeds on the left, the article list in the middle, and an article on the right](/images/uploads/blog/harness-and-plugins/readback-reader.png)
+
+*Readback open in the ChatGPT desktop app: folders and feeds, the article list, and the article itself.*
+
+You can highlight specific lines or paragraphs and use your existing ChatGPT subscription to ask questions, clarify, dive deeper, etc.
+
+![A highlighted passage in an article in Readback, with ChatGPT's answer about it in the chat panel beside the article](/images/uploads/blog/harness-and-plugins/readback-ask.png)
+
+*Select a passage, ask about it, and ChatGPT answers in the chat beside the article.*
+
+Since NetNewsWire itself is open source, we had originally considered contributing this as a feature, but having it live with your ChatGPT subscription has proved to be very convenient. Everything runs locally as well, so there is no server to maintain or data to share.
+
+## What's next?
+
+What's interesting is that both of these plugins are modifications to existing harnesses, and neither follows a common standard. OpenAI's approach builds on MCP and extends it further, while Claude Mods are specific to Claude Code. This got us curious about the DeepSeek Harness (DSH), which has been getting some interesting reviews in the community.
+
+We spent some time trying to understand DSH and the underlying Cordis paper that inspired it. One way to think about Claude Code and ChatGPT is that they provide ways to extend an existing product. The closest analogy would be the iOS and Android app ecosystems: the underlying environment already exists, and you customise it by plugging in additional functionality.
+
+DSH seems to take a rather different approach. Rather than simply extending an existing harness, it appears to offer ways to create, modify and adapt the environment in which an AI model operates. Our initial impression is that it's almost like a programming model for working with the context window of an LLM. We've often remarked that _the context window is a magical place_, and DSH seems to offer a way to program what happens inside it.
+
+We're still very much at the beginning of understanding this approach, but that's precisely what makes it exciting. We're looking forward to spending more time experimenting with DSH and seeing where it takes us.
+
+---
+
+**Try them yourself:** both plugins are open source. Install instructions for U-Bahn TV (Claude Code) and Readback (ChatGPT desktop app) are in the [nuefunnel-labs repo on GitHub](https://github.com/nuefunnel/nuefunnel-labs).
